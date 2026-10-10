@@ -1,0 +1,90 @@
+seed: 20220620
+
+data:
+  base_url: https://s3.opensky-network.org/data-samples/states
+  raw_dir: data/raw
+  filtered_dir: data/filtered
+  measurements_path: data/measurements.parquet
+  # Measured on states_2022-06-20-14: every `time` is a multiple of 10 s and consecutive
+  # snapshot times differ by exactly 10 s (results/phase1_region_survey.json).
+  snapshot_interval_s: 10
+  # Disk had 6.3 GiB free at setup; each hourly tar is 100-230 MB. Hashes below make a
+  # re-download verifiable, so the raw tar is deleted once hashed and filtered.
+  keep_raw: false
+  download_date: "2026-10-11"
+  # Filled from data/fetch_log.json after the first download; fetch refuses a mismatch.
+  files:
+    - {name: states_2022-06-20-12.avro.tar, sha256: 1484dad89700f04ed7e8bec14e845d724d5cb2ed9c6aaba4f29e601ca6d8a322, bytes: 184207360}
+    - {name: states_2022-06-20-13.avro.tar, sha256: 7c6a170a89f2c2a4025dedff42d4c0fd9c36f3d5d9ee7431955500268e703e58, bytes: 208455680}
+    - {name: states_2022-06-20-14.avro.tar, sha256: 9f39c603f35f53a8d5c937d505d87e14002f5ec6ea00027d859cf9bd1efc57c7, bytes: 221306880}
+    - {name: states_2022-06-20-15.avro.tar, sha256: 27c0908061e4a2f989942e443c43c56e53cb045de8a643cd77c64e7cdc2a4f98, bytes: 226764800}
+    - {name: states_2022-06-20-16.avro.tar, sha256: dda6353655fc347163ddef7666669ed5b462e3338bb39e96764f94ff164abeb4, bytes: 225761280}
+    - {name: states_2022-06-20-17.avro.tar, sha256: 378029a316289fb2e828c636d6a0f762ac63a3fad85057e4029e145f05acc778, bytes: 220897280}
+    - {name: states_2022-06-27-12.avro.tar, sha256: a7313af2d7a6dd75329695417ddfc4d2dd915f9c9771451616d89eaed89133f9, bytes: 177080320}
+    - {name: states_2022-06-27-13.avro.tar, sha256: bcd10a07c40d3dccde80f1756148261cdacc76d97d5839bd00cf1ed29960c24b, bytes: 200181760}
+    - {name: states_2022-06-27-14.avro.tar, sha256: bdba8ee42bc99d8da8cf05fe946451962841a596b92e9d073b41b7b5fa02e651, bytes: 213975040}
+    - {name: states_2022-06-27-15.avro.tar, sha256: 65e34cd8c314a2904c2c3d2b70e95e1e5e1ac03d363d728e533e3b042b0443c2, bytes: 214517760}
+    - {name: states_2022-06-27-16.avro.tar, sha256: d9b4e3d93fccd240a2842ad212e47f8f0f8dd64cd54a1f5b93f01fe895786b96, bytes: 213913600}
+    - {name: states_2022-06-27-17.avro.tar, sha256: 40d4c9ab3c80e3e732ddf84cf23c9f4802a3ff6097d1c28d06dfac974ae09244, bytes: 211066880}
+
+survey:
+  day: "2022-06-20"
+  hour: 14
+  # Boxes of 5 deg lat x 7.5 deg lon, each centred on a major hub (km^2 differs with latitude).
+  candidates:
+    london:     {lat_min: 49.0, lat_max: 54.0, lon_min: -4.0,  lon_max: 3.5}
+    amsterdam:  {lat_min: 49.8, lat_max: 54.8, lon_min: 1.0,   lon_max: 8.5}
+    frankfurt:  {lat_min: 47.5, lat_max: 52.5, lon_min: 4.8,   lon_max: 12.3}
+    paris:      {lat_min: 46.5, lat_max: 51.5, lon_min: -1.2,  lon_max: 6.3}
+    zurich:     {lat_min: 45.0, lat_max: 50.0, lon_min: 4.8,   lon_max: 12.3}
+    madrid:     {lat_min: 38.0, lat_max: 43.0, lon_min: -7.5,  lon_max: 0.0}
+    new_york:   {lat_min: 38.5, lat_max: 43.5, lon_min: -77.5, lon_max: -70.0}
+    chicago:    {lat_min: 39.5, lat_max: 44.5, lon_min: -91.6, lon_max: -84.1}
+    atlanta:    {lat_min: 31.1, lat_max: 36.1, lon_min: -88.2, lon_max: -80.7}
+
+# Chosen from results/phase1_region_survey.json (2022-06-20 14-15 UTC): best or tied-best coverage
+# of the European boxes with >= 280 aircraft airborne (3.7% stale/late rows, 96.8% of flight time
+# covered, 0.8% of update intervals > 15 s) at within 6% of London's traffic density. See DATA.md. Contains EDDF, EDDM, EDDL, EDDK, EDDS.
+region:
+  name: frankfurt
+  bbox: {lat_min: 47.5, lat_max: 52.5, lon_min: 4.8, lon_max: 12.3}
+
+sample:
+  days: ["2022-06-20", "2022-06-27"]
+  hours: [12, 13, 14, 15, 16, 17]
+
+ingest:
+  chunk_rows: 25000
+  # Rows whose position is older than (max time seen - window) are emitted; a later row for an
+  # already-emitted aircraft with an older lastposupdate is dropped as late.
+  reorder_window_s: 30
+  # Schafer 2014 (05_schafer_2014_opensky.pdf, sec. IV-C) and Strohmeier 2021
+  # (06_strohmeier_2021_opensky_dataset.pdf, sec. 3.2) both end a flight 10 min after last contact.
+  flight_split_gap_s: 600
+  # The samples are 10 s snapshots (measured: every `time` is a multiple of 10, diffs all 10 s),
+  # not the 1 Hz vectors the README describes. Consecutive genuine updates are therefore ~10 s
+  # apart; above 15 s at least one snapshot carried a stale position, i.e. a coverage hole.
+  # A gap is never an anomaly by itself.
+  coverage_gap_s: 15
+  # Silent-vs-contact classification needs several snapshots of evidence inside the gap.
+  silence_min_gap_s: 60
+  min_flight_updates: 30
+  min_flight_duration_s: 300
+  low_altitude_m: 1500
+  fresh_contact_s: 2
+
+phase:
+  window_s: 60
+  # 2.5 m/s ~ 500 ft/min; below it the aircraft is treated as level ("cruise").
+  level_rate_mps: 2.5
+
+baselines:
+  fixed_threshold:
+    # 1, 2, 5, 10 NM; 5 NM is the en-route radar separation minimum.
+    cross_track_m: [1852, 3704, 9260, 18520]
+  # Intervals longer than this are coverage holes and not counted as monitored flight time.
+  max_coast_s: 60
+
+# Peak RSS bound for the streaming chain, asserted by tests/test_memory_bound.py and checked
+# against the full-sample run. Machine has 8 GB; the bound leaves room for everything else.
+memory_bound_mb: 500

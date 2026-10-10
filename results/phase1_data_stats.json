@@ -1,0 +1,111 @@
+{
+  "bbox": {
+    "lat_min": 47.5,
+    "lat_max": 52.5,
+    "lon_min": 4.8,
+    "lon_max": 12.3
+  },
+  "area_km2": 297942,
+  "hours": 12.0,
+  "raw_rows_in_box": 1454833,
+  "raw_airborne_rows": 1296878,
+  "fresh_contact_fraction": 0.957591,
+  "position_age_s": {
+    "p50": 0.269044,
+    "p90": 1.237913,
+    "p99": 208.565927
+  },
+  "rows_position_older_than_coverage_gap_fraction": 0.036865,
+  "genuine_updates": 1245563,
+  "genuine_fraction_of_airborne_rows": 0.960432,
+  "airborne_aircraft": 4038,
+  "mean_aircraft_in_box": 300.203241,
+  "aircraft_per_10k_km2": 10.075887,
+  "clean_counts": {
+    "rows_in": 1454833,
+    "null_position": 0,
+    "onground": 157955,
+    "exact_duplicate": 0,
+    "stale_repeat": 51315,
+    "late": 0,
+    "position_conflict": 0,
+    "emitted": 1245563
+  },
+  "flight_splits": {
+    "first_seen": 4038,
+    "gap": 3678,
+    "callsign": 37
+  },
+  "coverage": {
+    "flights_all": 7753,
+    "flights_kept": 6776,
+    "flights_dropped_short": 977,
+    "flight_hours": 3498.628607,
+    "updates_per_flight": {
+      "p10": 54.5,
+      "p50": 178.0,
+      "p90": 289.0
+    },
+    "flight_duration_s": {
+      "p10": 559.948,
+      "p50": 1820.2875,
+      "p90": 2939.7375
+    },
+    "update_rate_hz_per_flight": {
+      "p10": 0.094719,
+      "p50": 0.100046,
+      "p90": 0.101608
+    },
+    "interval_s": {
+      "p50": 10.24486,
+      "p90": 10.653753,
+      "p95": 11.078966,
+      "p99": 15.152069
+    },
+    "interval_s_below_low_altitude": {
+      "p50": 10.24486,
+      "p90": 11.078966,
+      "p95": 12.459166,
+      "p99": 28.341142
+    },
+    "updates_below_low_altitude": 208097,
+    "intervals_total": 1237810,
+    "fraction_intervals_over_gap": 0.009498,
+    "fraction_intervals_over_30s": 0.00207,
+    "gaps_over_coverage_gap": 12028,
+    "gaps_over_silence_min_gap": 1455,
+    "long_gaps_silent_fraction": 0.760825,
+    "time_coverage_fraction": 0.960542,
+    "flights_with_any_baro_null_fraction": 0.040732,
+    "flights_all_baro_null_fraction": 0.000295,
+    "flights_with_any_geo_null_fraction": 0.188017,
+    "flights_with_any_velocity_null_fraction": 0.041322,
+    "flights_all_velocity_null_fraction": 0.005313,
+    "geo_minus_baro_m": {
+      "p5": 70.0,
+      "p25": 145.0,
+      "p50": 275.0,
+      "p75": 370.0,
+      "p95": 450.0,
+      "samples": 1222051,
+      "outside_pm1000m": 1598
+    }
+  },
+  "files": [
+    "2022-06-20-12.parquet",
+    "2022-06-20-13.parquet",
+    "2022-06-20-14.parquet",
+    "2022-06-20-15.parquet",
+    "2022-06-20-16.parquet",
+    "2022-06-20-17.parquet",
+    "2022-06-27-12.parquet",
+    "2022-06-27-13.parquet",
+    "2022-06-27-14.parquet",
+    "2022-06-27-15.parquet",
+    "2022-06-27-16.parquet",
+    "2022-06-27-17.parquet"
+  ],
+  "consecutive_lastposupdate_repeats": 0,
+  "measurements_audited": 1245563,
+  "peak_rss_mb": 331.677696
+}

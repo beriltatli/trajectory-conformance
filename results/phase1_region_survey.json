@@ -1,0 +1,863 @@
+{
+  "file": {
+    "name": "states_2022-06-20-14.avro.tar",
+    "sha256": "9f39c603f35f53a8d5c937d505d87e14002f5ec6ea00027d859cf9bd1efc57c7",
+    "bytes": 221306880
+  },
+  "global_rows": 3564526,
+  "global_time_decreases": 0,
+  "snapshots": 360,
+  "snapshot_spacing_s": [
+    10
+  ],
+  "elapsed_s": 31.50698,
+  "peak_rss_mb": 391.872512,
+  "candidates": {
+    "london": {
+      "bbox": {
+        "lat_min": 49.0,
+        "lat_max": 54.0,
+        "lon_min": -4.0,
+        "lon_max": 3.5
+      },
+      "area_km2": 288545,
+      "hours": 1.0,
+      "raw_rows_in_box": 129557,
+      "raw_airborne_rows": 121690,
+      "fresh_contact_fraction": 0.893861,
+      "position_age_s": {
+        "p50": 0.290949,
+        "p90": 9.473553,
+        "p99": 274.296003
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.0911,
+      "genuine_updates": 109705,
+      "genuine_fraction_of_airborne_rows": 0.901512,
+      "airborne_aircraft": 919,
+      "mean_aircraft_in_box": 338.027778,
+      "aircraft_per_10k_km2": 11.71489,
+      "clean_counts": {
+        "rows_in": 129557,
+        "null_position": 0,
+        "onground": 7867,
+        "exact_duplicate": 0,
+        "stale_repeat": 11985,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 109705
+      },
+      "flight_splits": {
+        "first_seen": 919,
+        "gap": 28,
+        "callsign": 3
+      },
+      "coverage": {
+        "flights_all": 950,
+        "flights_kept": 762,
+        "flights_dropped_short": 188,
+        "flight_hours": 307.024223,
+        "updates_per_flight": {
+          "p10": 49.0,
+          "p50": 127.5,
+          "p90": 244.9
+        },
+        "flight_duration_s": {
+          "p10": 520.0399,
+          "p50": 1323.8185,
+          "p90": 2538.4901
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.091264,
+          "p50": 0.100724,
+          "p90": 0.101867
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.078966,
+          "p99": 19.927281
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.521149,
+          "p95": 14.57053,
+          "p99": 38.760561
+        },
+        "updates_below_low_altitude": 36100,
+        "intervals_total": 108755,
+        "fraction_intervals_over_gap": 0.015677,
+        "fraction_intervals_over_30s": 0.004974,
+        "gaps_over_coverage_gap": 1736,
+        "gaps_over_silence_min_gap": 232,
+        "long_gaps_silent_fraction": 0.564655,
+        "time_coverage_fraction": 0.943052,
+        "flights_with_any_baro_null_fraction": 0.018373,
+        "flights_all_baro_null_fraction": 0.003937,
+        "flights_with_any_geo_null_fraction": 0.152231,
+        "flights_with_any_velocity_null_fraction": 0.024934,
+        "flights_all_velocity_null_fraction": 0.003937,
+        "geo_minus_baro_m": {
+          "p5": 85.0,
+          "p25": 115.0,
+          "p50": 210.0,
+          "p75": 340.0,
+          "p95": 375.0,
+          "samples": 106879,
+          "outside_pm1000m": 150
+        }
+      }
+    },
+    "amsterdam": {
+      "bbox": {
+        "lat_min": 49.8,
+        "lat_max": 54.8,
+        "lon_min": 1.0,
+        "lon_max": 8.5
+      },
+      "area_km2": 283452,
+      "hours": 1.0,
+      "raw_rows_in_box": 102973,
+      "raw_airborne_rows": 79791,
+      "fresh_contact_fraction": 0.945909,
+      "position_age_s": {
+        "p50": 0.258718,
+        "p90": 1.017905,
+        "p99": 234.548752
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.045644,
+      "genuine_updates": 75934,
+      "genuine_fraction_of_airborne_rows": 0.951661,
+      "airborne_aircraft": 675,
+      "mean_aircraft_in_box": 221.641667,
+      "aircraft_per_10k_km2": 7.819359,
+      "clean_counts": {
+        "rows_in": 102973,
+        "null_position": 0,
+        "onground": 23182,
+        "exact_duplicate": 0,
+        "stale_repeat": 3857,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 75934
+      },
+      "flight_splits": {
+        "first_seen": 675,
+        "gap": 26,
+        "callsign": 4
+      },
+      "coverage": {
+        "flights_all": 705,
+        "flights_kept": 575,
+        "flights_dropped_short": 130,
+        "flight_hours": 209.556034,
+        "updates_per_flight": {
+          "p10": 47.4,
+          "p50": 113.0,
+          "p90": 224.6
+        },
+        "flight_duration_s": {
+          "p10": 487.0624,
+          "p50": 1159.894,
+          "p90": 2281.8056
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.099155,
+          "p50": 0.100752,
+          "p90": 0.102099
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 10.653753,
+          "p99": 13.473554
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.078966,
+          "p95": 11.980982,
+          "p99": 26.207414
+        },
+        "updates_below_low_altitude": 16592,
+        "intervals_total": 75229,
+        "fraction_intervals_over_gap": 0.006793,
+        "fraction_intervals_over_30s": 0.002233,
+        "gaps_over_coverage_gap": 531,
+        "gaps_over_silence_min_gap": 97,
+        "long_gaps_silent_fraction": 0.783505,
+        "time_coverage_fraction": 0.967725,
+        "flights_with_any_baro_null_fraction": 0.033043,
+        "flights_all_baro_null_fraction": 0.001739,
+        "flights_with_any_geo_null_fraction": 0.16,
+        "flights_with_any_velocity_null_fraction": 0.041739,
+        "flights_all_velocity_null_fraction": 0.008696,
+        "geo_minus_baro_m": {
+          "p5": 70.0,
+          "p25": 100.0,
+          "p50": 225.0,
+          "p75": 300.0,
+          "p95": 345.0,
+          "samples": 74215,
+          "outside_pm1000m": 124
+        }
+      }
+    },
+    "frankfurt": {
+      "bbox": {
+        "lat_min": 47.5,
+        "lat_max": 52.5,
+        "lon_min": 4.8,
+        "lon_max": 12.3
+      },
+      "area_km2": 297942,
+      "hours": 1.0,
+      "raw_rows_in_box": 130216,
+      "raw_airborne_rows": 114841,
+      "fresh_contact_fraction": 0.96213,
+      "position_age_s": {
+        "p50": 0.279782,
+        "p90": 1.505474,
+        "p99": 200.561132
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.033673,
+      "genuine_updates": 110647,
+      "genuine_fraction_of_airborne_rows": 0.96348,
+      "airborne_aircraft": 890,
+      "mean_aircraft_in_box": 319.002778,
+      "aircraft_per_10k_km2": 10.706866,
+      "clean_counts": {
+        "rows_in": 130216,
+        "null_position": 0,
+        "onground": 15375,
+        "exact_duplicate": 0,
+        "stale_repeat": 4194,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 110647
+      },
+      "flight_splits": {
+        "first_seen": 890,
+        "gap": 26,
+        "callsign": 4
+      },
+      "coverage": {
+        "flights_all": 920,
+        "flights_kept": 776,
+        "flights_dropped_short": 144,
+        "flight_hours": 305.333202,
+        "updates_per_flight": {
+          "p10": 44.5,
+          "p50": 127.0,
+          "p90": 253.5
+        },
+        "flight_duration_s": {
+          "p10": 450.153,
+          "p50": 1283.597,
+          "p90": 2574.8655
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.09804,
+          "p50": 0.100648,
+          "p90": 0.102148
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.521149,
+          "p99": 14.57053
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.078966,
+          "p95": 11.980982,
+          "p99": 24.234329
+        },
+        "updates_below_low_altitude": 19640,
+        "intervals_total": 109727,
+        "fraction_intervals_over_gap": 0.008038,
+        "fraction_intervals_over_30s": 0.001686,
+        "gaps_over_coverage_gap": 909,
+        "gaps_over_silence_min_gap": 101,
+        "long_gaps_silent_fraction": 0.693069,
+        "time_coverage_fraction": 0.967783,
+        "flights_with_any_baro_null_fraction": 0.041237,
+        "flights_all_baro_null_fraction": 0.001289,
+        "flights_with_any_geo_null_fraction": 0.135309,
+        "flights_with_any_velocity_null_fraction": 0.025773,
+        "flights_all_velocity_null_fraction": 0.005155,
+        "geo_minus_baro_m": {
+          "p5": 65.0,
+          "p25": 115.0,
+          "p50": 255.0,
+          "p75": 345.0,
+          "p95": 430.0,
+          "samples": 108684,
+          "outside_pm1000m": 150
+        }
+      }
+    },
+    "paris": {
+      "bbox": {
+        "lat_min": 46.5,
+        "lat_max": 51.5,
+        "lon_min": -1.2,
+        "lon_max": 6.3
+      },
+      "area_km2": 304094,
+      "hours": 1.0,
+      "raw_rows_in_box": 115308,
+      "raw_airborne_rows": 102894,
+      "fresh_contact_fraction": 0.933291,
+      "position_age_s": {
+        "p50": 0.290949,
+        "p90": 1.903938,
+        "p99": 243.910061
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.055504,
+      "genuine_updates": 96745,
+      "genuine_fraction_of_airborne_rows": 0.940239,
+      "airborne_aircraft": 836,
+      "mean_aircraft_in_box": 285.816667,
+      "aircraft_per_10k_km2": 9.398965,
+      "clean_counts": {
+        "rows_in": 115308,
+        "null_position": 0,
+        "onground": 12414,
+        "exact_duplicate": 0,
+        "stale_repeat": 6149,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 96745
+      },
+      "flight_splits": {
+        "first_seen": 836,
+        "gap": 33,
+        "callsign": 8
+      },
+      "coverage": {
+        "flights_all": 877,
+        "flights_kept": 702,
+        "flights_dropped_short": 175,
+        "flight_hours": 266.30375,
+        "updates_per_flight": {
+          "p10": 44.0,
+          "p50": 123.0,
+          "p90": 243.9
+        },
+        "flight_duration_s": {
+          "p10": 449.9336,
+          "p50": 1247.964,
+          "p90": 2440.0829
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.096568,
+          "p50": 0.100686,
+          "p90": 0.102232
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.078966,
+          "p99": 15.152069
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.078966,
+          "p95": 12.956437,
+          "p99": 38.760561
+        },
+        "updates_below_low_altitude": 14095,
+        "intervals_total": 95868,
+        "fraction_intervals_over_gap": 0.009503,
+        "fraction_intervals_over_30s": 0.002545,
+        "gaps_over_coverage_gap": 935,
+        "gaps_over_silence_min_gap": 118,
+        "long_gaps_silent_fraction": 0.737288,
+        "time_coverage_fraction": 0.964088,
+        "flights_with_any_baro_null_fraction": 0.014245,
+        "flights_all_baro_null_fraction": 0.002849,
+        "flights_with_any_geo_null_fraction": 0.12963,
+        "flights_with_any_velocity_null_fraction": 0.02849,
+        "flights_all_velocity_null_fraction": 0.005698,
+        "geo_minus_baro_m": {
+          "p5": 80.0,
+          "p25": 165.0,
+          "p50": 315.0,
+          "p75": 375.0,
+          "p95": 420.0,
+          "samples": 95523,
+          "outside_pm1000m": 98
+        }
+      }
+    },
+    "zurich": {
+      "bbox": {
+        "lat_min": 45.0,
+        "lat_max": 50.0,
+        "lon_min": 4.8,
+        "lon_max": 12.3
+      },
+      "area_km2": 313147,
+      "hours": 1.0,
+      "raw_rows_in_box": 130076,
+      "raw_airborne_rows": 111911,
+      "fresh_contact_fraction": 0.949111,
+      "position_age_s": {
+        "p50": 0.279782,
+        "p90": 1.447693,
+        "p99": 243.910061
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.046144,
+      "genuine_updates": 106402,
+      "genuine_fraction_of_airborne_rows": 0.950773,
+      "airborne_aircraft": 963,
+      "mean_aircraft_in_box": 310.863889,
+      "aircraft_per_10k_km2": 9.927099,
+      "clean_counts": {
+        "rows_in": 130076,
+        "null_position": 0,
+        "onground": 18165,
+        "exact_duplicate": 0,
+        "stale_repeat": 5509,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 106402
+      },
+      "flight_splits": {
+        "first_seen": 963,
+        "gap": 30,
+        "callsign": 5
+      },
+      "coverage": {
+        "flights_all": 998,
+        "flights_kept": 821,
+        "flights_dropped_short": 177,
+        "flight_hours": 292.968935,
+        "updates_per_flight": {
+          "p10": 43.0,
+          "p50": 110.0,
+          "p90": 238.0
+        },
+        "flight_duration_s": {
+          "p10": 440.187,
+          "p50": 1110.04,
+          "p90": 2419.94
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.098283,
+          "p50": 0.100766,
+          "p90": 0.10233
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.078966,
+          "p99": 14.57053
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.078966,
+          "p95": 12.459166,
+          "p99": 34.466746
+        },
+        "updates_below_low_altitude": 13468,
+        "intervals_total": 105404,
+        "fraction_intervals_over_gap": 0.008055,
+        "fraction_intervals_over_30s": 0.002258,
+        "gaps_over_coverage_gap": 872,
+        "gaps_over_silence_min_gap": 136,
+        "long_gaps_silent_fraction": 0.742647,
+        "time_coverage_fraction": 0.965848,
+        "flights_with_any_baro_null_fraction": 0.025579,
+        "flights_all_baro_null_fraction": 0.001218,
+        "flights_with_any_geo_null_fraction": 0.105968,
+        "flights_with_any_velocity_null_fraction": 0.021924,
+        "flights_all_velocity_null_fraction": 0.003654,
+        "geo_minus_baro_m": {
+          "p5": 65.0,
+          "p25": 185.0,
+          "p50": 360.0,
+          "p75": 445.0,
+          "p95": 505.0,
+          "samples": 104614,
+          "outside_pm1000m": 89
+        }
+      }
+    },
+    "madrid": {
+      "bbox": {
+        "lat_min": 38.0,
+        "lat_max": 43.0,
+        "lon_min": -7.5,
+        "lon_max": 0.0
+      },
+      "area_km2": 352460,
+      "hours": 1.0,
+      "raw_rows_in_box": 50587,
+      "raw_airborne_rows": 39673,
+      "fresh_contact_fraction": 0.899831,
+      "position_age_s": {
+        "p50": 0.382642,
+        "p90": 4.503785,
+        "p99": 216.89021
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.064654,
+      "genuine_updates": 36686,
+      "genuine_fraction_of_airborne_rows": 0.92471,
+      "airborne_aircraft": 320,
+      "mean_aircraft_in_box": 110.202778,
+      "aircraft_per_10k_km2": 3.126673,
+      "clean_counts": {
+        "rows_in": 50587,
+        "null_position": 0,
+        "onground": 10914,
+        "exact_duplicate": 0,
+        "stale_repeat": 2987,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 36686
+      },
+      "flight_splits": {
+        "first_seen": 320,
+        "gap": 2,
+        "callsign": 1
+      },
+      "coverage": {
+        "flights_all": 323,
+        "flights_kept": 280,
+        "flights_dropped_short": 43,
+        "flight_hours": 104.568961,
+        "updates_per_flight": {
+          "p10": 48.0,
+          "p50": 126.5,
+          "p90": 224.2
+        },
+        "flight_duration_s": {
+          "p10": 476.2814,
+          "p50": 1344.665,
+          "p90": 2371.5263
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.08847,
+          "p50": 0.100457,
+          "p90": 0.102059
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 11.078966,
+          "p95": 11.980982,
+          "p99": 23.304211
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.078966,
+          "p99": 15.152069
+        },
+        "updates_below_low_altitude": 1614,
+        "intervals_total": 36363,
+        "fraction_intervals_over_gap": 0.021945,
+        "fraction_intervals_over_30s": 0.006518,
+        "gaps_over_coverage_gap": 819,
+        "gaps_over_silence_min_gap": 98,
+        "long_gaps_silent_fraction": 0.591837,
+        "time_coverage_fraction": 0.926591,
+        "flights_with_any_baro_null_fraction": 0.0,
+        "flights_all_baro_null_fraction": 0.0,
+        "flights_with_any_geo_null_fraction": 0.035714,
+        "flights_with_any_velocity_null_fraction": 0.007143,
+        "flights_all_velocity_null_fraction": 0.003571,
+        "geo_minus_baro_m": {
+          "p5": 95.0,
+          "p25": 275.0,
+          "p50": 345.0,
+          "p75": 415.0,
+          "p95": 490.0,
+          "samples": 36455,
+          "outside_pm1000m": 23
+        }
+      }
+    },
+    "new_york": {
+      "bbox": {
+        "lat_min": 38.5,
+        "lat_max": 43.5,
+        "lon_min": -77.5,
+        "lon_max": -70.0
+      },
+      "area_km2": 349820,
+      "hours": 1.0,
+      "raw_rows_in_box": 240788,
+      "raw_airborne_rows": 224794,
+      "fresh_contact_fraction": 0.828688,
+      "position_age_s": {
+        "p50": 0.340254,
+        "p90": 47.1382,
+        "p99": 285.243705
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.131076,
+      "genuine_updates": 192696,
+      "genuine_fraction_of_airborne_rows": 0.857211,
+      "airborne_aircraft": 1532,
+      "mean_aircraft_in_box": 624.427778,
+      "aircraft_per_10k_km2": 17.849981,
+      "clean_counts": {
+        "rows_in": 240788,
+        "null_position": 0,
+        "onground": 15994,
+        "exact_duplicate": 0,
+        "stale_repeat": 32098,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 192696
+      },
+      "flight_splits": {
+        "first_seen": 1532,
+        "gap": 116,
+        "callsign": 2
+      },
+      "coverage": {
+        "flights_all": 1650,
+        "flights_kept": 1363,
+        "flights_dropped_short": 287,
+        "flight_hours": 557.948357,
+        "updates_per_flight": {
+          "p10": 45.0,
+          "p50": 124.0,
+          "p90": 252.8
+        },
+        "flight_duration_s": {
+          "p10": 480.0154,
+          "p50": 1350.2,
+          "p90": 2744.0706
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.077614,
+          "p50": 0.100401,
+          "p90": 0.10183
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.980982,
+          "p99": 27.253404
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 11.980982,
+          "p95": 15.152069,
+          "p99": 45.329028
+        },
+        "updates_below_low_altitude": 88640,
+        "intervals_total": 191046,
+        "fraction_intervals_over_gap": 0.025392,
+        "fraction_intervals_over_30s": 0.008118,
+        "gaps_over_coverage_gap": 4950,
+        "gaps_over_silence_min_gap": 690,
+        "long_gaps_silent_fraction": 0.728986,
+        "time_coverage_fraction": 0.901218,
+        "flights_with_any_baro_null_fraction": 0.011005,
+        "flights_all_baro_null_fraction": 0.001467,
+        "flights_with_any_geo_null_fraction": 0.147469,
+        "flights_with_any_velocity_null_fraction": 0.041086,
+        "flights_all_velocity_null_fraction": 0.0,
+        "geo_minus_baro_m": {
+          "p5": 5.0,
+          "p25": 35.0,
+          "p50": 55.0,
+          "p75": 155.0,
+          "p95": 345.0,
+          "samples": 191988,
+          "outside_pm1000m": 55
+        }
+      }
+    },
+    "chicago": {
+      "bbox": {
+        "lat_min": 39.5,
+        "lat_max": 44.5,
+        "lon_min": -91.6,
+        "lon_max": -84.1
+      },
+      "area_km2": 344459,
+      "hours": 1.0,
+      "raw_rows_in_box": 129226,
+      "raw_airborne_rows": 125393,
+      "fresh_contact_fraction": 0.837599,
+      "position_age_s": {
+        "p50": 0.353834,
+        "p90": 30.648592,
+        "p99": 274.296003
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.119042,
+      "genuine_updates": 109027,
+      "genuine_fraction_of_airborne_rows": 0.869482,
+      "airborne_aircraft": 940,
+      "mean_aircraft_in_box": 348.313889,
+      "aircraft_per_10k_km2": 10.111899,
+      "clean_counts": {
+        "rows_in": 129226,
+        "null_position": 0,
+        "onground": 3833,
+        "exact_duplicate": 0,
+        "stale_repeat": 16366,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 109027
+      },
+      "flight_splits": {
+        "first_seen": 940,
+        "gap": 52,
+        "callsign": 2
+      },
+      "coverage": {
+        "flights_all": 994,
+        "flights_kept": 775,
+        "flights_dropped_short": 219,
+        "flight_hours": 310.846356,
+        "updates_per_flight": {
+          "p10": 52.0,
+          "p50": 127.0,
+          "p90": 231.6
+        },
+        "flight_duration_s": {
+          "p10": 570.1348,
+          "p50": 1340.159,
+          "p90": 2405.5926
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.08076,
+          "p50": 0.100621,
+          "p90": 0.101716
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 10.653753,
+          "p95": 11.980982,
+          "p99": 27.253404
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 12.459166,
+          "p95": 17.03969,
+          "p99": 55.126364
+        },
+        "updates_below_low_altitude": 30179,
+        "intervals_total": 108033,
+        "fraction_intervals_over_gap": 0.025076,
+        "fraction_intervals_over_30s": 0.008497,
+        "gaps_over_coverage_gap": 2757,
+        "gaps_over_silence_min_gap": 382,
+        "long_gaps_silent_fraction": 0.774869,
+        "time_coverage_fraction": 0.912504,
+        "flights_with_any_baro_null_fraction": 0.0,
+        "flights_all_baro_null_fraction": 0.0,
+        "flights_with_any_geo_null_fraction": 0.096774,
+        "flights_with_any_velocity_null_fraction": 0.028387,
+        "flights_all_velocity_null_fraction": 0.0,
+        "geo_minus_baro_m": {
+          "p5": 35.0,
+          "p25": 85.0,
+          "p50": 275.0,
+          "p75": 565.0,
+          "p95": 645.0,
+          "samples": 108873,
+          "outside_pm1000m": 10
+        }
+      }
+    },
+    "atlanta": {
+      "bbox": {
+        "lat_min": 31.1,
+        "lat_max": 36.1,
+        "lon_min": -88.2,
+        "lon_max": -80.7
+      },
+      "area_km2": 386072,
+      "hours": 1.0,
+      "raw_rows_in_box": 146006,
+      "raw_airborne_rows": 144141,
+      "fresh_contact_fraction": 0.76557,
+      "position_age_s": {
+        "p50": 0.447485,
+        "p90": 72.499577,
+        "p99": 285.243705
+      },
+      "rows_position_older_than_coverage_gap_fraction": 0.168134,
+      "genuine_updates": 117261,
+      "genuine_fraction_of_airborne_rows": 0.813516,
+      "airborne_aircraft": 1141,
+      "mean_aircraft_in_box": 400.391667,
+      "aircraft_per_10k_km2": 10.370901,
+      "clean_counts": {
+        "rows_in": 146006,
+        "null_position": 0,
+        "onground": 1865,
+        "exact_duplicate": 0,
+        "stale_repeat": 26880,
+        "late": 0,
+        "position_conflict": 0,
+        "emitted": 117261
+      },
+      "flight_splits": {
+        "first_seen": 1141,
+        "gap": 46,
+        "callsign": 2
+      },
+      "coverage": {
+        "flights_all": 1189,
+        "flights_kept": 905,
+        "flights_dropped_short": 284,
+        "flight_hours": 349.329584,
+        "updates_per_flight": {
+          "p10": 42.4,
+          "p50": 112.0,
+          "p90": 230.0
+        },
+        "flight_duration_s": {
+          "p10": 475.7104,
+          "p50": 1267.299,
+          "p90": 2536.9026
+        },
+        "update_rate_hz_per_flight": {
+          "p10": 0.0675,
+          "p50": 0.099979,
+          "p90": 0.101809
+        },
+        "interval_s": {
+          "p50": 10.24486,
+          "p90": 11.521149,
+          "p95": 14.57053,
+          "p99": 41.916328
+        },
+        "interval_s_below_low_altitude": {
+          "p50": 10.24486,
+          "p90": 14.57053,
+          "p95": 22.409791,
+          "p99": 95.348
+        },
+        "updates_below_low_altitude": 21100,
+        "intervals_total": 116072,
+        "fraction_intervals_over_gap": 0.042723,
+        "fraction_intervals_over_30s": 0.014793,
+        "gaps_over_coverage_gap": 5052,
+        "gaps_over_silence_min_gap": 725,
+        "long_gaps_silent_fraction": 0.729655,
+        "time_coverage_fraction": 0.847684,
+        "flights_with_any_baro_null_fraction": 0.003315,
+        "flights_all_baro_null_fraction": 0.001105,
+        "flights_with_any_geo_null_fraction": 0.122652,
+        "flights_with_any_velocity_null_fraction": 0.038674,
+        "flights_all_velocity_null_fraction": 0.0,
+        "geo_minus_baro_m": {
+          "p5": 80.0,
+          "p25": 145.0,
+          "p50": 420.0,
+          "p75": 605.0,
+          "p95": 650.0,
+          "samples": 116815,
+          "outside_pm1000m": 20
+        }
+      }
+    }
+  }
+}
