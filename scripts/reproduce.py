@@ -12,6 +12,10 @@ STEPS = [
     ["-m", "scripts.fetch", "sample"],
     ["-m", "scripts.run", "ingest"],
     ["-m", "scripts.evaluate", "stub"],
+    ["-m", "scripts.track", "verify"],
+    ["-m", "scripts.track", "real"],
+    ["-m", "scripts.track", "streaming"],
+    ["-m", "scripts.figures", "phase2"],
     ["-m", "pytest", "-q"],
 ]
 

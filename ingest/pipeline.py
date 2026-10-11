@@ -90,8 +90,10 @@ def iter_measurements(chunks: Iterable[pd.DataFrame], stream: RegionStream, alre
         yield out
 
 
-def peak_rss_mb() -> float:
-    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+def peak_rss_mb(children: bool = False) -> float:
+    """Peak resident set size of this process, or with children=True of the largest single
+    child process that has been waited for."""
+    peak = resource.getrusage(resource.RUSAGE_CHILDREN if children else resource.RUSAGE_SELF).ru_maxrss
     # macOS reports bytes, Linux kilobytes.
     return peak / 1e6 if sys.platform == "darwin" else peak / 1e3
 
@@ -101,8 +103,16 @@ def json_ready(value: Any) -> Any:
         return {k: json_ready(v) for k, v in value.items()}
     if isinstance(value, (list, tuple)):
         return [json_ready(v) for v in value]
+    if isinstance(value, np.ndarray):
+        return json_ready(value.tolist())
+    if isinstance(value, np.bool_):
+        return bool(value)
     if isinstance(value, (np.integer,)):
         return int(value)
     if isinstance(value, (np.floating, float)):
-        return None if not np.isfinite(value) else round(float(value), 6)
+        if not np.isfinite(value):
+            return None
+        # Six decimals for ordinary magnitudes; six significant digits for small ones, so a
+        # 1e-9 tolerance or gap does not print as 0.
+        return round(float(value), 6) if abs(value) >= 1e-3 or value == 0 else float(f"{float(value):.6g}")
     return value

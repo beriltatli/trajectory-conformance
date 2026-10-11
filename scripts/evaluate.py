@@ -24,10 +24,15 @@ from reference.chord import chord_reference
 PHASES = [*PHASE_NAMES.values(), "unknown"]
 
 
-def iter_flights(cfg: dict) -> Iterator[pd.DataFrame]:
+# What tracking and evaluation read; the flight accumulator holds every open flight's rows, and
+# the identity and status columns (callsign, squawk, flags) would roughly double that.
+FLIGHT_COLUMNS = ["flight_id", "lastposupdate", "lat", "lon", "baroaltitude", "velocity", "heading", "vertrate"]
+
+
+def iter_flights(cfg: dict, columns: list[str] | None = None) -> Iterator[pd.DataFrame]:
     accumulator = FlightAccumulator(cfg["ingest"]["flight_split_gap_s"])
     source = pq.ParquetFile(repo_path(cfg["data"]["measurements_path"]))
-    for batch in source.iter_batches(batch_size=cfg["ingest"]["chunk_rows"]):
+    for batch in source.iter_batches(batch_size=cfg["ingest"]["chunk_rows"], columns=columns or FLIGHT_COLUMNS):
         yield from accumulator.push(batch.to_pandas())
     yield from accumulator.flush()
 

@@ -85,6 +85,54 @@ baselines:
   # Intervals longer than this are coverage holes and not counted as monitored flight time.
   max_coast_s: 60
 
+# IMM of 04_genovese_2001_imm.pdf, method 5 (CV-CA-TURN), Table 1 switching matrix.
+imm:
+  models: [cv, ca, turn]
+  # Genovese's Pi is per filter cycle (1 s and 4 s sensors there); here per 10 s snapshot and
+  # raised to dt / cycle_s for other intervals.
+  cycle_s: 10
+  switching:
+    - [0.90, 0.08, 0.02]
+    - [0.15, 0.70, 0.15]
+    - [0.04, 0.16, 0.80]
+  # Plant noise spectral densities: cv in m^2/s^3, ca and turn in m^2/s^5 (p. 617).
+  q: {cv: 0.05, ca: 0.5, turn: 0.05}
+  # Set from results/phase2_measurement_noise.json (tune day only): robust sd of steady-flight
+  # innovations, which bound measurement sd from above (they include prediction error):
+  # cross-track 3.65 m, baro 2.90 m, velocity 0.58-0.61 m/s, vertical rate 0.34 m/s,
+  # timestamp sqrt(along^2 - cross^2) / speed = 0.049 s.
+  measurement_sd:
+    position_m: 3.5
+    # Baro altitude is reported in 25 ft steps: 7.62 m / sqrt(12).
+    altitude_m: 2.2
+    velocity_mps: 0.5
+    vertical_rate_mps: 0.3
+    # Error of lastposupdate as the position's valid time; enters R along the velocity.
+    timestamp_s: 0.05
+  # Not in Genovese. Rejects components no aircraft motion could produce (see track/imm.py Gate):
+  # 9.8 m/s^2 horizontal is a 45 deg bank turn, beyond any airliner (25-30 deg) and still within
+  # what light aircraft in the sample do; 5 m/s^2 vertical is 0.5 g.
+  gate:
+    sigma: 6.0
+    horizontal_accel_mps2: 9.8
+    vertical_accel_mps2: 5.0
+    reset_after: 3
+  init:
+    acceleration_sd_mps2: 2.0
+    velocity_sd_missing_mps: 150.0
+  checks:
+    nis_runs: 100
+    nis_duration_s: 1800
+    delay_runs: 100
+    # Updates after a track starts that are left out of NIS statistics (initial transient).
+    burn_in_updates: 5
+
+# Measurement noise and filter parameters are checked against the first day only; the second day
+# is reported separately as data the parameters were not looked at on.
+evaluation:
+  tune_days: ["2022-06-20"]
+  test_days: ["2022-06-27"]
+
 # Peak RSS bound for the streaming chain, asserted by tests/test_memory_bound.py and checked
 # against the full-sample run. Machine has 8 GB; the bound leaves room for everything else.
 memory_bound_mb: 500

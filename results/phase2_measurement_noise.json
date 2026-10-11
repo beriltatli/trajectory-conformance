@@ -1,0 +1,23 @@
+{
+  "updates": 435054,
+  "robust_sd": {
+    "along_track_m": 11.00934,
+    "cross_track_m": 3.717538,
+    "baro_altitude_m": 3.854311,
+    "v_east_mps": 0.611353,
+    "v_north_mps": 0.577107,
+    "vertical_rate_mps": 0.357255
+  },
+  "median_speed_mps": 212.321945,
+  "implied_timestamp_sd_s": 0.048807,
+  "days": [
+    "2022-06-20"
+  ],
+  "configured_sd": {
+    "position_m": 3.5,
+    "altitude_m": 2.2,
+    "velocity_mps": 0.5,
+    "vertical_rate_mps": 0.3,
+    "timestamp_s": 0.05
+  }
+}

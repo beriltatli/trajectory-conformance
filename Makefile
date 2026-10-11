@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: check reproduce survey sample ingest stub
+.PHONY: check reproduce survey sample ingest stub verify track figures
 
 check:
 	$(PY) -m pytest -q
@@ -19,3 +19,13 @@ stub:
 
 reproduce:
 	$(PY) -m scripts.reproduce
+
+verify:
+	$(PY) -m scripts.track verify
+
+track:
+	$(PY) -m scripts.track real
+	$(PY) -m scripts.track streaming
+
+figures:
+	$(PY) -m scripts.figures phase2
