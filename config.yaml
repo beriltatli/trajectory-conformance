@@ -208,3 +208,15 @@ alerts:
 # Peak RSS bound for the streaming chain, asserted by tests/test_memory_bound.py and checked
 # against the full-sample run. Machine has 8 GB; the bound leaves room for everything else.
 memory_bound_mb: 500
+
+# Phase 5: per-flight adaptation of the residual offset (drift/adapt.py), fixed before any run.
+drift:
+  tails_path: data/phase5_tails.pkl
+  # From one manoeuvre's length to well past the 600 s evaluation horizon; .inf is phase 4's
+  # unadapted monitor and is not rerun.
+  tau_s: [60, 120, 300, 600, 1800]
+  # A row rarer than 1 in 100 held-out tune-day fixes (unadapted tails) does not update the offset.
+  guard_score: 2.0
+  # 03_nasa_tm2020 sec. 5.1.8: conformance range mu +- 1.96 sigma of conforming flights. A
+  # flight may learn an offset anywhere inside the range normal traffic occupies, not beyond it.
+  cap_sd: 2.0

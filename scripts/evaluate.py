@@ -11,6 +11,10 @@
                                          phase 4: the system and all four baselines, with the same
                                          alert management, on the flights that have a reference
                                          -> results/phase4_<detector>.json
+    python -m scripts.evaluate single-count
+                                         phase 4: the system with alerts never re-presented, an
+                                         open alert counted once however long it stays open
+                                         -> results/phase4_imm_conformance_single_count.json
     python -m scripts.evaluate streaming phase 4: monitor scores pushed in random chunks against
                                          whole flights -> results/phase4_streaming_equivalence.json
 """
@@ -130,23 +134,33 @@ def phase4_detectors(cfg: dict) -> list:
 
 
 def conformance(cfg: dict, workers: int, only: list[str] | None) -> None:
+    for detector in phase4_detectors(cfg):
+        if only and detector.name not in only:
+            continue
+        _run_on_reference_flights(detector, cfg, workers, detector.name, cfg["alerts"] if hasattr(detector, "manage") else None)
+
+
+def single_count(cfg: dict, workers: int) -> None:
+    alerts = {**cfg["alerts"], "represent_s": np.inf}
+    detector = Managed(ImmConformance(cfg["imm"], cfg["reference"]), alerts)
+    _run_on_reference_flights(detector, cfg, workers, f"{detector.name}_single_count", {**alerts, "represent_s": "never"})
+
+
+def _run_on_reference_flights(detector, cfg: dict, workers: int, name: str, alert_management: dict | None) -> None:
     refs = load(cfg["reference"]["path"])
 
     def has_reference(flight_id: str) -> bool:
         return refs.for_flight(flight_id) is not None
 
-    for detector in phase4_detectors(cfg):
-        if only and detector.name not in only:
-            continue
-        summary, events = run_detector(detector, cfg, workers, keep=has_reference)
-        summary["flights_evaluated"] = "flights whose origin-destination pair has a reference (results/phase4_references.json)"
-        summary["alert_management"] = cfg["alerts"] if hasattr(detector, "manage") else None
-        summary["peak_rss_mb_main_process"] = peak_rss_mb()
-        summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
-        repo_path(f"results/phase4_{detector.name}.json").write_text(json.dumps(json_ready(summary), indent=2))
-        np.savez_compressed(repo_path(f"data/phase4_events_{detector.name}.npz"),
-                            **{f"{day}_{k}": v for day, arrays in events.items() for k, v in arrays.items()})
-        print(detector.name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1), flush=True)
+    summary, events = run_detector(detector, cfg, workers, keep=has_reference)
+    summary["flights_evaluated"] = "flights whose origin-destination pair has a reference (results/phase4_references.json)"
+    summary["alert_management"] = alert_management
+    summary["peak_rss_mb_main_process"] = peak_rss_mb()
+    summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
+    repo_path(f"results/phase4_{name}.json").write_text(json.dumps(json_ready(summary), indent=2))
+    np.savez_compressed(repo_path(f"data/phase4_events_{name}.npz"),
+                        **{f"{day}_{k}": v for day, arrays in events.items() for k, v in arrays.items()})
+    print(name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1), flush=True)
 
 
 def streaming(cfg: dict, flights: int) -> None:
@@ -173,7 +187,7 @@ def streaming(cfg: dict, flights: int) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "streaming"])
+    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "streaming"])
     parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
@@ -186,6 +200,9 @@ def main() -> None:
         return
     if args.command == "conformance":
         conformance(cfg, args.workers, args.only)
+        return
+    if args.command == "single-count":
+        single_count(cfg, args.workers)
         return
     if args.command == "streaming":
         streaming(cfg, flights=300)

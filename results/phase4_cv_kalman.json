@@ -48,6 +48,7 @@
         "false_alerts_per_flight_hour": 1.53941,
         "share_of_time_in_alert": 0.099709,
         "events": 656,
+        "share_of_events_with_onset_inside_alert": 0.128049,
         "detection_rate": 0.07622,
         "detection_by_kind": {
           "lateral": {
@@ -135,6 +136,7 @@
         "false_alerts_per_flight_hour": 1.274758,
         "share_of_time_in_alert": 0.067074,
         "events": 1650,
+        "share_of_events_with_onset_inside_alert": 0.113939,
         "detection_rate": 0.144242,
         "detection_by_kind": {
           "lateral": {
@@ -222,6 +224,7 @@
         "false_alerts_per_flight_hour": 2.143657,
         "share_of_time_in_alert": 0.147878,
         "events": 565,
+        "share_of_events_with_onset_inside_alert": 0.109735,
         "detection_rate": 0.115044,
         "detection_by_kind": {
           "lateral": {
@@ -317,6 +320,7 @@
         "false_alerts_per_flight_hour": 10.968298,
         "share_of_time_in_alert": 0.817151,
         "events": 656,
+        "share_of_events_with_onset_inside_alert": 0.769817,
         "detection_rate": 0.234756,
         "detection_by_kind": {
           "lateral": {
@@ -404,6 +408,7 @@
         "false_alerts_per_flight_hour": 5.980795,
         "share_of_time_in_alert": 0.351836,
         "events": 1650,
+        "share_of_events_with_onset_inside_alert": 0.473333,
         "detection_rate": 0.326667,
         "detection_by_kind": {
           "lateral": {
@@ -491,6 +496,7 @@
         "false_alerts_per_flight_hour": 10.124503,
         "share_of_time_in_alert": 0.725111,
         "events": 565,
+        "share_of_events_with_onset_inside_alert": 0.670796,
         "detection_rate": 0.214159,
         "detection_by_kind": {
           "lateral": {
@@ -3624,6 +3630,6 @@
     "holdoff_s": 300,
     "represent_s": 300
   },
-  "peak_rss_mb_main_process": 368.115712,
-  "peak_rss_mb_largest_worker": 170.033152
+  "peak_rss_mb_main_process": 367.067136,
+  "peak_rss_mb_largest_worker": 167.018496
 }

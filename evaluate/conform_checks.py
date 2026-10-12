@@ -9,9 +9,10 @@ from track.imm import ImmConfig
 def score_streaming_gap(flight: pd.DataFrame, refs: ReferenceSet, imm: ImmConfig, match_cfg: dict, rng: np.random.Generator) -> tuple[float, float, int]:
     """Largest |online - whole| over scores and residuals for one flight pushed in random
     chunks of 1-40 rows, and the number of chunks."""
-    ref = refs.for_flight(str(flight["flight_id"].iloc[0]))
-    whole, whole_r = ConformanceMonitor(ref, refs.tails, imm, match_cfg).push(flight)
-    monitor = ConformanceMonitor(ref, refs.tails, imm, match_cfg)
+    flight_id = str(flight["flight_id"].iloc[0])
+    ref, tails = refs.for_flight(flight_id), refs.tails_for(flight_id)
+    whole, whole_r = ConformanceMonitor(ref, tails, imm, match_cfg).push(flight)
+    monitor = ConformanceMonitor(ref, tails, imm, match_cfg)
     cuts = np.unique(np.r_[0, np.cumsum(rng.integers(1, 41, size=len(flight))), len(flight)])
     cuts = cuts[cuts <= len(flight)]
     parts = [monitor.push(flight.iloc[a:b]) for a, b in zip(cuts[:-1], cuts[1:])]

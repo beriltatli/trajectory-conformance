@@ -1,4 +1,4 @@
-# Notes
+/# Notes
 
 Design decisions per phase, with the reference each rests on. Numbers come from `results/`.
 

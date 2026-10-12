@@ -158,3 +158,46 @@ def test_residuals_are_deviation_over_spread():
     assert r[COMPONENTS.index("altitude")] == pytest.approx(2.0)
     assert r[COMPONENTS.index("vertical_rate")] == pytest.approx(-2.0)
     assert r[COMPONENTS.index("eta")] == pytest.approx(0.0, abs=0.05)
+
+
+def eastbound_member(offset_north: float, n: int = 120, speed: float = 230.0) -> tuple[np.ndarray, "Track"]:
+    """A member flight flying east along north = offset_north, as its region-frame shape and
+    its IMM-estimate track (frames coincide: both centred at LAT0, LON0)."""
+    from reference.build import Track
+
+    rng = np.random.default_rng(int(offset_north) % 1000)
+    t = 10.0 * np.arange(n)
+    east = speed * t
+    noise = rng.normal(size=(n, 4)) * [5.0, 10.0, 1.0, 0.1]
+    estimate = np.column_stack([east, offset_north + noise[:, 0], 10_000.0 + noise[:, 1], speed + noise[:, 2], np.zeros(n), noise[:, 3]])
+    shape = np.column_stack([np.linspace(east[0], east[-1], REF_CFG["shape_points"]), np.full(REF_CFG["shape_points"], offset_north)])
+    return shape, Track(t, estimate, (LAT0, LON0))
+
+
+def test_a_held_out_flight_is_judged_by_norms_it_did_not_help_set():
+    from reference.build import fit_pair
+
+    offsets = [0.0, 100.0, -100.0, 200.0, -200.0, 3000.0]
+    members = [eastbound_member(o) for o in offsets]
+    fids = [f"f{k}" for k in range(len(offsets))]
+    fit = fit_pair(("A>B", fids, [m[0] for m in members], [m[1] for m in members]), REF_CFG, (LAT0, LON0))
+    assert fit.reference.flights == 6 and all(r.flights == 5 for r in fit.held_out.values())
+    cross = COMPONENTS.index("cross_track")
+    stray = fit.held_out_residuals["f5"][:, cross]
+    # In sample the 3 km flight has pulled the median toward itself and widened the spread it
+    # is measured against (median 50 m, sd 222 m, against 0 m and 148 m without it).
+    in_sample = fit.in_sample[-len(stray):, cross]
+    assert np.median(stray) > 1.4 * np.median(in_sample)
+    assert np.median(fit.held_out["f5"].median[:, 0]) == pytest.approx(0.0, abs=150.0)
+
+
+def test_tune_flights_get_their_held_out_reference_and_the_other_folds_tails():
+    from reference.build import ReferenceSet
+
+    ref, held = synthetic_reference(), synthetic_reference(50)
+    tails, fold0, fold1 = gaussian_tails(), gaussian_tails(), gaussian_tails()
+    refs = ReferenceSet(None, {"tune": "A>B", "test": "A>B", "none": None}, {"A>B": ref}, tails,
+                        {"tune": held}, {"tune": 0}, (fold0, fold1))
+    assert refs.for_flight("tune") is held and refs.tails_for("tune") is fold1
+    assert refs.for_flight("test") is ref and refs.tails_for("test") is tails
+    assert refs.for_flight("none") is None

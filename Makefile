@@ -25,6 +25,7 @@ references:
 
 conformance:
 	$(PY) -m scripts.evaluate conformance
+	$(PY) -m scripts.evaluate single-count
 	$(PY) -m scripts.evaluate streaming
 
 reproduce:

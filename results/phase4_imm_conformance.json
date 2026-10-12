@@ -29,9 +29,9 @@
         "2022-06-20"
       ],
       "thresholds_by_phase": {
-        "climb": 1.258925,
-        "cruise": 1.467799,
-        "descent": 1.359356
+        "climb": 1.165914,
+        "cruise": 1.165914,
+        "descent": 1.165914
       },
       "reachable_on_tune_day": {
         "climb": false,
@@ -44,299 +44,31 @@
     "budget": {
       "climb": {
         "flight_hours": 93.542315,
-        "false_alerts": 376,
-        "false_alerts_per_flight_hour": 4.019571,
-        "share_of_time_in_alert": 0.306596,
+        "false_alerts": 239,
+        "false_alerts_per_flight_hour": 2.554993,
+        "share_of_time_in_alert": 0.213322,
         "events": 656,
-        "detection_rate": 0.166159,
+        "share_of_events_with_onset_inside_alert": 0.291159,
+        "detection_rate": 0.121951,
         "detection_by_kind": {
           "lateral": {
             "events": 222,
-            "detection_rate": 0.27027
+            "detection_rate": 0.207207
           },
           "longitudinal": {
             "events": 217,
-            "detection_rate": 0.147465
+            "detection_rate": 0.0553
           },
           "vertical": {
             "events": 217,
-            "detection_rate": 0.078341
+            "detection_rate": 0.101382
           }
         },
         "detection_by_magnitude": {
           "lateral": {
             "2": {
               "events": 29,
-              "detection_rate": 0.034483
-            },
-            "5": {
-              "events": 52,
-              "detection_rate": 0.153846
-            },
-            "10": {
-              "events": 54,
-              "detection_rate": 0.222222
-            },
-            "20": {
-              "events": 40,
-              "detection_rate": 0.4
-            },
-            "30": {
-              "events": 47,
-              "detection_rate": 0.489362
-            }
-          },
-          "longitudinal": {
-            "10": {
-              "events": 67,
-              "detection_rate": 0.104478
-            },
-            "20": {
-              "events": 66,
-              "detection_rate": 0.121212
-            },
-            "40": {
-              "events": 84,
-              "detection_rate": 0.202381
-            }
-          },
-          "vertical": {
-            "250": {
-              "events": 62,
-              "detection_rate": 0.032258
-            },
-            "500": {
-              "events": 49,
-              "detection_rate": 0.102041
-            },
-            "1000": {
-              "events": 58,
-              "detection_rate": 0.103448
-            },
-            "2000": {
-              "events": 48,
-              "detection_rate": 0.083333
-            }
-          }
-        },
-        "gradual_events": 209,
-        "gradual_detected": 31,
-        "lead_time_s": {
-          "n": 31,
-          "p10": -339.725,
-          "median": -59.312,
-          "p90": 169.73
-        },
-        "alerts_per_detected_event": 1.275229
-      },
-      "cruise": {
-        "flight_hours": 302.80254,
-        "false_alerts": 1521,
-        "false_alerts_per_flight_hour": 5.023075,
-        "share_of_time_in_alert": 0.355469,
-        "events": 1650,
-        "detection_rate": 0.261818,
-        "detection_by_kind": {
-          "lateral": {
-            "events": 541,
-            "detection_rate": 0.277264
-          },
-          "longitudinal": {
-            "events": 554,
-            "detection_rate": 0.176895
-          },
-          "vertical": {
-            "events": 555,
-            "detection_rate": 0.331532
-          }
-        },
-        "detection_by_magnitude": {
-          "lateral": {
-            "2": {
-              "events": 103,
-              "detection_rate": 0.07767
-            },
-            "5": {
-              "events": 103,
-              "detection_rate": 0.087379
-            },
-            "10": {
-              "events": 109,
-              "detection_rate": 0.302752
-            },
-            "20": {
-              "events": 116,
-              "detection_rate": 0.387931
-            },
-            "30": {
-              "events": 110,
-              "detection_rate": 0.5
-            }
-          },
-          "longitudinal": {
-            "10": {
-              "events": 180,
-              "detection_rate": 0.111111
-            },
-            "20": {
-              "events": 189,
-              "detection_rate": 0.142857
-            },
-            "40": {
-              "events": 185,
-              "detection_rate": 0.275676
-            }
-          },
-          "vertical": {
-            "250": {
-              "events": 148,
-              "detection_rate": 0.27027
-            },
-            "500": {
-              "events": 146,
-              "detection_rate": 0.232877
-            },
-            "1000": {
-              "events": 138,
-              "detection_rate": 0.398551
-            },
-            "2000": {
-              "events": 123,
-              "detection_rate": 0.447154
-            }
-          }
-        },
-        "gradual_events": 537,
-        "gradual_detected": 77,
-        "lead_time_s": {
-          "n": 77,
-          "p10": -229.7776,
-          "median": 39.708,
-          "p90": 219.9006
-        },
-        "alerts_per_detected_event": 1.564815
-      },
-      "descent": {
-        "flight_hours": 99.362899,
-        "false_alerts": 341,
-        "false_alerts_per_flight_hour": 3.431864,
-        "share_of_time_in_alert": 0.249614,
-        "events": 565,
-        "detection_rate": 0.148673,
-        "detection_by_kind": {
-          "lateral": {
-            "events": 194,
-            "detection_rate": 0.221649
-          },
-          "longitudinal": {
-            "events": 186,
-            "detection_rate": 0.166667
-          },
-          "vertical": {
-            "events": 185,
-            "detection_rate": 0.054054
-          }
-        },
-        "detection_by_magnitude": {
-          "lateral": {
-            "2": {
-              "events": 49,
-              "detection_rate": 0.061224
-            },
-            "5": {
-              "events": 33,
-              "detection_rate": 0.090909
-            },
-            "10": {
-              "events": 37,
-              "detection_rate": 0.081081
-            },
-            "20": {
-              "events": 36,
-              "detection_rate": 0.388889
-            },
-            "30": {
-              "events": 39,
-              "detection_rate": 0.512821
-            }
-          },
-          "longitudinal": {
-            "10": {
-              "events": 65,
-              "detection_rate": 0.092308
-            },
-            "20": {
-              "events": 56,
-              "detection_rate": 0.160714
-            },
-            "40": {
-              "events": 65,
-              "detection_rate": 0.246154
-            }
-          },
-          "vertical": {
-            "250": {
-              "events": 37,
-              "detection_rate": 0.027027
-            },
-            "500": {
-              "events": 54,
-              "detection_rate": 0.055556
-            },
-            "1000": {
-              "events": 47,
-              "detection_rate": 0.021277
-            },
-            "2000": {
-              "events": 47,
-              "detection_rate": 0.106383
-            }
-          }
-        },
-        "gradual_events": 183,
-        "gradual_detected": 26,
-        "lead_time_s": {
-          "n": 26,
-          "p10": -300.092,
-          "median": -120.0475,
-          "p90": 60.416
-        },
-        "alerts_per_detected_event": 1.261905
-      },
-      "unknown_phase_false_alerts": 170,
-      "unknown_phase_flight_hours": 11.346009,
-      "all_phases": {
-        "false_alerts_per_flight_hour": 4.749003,
-        "share_of_time_in_alert": 0.320051
-      }
-    },
-    "fixed_detection": {
-      "climb": {
-        "flight_hours": 93.542315,
-        "false_alerts": 898,
-        "false_alerts_per_flight_hour": 9.599933,
-        "share_of_time_in_alert": 0.723438,
-        "events": 656,
-        "detection_rate": 0.184451,
-        "detection_by_kind": {
-          "lateral": {
-            "events": 222,
-            "detection_rate": 0.265766
-          },
-          "longitudinal": {
-            "events": 217,
-            "detection_rate": 0.138249
-          },
-          "vertical": {
-            "events": 217,
-            "detection_rate": 0.147465
-          }
-        },
-        "detection_by_magnitude": {
-          "lateral": {
-            "2": {
-              "events": 29,
-              "detection_rate": 0.034483
+              "detection_rate": 0.0
             },
             "5": {
               "events": 52,
@@ -344,75 +76,76 @@
             },
             "10": {
               "events": 54,
-              "detection_rate": 0.333333
+              "detection_rate": 0.12963
             },
             "20": {
               "events": 40,
-              "detection_rate": 0.325
+              "detection_rate": 0.375
             },
             "30": {
               "events": 47,
-              "detection_rate": 0.446809
+              "detection_rate": 0.382979
             }
           },
           "longitudinal": {
             "10": {
               "events": 67,
-              "detection_rate": 0.134328
+              "detection_rate": 0.014925
             },
             "20": {
               "events": 66,
-              "detection_rate": 0.090909
+              "detection_rate": 0.030303
             },
             "40": {
               "events": 84,
-              "detection_rate": 0.178571
+              "detection_rate": 0.107143
             }
           },
           "vertical": {
             "250": {
               "events": 62,
-              "detection_rate": 0.016129
+              "detection_rate": 0.080645
             },
             "500": {
               "events": 49,
-              "detection_rate": 0.22449
+              "detection_rate": 0.122449
             },
             "1000": {
               "events": 58,
-              "detection_rate": 0.155172
+              "detection_rate": 0.103448
             },
             "2000": {
               "events": 48,
-              "detection_rate": 0.229167
+              "detection_rate": 0.104167
             }
           }
         },
         "gradual_events": 209,
-        "gradual_detected": 22,
+        "gradual_detected": 11,
         "lead_time_s": {
-          "n": 22,
-          "p10": -293.5198,
-          "median": -50.02,
-          "p90": 97.1455
+          "n": 11,
+          "p10": -349.61,
+          "median": -120.222,
+          "p90": 70.084
         },
-        "alerts_per_detected_event": 1.206612
+        "alerts_per_detected_event": 1.2375
       },
       "cruise": {
         "flight_hours": 302.80254,
-        "false_alerts": 2356,
-        "false_alerts_per_flight_hour": 7.780648,
-        "share_of_time_in_alert": 0.608883,
+        "false_alerts": 846,
+        "false_alerts_per_flight_hour": 2.7939,
+        "share_of_time_in_alert": 0.184789,
         "events": 1650,
-        "detection_rate": 0.27697,
+        "share_of_events_with_onset_inside_alert": 0.17697,
+        "detection_rate": 0.232727,
         "detection_by_kind": {
           "lateral": {
             "events": 541,
-            "detection_rate": 0.275416
+            "detection_rate": 0.218115
           },
           "longitudinal": {
             "events": 554,
-            "detection_rate": 0.173285
+            "detection_rate": 0.097473
           },
           "vertical": {
             "events": 555,
@@ -423,87 +156,360 @@
           "lateral": {
             "2": {
               "events": 103,
-              "detection_rate": 0.067961
+              "detection_rate": 0.029126
             },
             "5": {
               "events": 103,
-              "detection_rate": 0.145631
+              "detection_rate": 0.097087
             },
             "10": {
               "events": 109,
-              "detection_rate": 0.376147
+              "detection_rate": 0.137615
             },
             "20": {
               "events": 116,
-              "detection_rate": 0.413793
+              "detection_rate": 0.310345
             },
             "30": {
               "events": 110,
-              "detection_rate": 0.345455
+              "detection_rate": 0.490909
             }
           },
           "longitudinal": {
             "10": {
               "events": 180,
-              "detection_rate": 0.094444
+              "detection_rate": 0.033333
             },
             "20": {
               "events": 189,
-              "detection_rate": 0.148148
+              "detection_rate": 0.084656
             },
             "40": {
               "events": 185,
-              "detection_rate": 0.275676
+              "detection_rate": 0.172973
             }
           },
           "vertical": {
             "250": {
               "events": 148,
-              "detection_rate": 0.209459
+              "detection_rate": 0.324324
             },
             "500": {
               "events": 146,
-              "detection_rate": 0.390411
+              "detection_rate": 0.308219
             },
             "1000": {
               "events": 138,
-              "detection_rate": 0.449275
+              "detection_rate": 0.398551
             },
             "2000": {
               "events": 123,
-              "detection_rate": 0.504065
+              "detection_rate": 0.520325
             }
           }
         },
         "gradual_events": 537,
-        "gradual_detected": 76,
+        "gradual_detected": 44,
         "lead_time_s": {
-          "n": 76,
-          "p10": -289.6335,
-          "median": -60.051,
-          "p90": 169.8135
+          "n": 44,
+          "p10": -293.8948,
+          "median": -74.662,
+          "p90": 158.9478
         },
-        "alerts_per_detected_event": 1.47046
+        "alerts_per_detected_event": 1.632812
       },
       "descent": {
         "flight_hours": 99.362899,
-        "false_alerts": 810,
-        "false_alerts_per_flight_hour": 8.151936,
-        "share_of_time_in_alert": 0.591407,
+        "false_alerts": 214,
+        "false_alerts_per_flight_hour": 2.153721,
+        "share_of_time_in_alert": 0.151912,
         "events": 565,
-        "detection_rate": 0.228319,
+        "share_of_events_with_onset_inside_alert": 0.210619,
+        "detection_rate": 0.102655,
         "detection_by_kind": {
           "lateral": {
             "events": 194,
-            "detection_rate": 0.231959
+            "detection_rate": 0.154639
           },
           "longitudinal": {
             "events": 186,
-            "detection_rate": 0.198925
+            "detection_rate": 0.091398
           },
           "vertical": {
             "events": 185,
-            "detection_rate": 0.254054
+            "detection_rate": 0.059459
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 49,
+              "detection_rate": 0.081633
+            },
+            "5": {
+              "events": 33,
+              "detection_rate": 0.090909
+            },
+            "10": {
+              "events": 37,
+              "detection_rate": 0.054054
+            },
+            "20": {
+              "events": 36,
+              "detection_rate": 0.25
+            },
+            "30": {
+              "events": 39,
+              "detection_rate": 0.307692
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 65,
+              "detection_rate": 0.092308
+            },
+            "20": {
+              "events": 56,
+              "detection_rate": 0.089286
+            },
+            "40": {
+              "events": 65,
+              "detection_rate": 0.092308
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 37,
+              "detection_rate": 0.054054
+            },
+            "500": {
+              "events": 54,
+              "detection_rate": 0.055556
+            },
+            "1000": {
+              "events": 47,
+              "detection_rate": 0.042553
+            },
+            "2000": {
+              "events": 47,
+              "detection_rate": 0.085106
+            }
+          }
+        },
+        "gradual_events": 183,
+        "gradual_detected": 19,
+        "lead_time_s": {
+          "n": 19,
+          "p10": -357.8562,
+          "median": -189.766,
+          "p90": 60.12
+        },
+        "alerts_per_detected_event": 1.37931
+      },
+      "unknown_phase_false_alerts": 105,
+      "unknown_phase_flight_hours": 11.346009,
+      "all_phases": {
+        "false_alerts_per_flight_hour": 2.768937,
+        "share_of_time_in_alert": 0.180844
+      }
+    },
+    "fixed_detection": {
+      "climb": {
+        "flight_hours": 93.542315,
+        "false_alerts": 757,
+        "false_alerts_per_flight_hour": 8.092594,
+        "share_of_time_in_alert": 0.617226,
+        "events": 656,
+        "share_of_events_with_onset_inside_alert": 0.693598,
+        "detection_rate": 0.202744,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 222,
+            "detection_rate": 0.315315
+          },
+          "longitudinal": {
+            "events": 217,
+            "detection_rate": 0.175115
+          },
+          "vertical": {
+            "events": 217,
+            "detection_rate": 0.115207
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 29,
+              "detection_rate": 0.137931
+            },
+            "5": {
+              "events": 52,
+              "detection_rate": 0.192308
+            },
+            "10": {
+              "events": 54,
+              "detection_rate": 0.314815
+            },
+            "20": {
+              "events": 40,
+              "detection_rate": 0.375
+            },
+            "30": {
+              "events": 47,
+              "detection_rate": 0.510638
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 67,
+              "detection_rate": 0.149254
+            },
+            "20": {
+              "events": 66,
+              "detection_rate": 0.121212
+            },
+            "40": {
+              "events": 84,
+              "detection_rate": 0.238095
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 62,
+              "detection_rate": 0.032258
+            },
+            "500": {
+              "events": 49,
+              "detection_rate": 0.142857
+            },
+            "1000": {
+              "events": 58,
+              "detection_rate": 0.12069
+            },
+            "2000": {
+              "events": 48,
+              "detection_rate": 0.1875
+            }
+          }
+        },
+        "gradual_events": 209,
+        "gradual_detected": 31,
+        "lead_time_s": {
+          "n": 31,
+          "p10": -250.3,
+          "median": -59.934,
+          "p90": 150.084
+        },
+        "alerts_per_detected_event": 1.278195
+      },
+      "cruise": {
+        "flight_hours": 302.80254,
+        "false_alerts": 2511,
+        "false_alerts_per_flight_hour": 8.292533,
+        "share_of_time_in_alert": 0.643439,
+        "events": 1650,
+        "share_of_events_with_onset_inside_alert": 0.629091,
+        "detection_rate": 0.250303,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 541,
+            "detection_rate": 0.251386
+          },
+          "longitudinal": {
+            "events": 554,
+            "detection_rate": 0.169675
+          },
+          "vertical": {
+            "events": 555,
+            "detection_rate": 0.32973
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 103,
+              "detection_rate": 0.067961
+            },
+            "5": {
+              "events": 103,
+              "detection_rate": 0.15534
+            },
+            "10": {
+              "events": 109,
+              "detection_rate": 0.311927
+            },
+            "20": {
+              "events": 116,
+              "detection_rate": 0.37069
+            },
+            "30": {
+              "events": 110,
+              "detection_rate": 0.327273
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 180,
+              "detection_rate": 0.088889
+            },
+            "20": {
+              "events": 189,
+              "detection_rate": 0.121693
+            },
+            "40": {
+              "events": 185,
+              "detection_rate": 0.297297
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 148,
+              "detection_rate": 0.182432
+            },
+            "500": {
+              "events": 146,
+              "detection_rate": 0.287671
+            },
+            "1000": {
+              "events": 138,
+              "detection_rate": 0.391304
+            },
+            "2000": {
+              "events": 123,
+              "detection_rate": 0.487805
+            }
+          }
+        },
+        "gradual_events": 537,
+        "gradual_detected": 73,
+        "lead_time_s": {
+          "n": 73,
+          "p10": -309.874,
+          "median": -29.945,
+          "p90": 140.2548
+        },
+        "alerts_per_detected_event": 1.450363
+      },
+      "descent": {
+        "flight_hours": 99.362899,
+        "false_alerts": 753,
+        "false_alerts_per_flight_hour": 7.578281,
+        "share_of_time_in_alert": 0.563216,
+        "events": 565,
+        "share_of_events_with_onset_inside_alert": 0.612389,
+        "detection_rate": 0.20885,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 194,
+            "detection_rate": 0.216495
+          },
+          "longitudinal": {
+            "events": 186,
+            "detection_rate": 0.204301
+          },
+          "vertical": {
+            "events": 185,
+            "detection_rate": 0.205405
           }
         },
         "detection_by_magnitude": {
@@ -514,19 +520,19 @@
             },
             "5": {
               "events": 33,
-              "detection_rate": 0.121212
+              "detection_rate": 0.090909
             },
             "10": {
               "events": 37,
-              "detection_rate": 0.297297
+              "detection_rate": 0.243243
             },
             "20": {
               "events": 36,
-              "detection_rate": 0.444444
+              "detection_rate": 0.388889
             },
             "30": {
               "events": 39,
-              "detection_rate": 0.333333
+              "detection_rate": 0.384615
             }
           },
           "longitudinal": {
@@ -540,43 +546,43 @@
             },
             "40": {
               "events": 65,
-              "detection_rate": 0.261538
+              "detection_rate": 0.276923
             }
           },
           "vertical": {
             "250": {
               "events": 37,
-              "detection_rate": 0.108108
+              "detection_rate": 0.027027
             },
             "500": {
               "events": 54,
-              "detection_rate": 0.185185
+              "detection_rate": 0.166667
             },
             "1000": {
               "events": 47,
-              "detection_rate": 0.255319
+              "detection_rate": 0.191489
             },
             "2000": {
               "events": 47,
-              "detection_rate": 0.446809
+              "detection_rate": 0.404255
             }
           }
         },
         "gradual_events": 183,
-        "gradual_detected": 31,
+        "gradual_detected": 29,
         "lead_time_s": {
-          "n": 31,
-          "p10": -290.06,
-          "median": 10.238,
-          "p90": 219.929
+          "n": 29,
+          "p10": -305.8722,
+          "median": -9.553,
+          "p90": 183.79
         },
-        "alerts_per_detected_event": 1.248062
+        "alerts_per_detected_event": 1.245763
       },
-      "unknown_phase_false_alerts": 400,
+      "unknown_phase_false_alerts": 419,
       "unknown_phase_flight_hours": 11.346009,
       "all_phases": {
-        "false_alerts_per_flight_hour": 8.8038,
-        "share_of_time_in_alert": 0.618478
+        "false_alerts_per_flight_hour": 8.756468,
+        "share_of_time_in_alert": 0.614198
       }
     }
   },
@@ -584,66 +590,66 @@
     "climb": {
       "detection_at_least": [
         0.9,
-        0.166159,
+        0.121951,
         false
       ],
       "false_alerts_per_flight_hour_below": [
         2.0,
-        4.019571,
+        2.554993,
         false
       ],
       "median_lead_gradual_s_above": [
         30,
-        -59.312,
+        -120.222,
         false
       ],
       "alerts_per_event_below": [
         1.5,
-        1.275229,
+        1.2375,
         true
       ]
     },
     "cruise": {
       "detection_at_least": [
         0.9,
-        0.261818,
+        0.232727,
         false
       ],
       "false_alerts_per_flight_hour_below": [
         2.0,
-        5.023075,
+        2.7939,
         false
       ],
       "median_lead_gradual_s_above": [
         30,
-        39.708,
-        true
+        -74.662,
+        false
       ],
       "alerts_per_event_below": [
         1.5,
-        1.564815,
+        1.632812,
         false
       ]
     },
     "descent": {
       "detection_at_least": [
         0.9,
-        0.148673,
+        0.102655,
         false
       ],
       "false_alerts_per_flight_hour_below": [
         2.0,
-        3.431864,
+        2.153721,
         false
       ],
       "median_lead_gradual_s_above": [
         30,
-        -120.0475,
+        -189.766,
         false
       ],
       "alerts_per_event_below": [
         1.5,
-        1.261905,
+        1.37931,
         true
       ]
     }
@@ -775,35 +781,35 @@
       ],
       "false_alerts_per_flight_hour": {
         "climb": [
-          9.070496,
-          8.213382,
-          7.319003,
-          6.357546,
-          5.507885,
-          4.702944,
-          3.830924,
-          3.115421,
-          2.466996,
-          1.848384,
-          1.140334,
-          0.864567,
-          0.655878,
-          0.42483,
-          0.313033,
-          0.208688,
-          0.134157,
+          8.526415,
+          7.639489,
+          6.707844,
+          5.820918,
+          4.911633,
+          4.240848,
+          3.547704,
+          2.683138,
+          2.14651,
+          1.624789,
+          1.207412,
+          0.857113,
+          0.573893,
+          0.395017,
+          0.268314,
+          0.156516,
+          0.104344,
+          0.089438,
+          0.059625,
+          0.044719,
+          0.029813,
           0.029813,
           0.022359,
+          0.022359,
           0.014906,
-          0.007453,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.014906,
+          0.014906,
+          0.014906,
+          0.014906,
           0.0,
           0.0,
           0.0,
@@ -898,49 +904,49 @@
           0.0
         ],
         "cruise": [
-          8.956162,
-          8.337972,
-          7.468958,
-          6.465665,
-          5.452238,
-          4.514818,
-          3.557129,
-          2.622243,
-          1.955914,
-          1.403597,
-          0.985558,
-          0.694198,
-          0.50418,
-          0.331897,
-          0.228021,
-          0.131746,
-          0.065873,
-          0.045604,
-          0.022802,
+          8.832018,
+          8.077014,
+          7.210534,
+          6.197107,
+          5.241952,
+          4.21079,
+          3.369645,
+          2.460094,
+          1.87484,
+          1.347858,
+          0.993159,
+          0.678996,
+          0.483911,
+          0.344565,
+          0.286293,
+          0.192551,
+          0.126678,
+          0.086141,
+          0.078541,
+          0.068406,
+          0.055738,
+          0.050671,
+          0.03547,
+          0.025336,
+          0.010134,
+          0.007601,
+          0.010134,
+          0.007601,
+          0.007601,
+          0.007601,
+          0.007601,
+          0.007601,
+          0.007601,
+          0.007601,
+          0.007601,
           0.007601,
           0.007601,
           0.005067,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.002534,
+          0.002534,
+          0.002534,
+          0.002534,
+          0.002534,
           0.0,
           0.0,
           0.0,
@@ -1021,51 +1027,51 @@
           0.0
         ],
         "descent": [
-          9.863263,
-          8.932616,
-          7.659937,
-          6.474755,
-          5.400932,
-          4.406651,
-          3.619181,
-          2.982842,
-          2.354456,
-          1.805613,
-          1.256771,
-          0.946555,
-          0.684065,
-          0.588614,
-          0.461346,
-          0.389758,
-          0.278399,
-          0.182948,
-          0.103405,
-          0.071588,
-          0.031817,
+          9.099656,
+          8.145146,
+          6.84065,
+          5.870232,
+          4.923677,
+          4.152116,
+          3.165789,
+          2.489678,
+          2.028332,
+          1.495398,
+          1.209045,
+          0.922692,
+          0.699974,
+          0.453392,
+          0.405666,
+          0.294307,
+          0.230673,
+          0.190902,
+          0.127268,
+          0.087497,
+          0.063634,
+          0.023863,
+          0.023863,
           0.015908,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.015908,
+          0.015908,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.015908,
+          0.015908,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
+          0.007954,
           0.0,
           0.0,
           0.0,
@@ -1144,33 +1150,33 @@
           0.0
         ],
         "unknown": [
-          33.822104,
+          31.868237,
           28.162628,
-          22.907401,
-          19.336541,
-          15.833057,
-          13.138068,
-          10.712579,
-          7.748092,
+          23.985396,
+          20.818785,
+          17.045801,
+          13.542316,
+          10.982078,
+          8.421839,
           6.131098,
-          4.379356,
-          3.368735,
-          2.694988,
-          1.819117,
-          1.212745,
-          0.875871,
+          4.783604,
+          3.503485,
+          2.964487,
+          2.088616,
+          1.616993,
+          0.943246,
+          0.606372,
           0.471623,
           0.404248,
+          0.269499,
           0.134749,
           0.134749,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.134749,
+          0.134749,
+          0.067375,
+          0.067375,
+          0.067375,
+          0.067375,
           0.0,
           0.0,
           0.0,
@@ -1269,35 +1275,35 @@
       },
       "share_of_time_in_alert": {
         "climb": [
-          0.651803,
-          0.581054,
-          0.50262,
-          0.43559,
-          0.373337,
-          0.326406,
-          0.271645,
-          0.217187,
-          0.172595,
-          0.129458,
-          0.085164,
-          0.06391,
-          0.048118,
-          0.033308,
-          0.023451,
-          0.013407,
-          0.008735,
-          0.002028,
-          0.001532,
+          0.612324,
+          0.539918,
+          0.472601,
+          0.40822,
+          0.34474,
+          0.293302,
+          0.243713,
+          0.189154,
+          0.154345,
+          0.119024,
+          0.086882,
+          0.062345,
+          0.043931,
+          0.030275,
+          0.019121,
+          0.010837,
+          0.007564,
+          0.006269,
+          0.004718,
+          0.003146,
+          0.002339,
+          0.002318,
+          0.002133,
+          0.001324,
+          0.001262,
+          0.001262,
+          0.001262,
           0.000890232,
-          0.000621699,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.000662609,
           0.0,
           0.0,
           0.0,
@@ -1392,51 +1398,51 @@
           0.0
         ],
         "cruise": [
-          0.673755,
-          0.610672,
-          0.542152,
-          0.461658,
-          0.384137,
-          0.309673,
-          0.241245,
-          0.182758,
-          0.134816,
-          0.096277,
-          0.067198,
-          0.047794,
-          0.033132,
-          0.021856,
-          0.014528,
-          0.008789,
-          0.004605,
-          0.002521,
-          0.001192,
-          0.000542127,
-          0.000253346,
-          0.000218135,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.668225,
+          0.603767,
+          0.527482,
+          0.445772,
+          0.374141,
+          0.300641,
+          0.234943,
+          0.169047,
+          0.126335,
+          0.090946,
+          0.068765,
+          0.047522,
+          0.033623,
+          0.024268,
+          0.020193,
+          0.014323,
+          0.009567,
+          0.006848,
+          0.00566,
+          0.004794,
+          0.00414,
+          0.003294,
+          0.002108,
+          0.001633,
+          0.000569864,
+          0.000464514,
+          0.000422029,
+          0.000414849,
+          0.000358781,
+          0.000358781,
+          0.000351227,
+          0.000330645,
+          0.000316512,
+          0.000316512,
+          0.000316512,
+          0.000302347,
+          0.000302347,
+          0.00027396,
+          0.000252847,
+          0.000161742,
+          0.000154564,
+          0.000147825,
+          0.000133764,
+          0.000126868,
+          0.000126868,
           0.0,
           0.0,
           0.0,
@@ -1515,51 +1521,51 @@
           0.0
         ],
         "descent": [
-          0.719551,
-          0.640603,
-          0.536431,
-          0.44541,
-          0.366359,
-          0.299904,
-          0.242059,
-          0.191269,
-          0.147779,
-          0.111622,
-          0.077678,
-          0.058915,
-          0.045376,
-          0.034698,
-          0.026525,
-          0.020236,
-          0.013836,
-          0.009087,
-          0.00594,
-          0.003511,
-          0.000774023,
+          0.668597,
+          0.591136,
+          0.494712,
+          0.418421,
+          0.345304,
+          0.27848,
+          0.214017,
+          0.165985,
+          0.133934,
+          0.099841,
+          0.07969,
+          0.059299,
+          0.04356,
+          0.029124,
+          0.025605,
+          0.017476,
+          0.01315,
+          0.009911,
+          0.007596,
+          0.006713,
+          0.004067,
+          0.001902,
+          0.00137,
+          0.001216,
+          0.001216,
+          0.001016,
+          0.000840333,
+          0.000840333,
+          0.000840333,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000797731,
+          0.000774799,
+          0.000774799,
+          0.000397356,
           0.000309235,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.000309235,
+          0.000287245,
+          0.000287245,
+          0.000287245,
           0.0,
           0.0,
           0.0,
@@ -1638,33 +1644,33 @@
           0.0
         ],
         "unknown": [
-          0.253745,
-          0.212271,
-          0.17641,
-          0.150541,
-          0.118434,
-          0.097586,
-          0.076515,
-          0.055456,
-          0.043811,
-          0.032393,
-          0.02478,
-          0.020586,
-          0.013851,
-          0.009625,
-          0.007658,
-          0.00457,
-          0.003235,
-          0.001729,
-          0.001729,
-          0.000745726,
-          0.000745726,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.233807,
+          0.208455,
+          0.172794,
+          0.148122,
+          0.117315,
+          0.096292,
+          0.078388,
+          0.059779,
+          0.045156,
+          0.035357,
+          0.027217,
+          0.023693,
+          0.017341,
+          0.012396,
+          0.007921,
+          0.004711,
+          0.003984,
+          0.003424,
+          0.002866,
+          0.002112,
+          0.001738,
+          0.000991812,
+          0.000991812,
+          0.000566022,
+          0.000566022,
+          0.000566022,
+          0.00038136,
           0.0,
           0.0,
           0.0,
@@ -1763,34 +1769,34 @@
       },
       "detection_rate": {
         "climb": [
-          0.281217,
-          0.318993,
-          0.341028,
-          0.352571,
-          0.346275,
-          0.32319,
-          0.296957,
-          0.232949,
-          0.20042,
-          0.174187,
-          0.124869,
-          0.09234,
-          0.075551,
-          0.057712,
-          0.03043,
-          0.022036,
-          0.010493,
-          0.006296,
-          0.001049,
-          0.001049,
-          0.002099,
-          0.001049,
+          0.259182,
+          0.263379,
+          0.267576,
+          0.260231,
+          0.237146,
+          0.227702,
+          0.195173,
+          0.166842,
+          0.13851,
+          0.102833,
+          0.0766,
+          0.059811,
+          0.044071,
+          0.029381,
+          0.019937,
+          0.011542,
+          0.005247,
+          0.004197,
+          0.003148,
           0.001049,
           0.001049,
           0.001049,
-          0.001049,
-          0.001049,
-          0.001049,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -1886,41 +1892,41 @@
           0.0
         ],
         "cruise": [
-          0.334362,
-          0.368827,
-          0.391461,
-          0.419753,
-          0.417695,
-          0.420782,
-          0.396091,
-          0.361626,
-          0.317901,
-          0.277778,
-          0.229938,
-          0.17644,
-          0.123457,
-          0.089506,
-          0.067387,
-          0.050926,
-          0.037037,
-          0.024177,
-          0.012346,
-          0.004115,
+          0.290638,
+          0.312757,
+          0.330761,
+          0.328704,
+          0.320473,
+          0.312243,
+          0.305556,
+          0.277263,
+          0.241255,
+          0.21142,
+          0.155864,
+          0.104424,
+          0.07356,
+          0.055041,
+          0.042181,
+          0.029835,
+          0.01749,
+          0.014918,
+          0.00823,
+          0.005144,
+          0.002058,
+          0.001543,
+          0.001543,
+          0.001543,
+          0.001029,
+          0.001029,
+          0.001029,
+          0.001029,
+          0.001029,
+          0.001029,
+          0.001029,
           0.001029,
           0.000514403,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.000514403,
+          0.000514403,
           0.0,
           0.0,
           0.0,
@@ -2009,25 +2015,26 @@
           0.0
         ],
         "descent": [
+          0.255944,
           0.295105,
-          0.33007,
-          0.379021,
-          0.398601,
-          0.398601,
-          0.388811,
-          0.338462,
-          0.275524,
-          0.206993,
-          0.160839,
-          0.123077,
-          0.085315,
-          0.061538,
-          0.053147,
-          0.043357,
-          0.030769,
-          0.020979,
-          0.01958,
+          0.299301,
+          0.282517,
+          0.244755,
+          0.237762,
+          0.212587,
+          0.159441,
+          0.13007,
+          0.095105,
+          0.075524,
+          0.051748,
+          0.039161,
+          0.034965,
+          0.023776,
+          0.018182,
+          0.006993,
           0.00979,
+          0.006993,
+          0.002797,
           0.004196,
           0.004196,
           0.0,
@@ -2040,15 +2047,14 @@
           0.0,
           0.0,
           0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
+          0.001399,
+          0.001399,
+          0.001399,
+          0.001399,
+          0.001399,
+          0.001399,
+          0.001399,
+          0.001399,
           0.0,
           0.0,
           0.0,
@@ -2259,30 +2265,30 @@
       ],
       "false_alerts_per_flight_hour": {
         "climb": [
-          10.818633,
-          10.465852,
-          10.006167,
-          9.471649,
-          8.659183,
-          7.632909,
-          6.606636,
-          5.740717,
-          4.917561,
-          3.891287,
-          2.993298,
-          2.4374,
-          2.020476,
-          1.560791,
+          9.696147,
+          8.89437,
+          8.092594,
+          6.970108,
+          6.13626,
+          5.591053,
+          4.757205,
+          3.934048,
+          3.100201,
+          2.597755,
+          2.095308,
+          1.646314,
           1.22939,
-          1.069035,
-          0.833847,
-          0.587969,
+          0.983512,
+          0.791086,
+          0.545208,
+          0.438304,
           0.277949,
-          0.096213,
-          0.042761,
-          0.042761,
-          0.01069,
-          0.01069,
+          0.032071,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2382,40 +2388,40 @@
           0.0
         ],
         "cruise": [
-          10.742975,
-          10.389609,
-          9.976799,
-          9.213925,
-          8.375095,
-          7.622129,
-          6.872465,
-          6.04024,
-          4.973538,
-          3.837484,
-          2.635381,
-          1.644636,
-          0.908183,
+          9.748927,
+          9.141271,
+          8.292533,
+          7.582499,
+          6.766786,
+          5.927956,
+          4.914094,
+          3.827577,
+          2.826925,
+          1.713988,
+          1.033677,
           0.581237,
-          0.416113,
-          0.340156,
-          0.237779,
-          0.175032,
-          0.089167,
+          0.369878,
+          0.244384,
+          0.171729,
+          0.125494,
+          0.102377,
           0.069352,
-          0.062747,
-          0.056142,
-          0.046235,
-          0.046235,
           0.049537,
-          0.049537,
+          0.042932,
+          0.046235,
+          0.03963,
+          0.03963,
+          0.042932,
+          0.042932,
+          0.046235,
           0.046235,
           0.036327,
           0.036327,
-          0.036327,
           0.033025,
           0.033025,
           0.033025,
-          0.033025,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2505,39 +2511,39 @@
           0.0
         ],
         "descent": [
-          10.969889,
-          10.567324,
-          9.540784,
-          9.087899,
-          7.950654,
-          7.115332,
-          6.28001,
-          5.233342,
-          4.27725,
-          3.401672,
-          2.697184,
-          1.982631,
-          1.529746,
-          1.298271,
-          1.117117,
-          0.875578,
-          0.734681,
+          9.611233,
+          8.463924,
+          7.578281,
+          6.742959,
+          5.806996,
+          4.931418,
+          4.196737,
+          3.522441,
+          2.878338,
+          2.103401,
+          1.630387,
+          1.247951,
+          1.066797,
+          0.946027,
+          0.764873,
           0.694424,
-          0.493142,
-          0.322052,
-          0.241539,
-          0.17109,
+          0.664232,
+          0.422693,
+          0.362308,
+          0.221411,
+          0.201282,
+          0.161026,
           0.150962,
-          0.140898,
-          0.110705,
-          0.100641,
-          0.100641,
+          0.130834,
+          0.090577,
           0.080513,
           0.080513,
           0.070449,
-          0.030192,
+          0.060385,
           0.020128,
           0.010064,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2628,40 +2634,40 @@
           0.0
         ],
         "unknown": [
-          60.990608,
-          55.702405,
-          49.620972,
-          44.156495,
-          39.837796,
-          35.254687,
-          30.142757,
-          24.14946,
-          19.478214,
-          14.983242,
-          11.457773,
-          8.725535,
-          7.403484,
-          6.345844,
-          5.11193,
-          3.613605,
-          2.555965,
-          2.379691,
-          1.586461,
-          0.176273,
+          47.24128,
+          41.864941,
+          36.929284,
+          32.698722,
+          27.146109,
+          23.003683,
+          18.949394,
+          14.895105,
+          12.162867,
+          9.342492,
+          7.227211,
+          6.081433,
+          4.935656,
+          3.701742,
+          2.908512,
+          2.115281,
+          1.674598,
+          1.233914,
+          0.352547,
           0.088137,
           0.088137,
+          0.0,
+          0.0,
+          0.0,
+          0.088137,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.088137,
           0.088137,
           0.088137,
-          0.088137,
-          0.088137,
           0.0,
-          0.088137,
-          0.088137,
-          0.088137,
-          0.176273,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2753,30 +2759,30 @@
       },
       "share_of_time_in_alert": {
         "climb": [
-          0.871572,
-          0.83527,
-          0.786637,
-          0.732511,
-          0.659436,
-          0.587964,
-          0.503772,
-          0.443277,
-          0.376136,
-          0.301165,
-          0.235093,
-          0.196827,
-          0.16882,
-          0.136728,
-          0.105517,
-          0.085348,
-          0.063765,
-          0.049293,
-          0.023045,
-          0.004871,
-          0.002822,
-          0.002555,
-          0.000920463,
-          0.000920463,
+          0.754536,
+          0.685406,
+          0.617226,
+          0.542647,
+          0.476559,
+          0.429233,
+          0.36951,
+          0.305642,
+          0.250394,
+          0.210566,
+          0.174489,
+          0.142807,
+          0.107121,
+          0.077748,
+          0.060316,
+          0.041883,
+          0.035216,
+          0.02156,
+          0.001011,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2876,40 +2882,40 @@
           0.0
         ],
         "cruise": [
-          0.89275,
-          0.851118,
-          0.797773,
-          0.724642,
-          0.656186,
-          0.592821,
-          0.524732,
-          0.448172,
-          0.363559,
-          0.267947,
-          0.183466,
-          0.111557,
-          0.060345,
-          0.038228,
-          0.027608,
-          0.022068,
-          0.016575,
-          0.012124,
-          0.007523,
-          0.004433,
-          0.003579,
-          0.002844,
-          0.001971,
-          0.001669,
-          0.001632,
-          0.001504,
-          0.001375,
+          0.775531,
+          0.715474,
+          0.643439,
+          0.579373,
+          0.507971,
+          0.439178,
+          0.353801,
+          0.267435,
+          0.194328,
+          0.114769,
+          0.068757,
+          0.03704,
+          0.023116,
+          0.016164,
+          0.011654,
+          0.00839,
+          0.00709,
+          0.004805,
+          0.003742,
+          0.002451,
+          0.002386,
+          0.001926,
+          0.001871,
+          0.001797,
+          0.001458,
+          0.001439,
+          0.001357,
           0.001036,
-          0.001027,
           0.001009,
-          0.000935553,
-          0.000743443,
-          0.000697322,
-          0.000651533,
+          0.000916929,
+          0.000734098,
+          0.000688114,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -2999,40 +3005,40 @@
           0.0
         ],
         "descent": [
-          0.879733,
-          0.828267,
-          0.746693,
-          0.694148,
-          0.60262,
-          0.525802,
-          0.453075,
-          0.373394,
-          0.294822,
-          0.235803,
-          0.181722,
-          0.132197,
-          0.102348,
-          0.086797,
-          0.073927,
-          0.055894,
-          0.043489,
-          0.03819,
-          0.027975,
-          0.019112,
-          0.012128,
-          0.010311,
-          0.009777,
-          0.009637,
-          0.009022,
-          0.008881,
-          0.008378,
-          0.005783,
-          0.005756,
-          0.005448,
-          0.005224,
-          0.005224,
+          0.730003,
+          0.643602,
+          0.563216,
+          0.495657,
+          0.423433,
+          0.352683,
+          0.287333,
+          0.2354,
+          0.193783,
+          0.141159,
+          0.107626,
+          0.08444,
+          0.072388,
+          0.064639,
+          0.052527,
+          0.044302,
+          0.036346,
+          0.028062,
+          0.021943,
+          0.010252,
+          0.009946,
+          0.008295,
+          0.00768,
+          0.007402,
+          0.007206,
+          0.007177,
+          0.007149,
+          0.005169,
+          0.005169,
           0.005141,
           0.005141,
+          0.005141,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -3122,34 +3128,25 @@
           0.0
         ],
         "unknown": [
-          0.435229,
-          0.397276,
-          0.353924,
-          0.316956,
-          0.280273,
-          0.244108,
-          0.207564,
-          0.164943,
-          0.132444,
-          0.100872,
-          0.075865,
-          0.057745,
-          0.046431,
-          0.038822,
-          0.032004,
-          0.021038,
-          0.014794,
-          0.013833,
-          0.010381,
-          0.002947,
-          0.001472,
-          0.001472,
-          0.000979982,
-          0.000979982,
-          0.000979982,
-          0.000979982,
-          0.000979982,
-          0.000979982,
+          0.334867,
+          0.293971,
+          0.255346,
+          0.223937,
+          0.187866,
+          0.155823,
+          0.127808,
+          0.101326,
+          0.080242,
+          0.061183,
+          0.045445,
+          0.036499,
+          0.02974,
+          0.022465,
+          0.015756,
+          0.011356,
+          0.010393,
+          0.008414,
+          0.002456,
           0.000979982,
           0.000979982,
           0.000979982,
@@ -3242,31 +3239,40 @@
           0.0,
           0.0,
           0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
       "detection_rate": {
         "climb": [
-          0.105183,
-          0.129573,
-          0.14939,
-          0.169207,
-          0.192073,
-          0.199695,
+          0.166159,
+          0.179878,
           0.202744,
-          0.176829,
-          0.147866,
+          0.189024,
+          0.178354,
+          0.16311,
+          0.158537,
           0.160061,
-          0.132622,
-          0.089939,
-          0.080793,
-          0.054878,
+          0.13872,
+          0.102134,
+          0.07622,
+          0.065549,
+          0.047256,
           0.039634,
-          0.033537,
-          0.025915,
-          0.021341,
+          0.028963,
+          0.018293,
+          0.01372,
           0.009146,
-          0.001524,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -3370,27 +3376,27 @@
           0.0
         ],
         "cruise": [
-          0.109697,
-          0.146667,
-          0.186667,
-          0.233333,
-          0.258788,
+          0.205455,
+          0.238182,
+          0.250303,
+          0.255152,
           0.26303,
-          0.276364,
-          0.287879,
-          0.275758,
-          0.256364,
-          0.234545,
-          0.192727,
-          0.141212,
-          0.096364,
-          0.068485,
-          0.05697,
-          0.041818,
-          0.027273,
-          0.009091,
-          0.00303,
+          0.273939,
+          0.270303,
+          0.258182,
+          0.245455,
+          0.214545,
+          0.169091,
+          0.114545,
+          0.075152,
+          0.052727,
+          0.038182,
+          0.021818,
+          0.013939,
+          0.004848,
           0.002424,
+          0.001212,
+          0.000606061,
           0.000606061,
           0.000606061,
           0.000606061,
@@ -3400,7 +3406,7 @@
           0.0,
           0.0,
           0.0,
-          0.0,
+          0.000606061,
           0.0,
           0.0,
           0.0,
@@ -3493,40 +3499,40 @@
           0.0
         ],
         "descent": [
-          0.107965,
-          0.148673,
-          0.19823,
+          0.187611,
+          0.20885,
+          0.20885,
           0.20354,
-          0.219469,
-          0.217699,
-          0.226549,
-          0.20177,
-          0.175221,
-          0.139823,
-          0.109735,
+          0.189381,
+          0.168142,
+          0.164602,
+          0.132743,
+          0.113274,
           0.092035,
-          0.058407,
-          0.038938,
-          0.030088,
-          0.031858,
-          0.021239,
-          0.015929,
-          0.00531,
-          0.00708,
+          0.072566,
+          0.042478,
+          0.028319,
+          0.014159,
+          0.017699,
+          0.017699,
           0.012389,
-          0.015929,
+          0.0,
+          0.00354,
+          0.010619,
+          0.010619,
+          0.010619,
+          0.00885,
+          0.014159,
           0.014159,
           0.012389,
-          0.00885,
-          0.00885,
-          0.00885,
-          0.012389,
-          0.00708,
-          0.00708,
-          0.010619,
           0.010619,
           0.00885,
+          0.00531,
+          0.00885,
           0.00708,
+          0.00708,
+          0.0,
+          0.0,
           0.0,
           0.0,
           0.0,
@@ -3624,6 +3630,6 @@
     "holdoff_s": 300,
     "represent_s": 300
   },
-  "peak_rss_mb_main_process": 447.954944,
-  "peak_rss_mb_largest_worker": 178.864128
+  "peak_rss_mb_main_process": 367.067136,
+  "peak_rss_mb_largest_worker": 226.115584
 }

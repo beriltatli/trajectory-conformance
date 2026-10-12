@@ -18,6 +18,7 @@ STEPS = [
     ["-m", "scripts.evaluate", "harness"],
     ["-m", "scripts.evaluate", "references"],
     ["-m", "scripts.evaluate", "conformance"],
+    ["-m", "scripts.evaluate", "single-count"],
     ["-m", "scripts.evaluate", "streaming"],
     ["-m", "scripts.figures", "phase2"],
     ["-m", "scripts.figures", "phase4"],

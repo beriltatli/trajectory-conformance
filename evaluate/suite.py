@@ -17,7 +17,8 @@ Definitions, fixed before any detector beyond the baselines exists (NOTES.md, ph
   ("advanced delay time", 03_nasa_tm2020_conformance_monitoring.pdf sec. 5.1.5); positive means
   the alert came first. 01_reynolds_hansman_conformance_fault_detection.pdf sec. 3.4.2 notes
   the onset of a slow deviation is ill-defined, which is why lead is measured to the violation.
-- An event is gradual if it takes at least `gradual_min_s` from onset to violation.
+- An event is gradual if it takes at least `gradual_min_s` from onset to violation, abrupt if it
+  takes less; an event that never reaches violation within the horizon is neither.
 - Alerts per event: attributable alert starts within the window, over detected events.
 """
 
@@ -125,7 +126,10 @@ def evaluate_flight(flight: pd.DataFrame, detector: Detector, cfg: dict, operati
         count = np.zeros(len(thresholds), np.int64)
         for j, thr in enumerate(thresholds):
             first[j], count[j] = _attributable(detector, tk, window, _alerting(detector, scores, thr, tk), clean_exceed[j][keep], inj.onset_t)
-        op_first, op_count = {}, {}
+        op_first, op_count, op_onset_in_alert = {}, {}, {}
+        onset_row = int(np.searchsorted(tk, inj.onset_t))
+        for name, exceed in clean_exceed_op.items():
+            op_onset_in_alert[name] = bool(exceed[onset_row])
         if operating:
             _, observed_phase = _phases(injected.rows, cfg)
             for name, per_phase in operating.items():
@@ -135,7 +139,7 @@ def evaluate_flight(flight: pd.DataFrame, detector: Detector, cfg: dict, operati
             "kind": inj.kind, "magnitude": inj.magnitude, "sign": inj.sign,
             "phase": int(PHASE_INDEX[int(phase[np.searchsorted(t, inj.onset_t)])]),
             "t_violation": t_violation, "first_alert": first, "n_alerts": count,
-            "op_first_alert": op_first, "op_n_alerts": op_count,
+            "op_first_alert": op_first, "op_n_alerts": op_count, "op_onset_in_alert": op_onset_in_alert,
         })
     return {"seconds": np.array([seconds[k] for k in PHASE_KEYS]), "fa": fa, "fa_op": fa_op, "in_alert": in_alert,
             "in_alert_op": in_alert_op, "events": events}
@@ -262,8 +266,10 @@ def operating_report(test: SuiteStats, name: str, cfg: dict) -> dict:
     magnitude = np.array([x["magnitude"] for x in e], float)
     phase = np.array([x["phase"] for x in e], int)
     t_violation = np.array([x["t_violation"] for x in e], float)
+    onset_in_alert = np.array([x["op_onset_in_alert"][name] for x in e], bool)
     detected = ~np.isnan(first)
     gradual = t_violation >= ev["gradual_min_s"]
+    abrupt = t_violation < ev["gradual_min_s"]
     out = {}
     for p, key in enumerate(PHASE_KEYS[:3]):
         sel = phase == p
@@ -272,9 +278,11 @@ def operating_report(test: SuiteStats, name: str, cfg: dict) -> dict:
             "flight_hours": float(hours[p]),
             "false_alerts": int(fa[p]),
             "false_alerts_per_flight_hour": float(fa[p] / hours[p]) if hours[p] > 0 else None,
-            # An alert held open for a whole flight counts once; this shows it.
             "share_of_time_in_alert": float(test.in_alert_op[name][p] / test.seconds[p]) if test.seconds[p] > 0 else None,
             "events": int(sel.sum()),
+            # Events whose onset falls inside an alert the uninjected flight already has open:
+            # nothing that starts there can be attributed to the injection.
+            "share_of_events_with_onset_inside_alert": float(onset_in_alert[sel].mean()) if sel.any() else None,
             "detection_rate": float(detected[sel].mean()) if sel.any() else None,
             "detection_by_kind": {k: _rate(detected[sel & (kind == k)]) for k in sorted(set(kind))},
             "detection_by_magnitude": {
@@ -283,6 +291,8 @@ def operating_report(test: SuiteStats, name: str, cfg: dict) -> dict:
             },
             "gradual_events": int((sel & gradual).sum()),
             "gradual_detected": int((sel & gradual & detected).sum()),
+            "abrupt_events": int((sel & abrupt).sum()),
+            "abrupt_detected": int((sel & abrupt & detected).sum()),
             "lead_time_s": _quantiles(lead),
             "alerts_per_detected_event": float(count[sel & detected].mean()) if (sel & detected).any() else None,
         }
