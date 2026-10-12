@@ -15,8 +15,12 @@ STEPS = [
     ["-m", "scripts.track", "verify"],
     ["-m", "scripts.track", "real"],
     ["-m", "scripts.track", "streaming"],
-    ["-m", "scripts.figures", "phase2"],
     ["-m", "scripts.evaluate", "harness"],
+    ["-m", "scripts.evaluate", "references"],
+    ["-m", "scripts.evaluate", "conformance"],
+    ["-m", "scripts.evaluate", "streaming"],
+    ["-m", "scripts.figures", "phase2"],
+    ["-m", "scripts.figures", "phase4"],
     ["-m", "pytest", "-q"],
 ]
 

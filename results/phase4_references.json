@@ -1,0 +1,77 @@
+{
+  "airports": 328,
+  "airport_endpoints_top5": [
+    388,
+    303,
+    161,
+    104,
+    92
+  ],
+  "days": {
+    "2022-06-20": {
+      "flights": 3406,
+      "with_od_key": 3021,
+      "no_key_endpoint_mid_air": 385,
+      "with_reference": 1416,
+      "share_with_reference": 0.415737,
+      "role": "tune"
+    },
+    "2022-06-27": {
+      "flights": 3370,
+      "with_od_key": 2837,
+      "no_key_endpoint_mid_air": 533,
+      "with_reference": 1096,
+      "share_with_reference": 0.325223,
+      "role": "test"
+    }
+  },
+  "od_pairs_on_tune_day": 1253,
+  "od_pairs_with_reference": 152,
+  "od_pairs_excluded_too_few_flights": 1101,
+  "tune_flights_in_excluded_pairs": 1605,
+  "reference_flights": {
+    "min": 5,
+    "median": 7.0,
+    "max": 37
+  },
+  "reference_length_km": {
+    "min": 7.106305,
+    "median": 359.312747,
+    "max": 743.352917
+  },
+  "calibration_fixes": 241151,
+  "residual_quantiles": {
+    "cross_track": {
+      "p50": 0.623671,
+      "p99": 13.976624,
+      "p999": 104.627683
+    },
+    "track_error": {
+      "p50": 0.629478,
+      "p99": 10.562619,
+      "p999": 35.243033
+    },
+    "altitude": {
+      "p50": 0.669111,
+      "p99": 87.928362,
+      "p999": 1465.084644
+    },
+    "vertical_rate": {
+      "p50": 0.600496,
+      "p99": 32.411904,
+      "p999": 311.72051
+    },
+    "ground_speed": {
+      "p50": 0.658938,
+      "p99": 6.281897,
+      "p999": 16.596338
+    },
+    "eta": {
+      "p50": 0.706145,
+      "p99": 16.377334,
+      "p999": 110.568049
+    }
+  },
+  "peak_rss_mb_main_process": 285.196288,
+  "peak_rss_mb_largest_worker": 150.7328
+}

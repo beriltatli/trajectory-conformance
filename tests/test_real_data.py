@@ -66,3 +66,29 @@ def test_streaming_bank_matches_whole_flight_runs_on_real_rows():
         worst["nis"] = max(worst["nis"], streaming_gap(mine["nis"].to_numpy(), offline["nis"]))
         worst["mode_prob"] = max(worst["mode_prob"], streaming_gap(mine[["p_cv", "p_ca", "p_turn"]].to_numpy(), offline["mode_prob"]))
     assert max(worst.values()) < 1e-9, worst
+
+
+needs_references = pytest.mark.skipif(not repo_path(cfg["reference"]["path"]).exists(), reason="no reference set; run `make references`")
+
+
+@needs_data
+@needs_references
+def test_monitor_scores_match_whole_flight_runs_on_real_flights_in_random_chunks():
+    from evaluate.conform_checks import score_streaming_gap
+    from evaluate.flights import iter_kept_flights
+    from reference.build import load
+    from track.imm import ImmConfig
+
+    refs = load(cfg["reference"]["path"])
+    imm = ImmConfig.from_config(cfg["imm"])
+    rng = np.random.default_rng(7)
+    checked = 0
+    for flight in iter_kept_flights(cfg, set(cfg["evaluation"]["test_days"])):
+        if refs.for_flight(str(flight["flight_id"].iloc[0])) is None:
+            continue
+        gap, gap_r, _ = score_streaming_gap(flight, refs, imm, cfg["reference"]["match"], rng)
+        assert gap < 1e-9 and gap_r < 1e-9
+        checked += 1
+        if checked == 20:
+            break
+    assert checked == 20

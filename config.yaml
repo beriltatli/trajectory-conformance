@@ -165,6 +165,46 @@ injection:
     magnitudes: [10, 20, 40]
     accel_mps2: 0.5
 
+# Phase 4: reference paths per origin-destination pair, built on the tune day only.
+reference:
+  path: data/phase4_references.pkl
+  # A flight endpoint below this baro altitude is at an airport (ingest.low_altitude_m).
+  airport_altitude_m: 1500
+  # Endpoints within link_km of each other (single linkage) form one airport; an endpoint is
+  # assigned to the nearest airport within assign_km. 5 km keeps EDDF apart from its
+  # neighbours; at 10-20 km single linkage chains the Rhine-Main airfields into one.
+  airport_link_km: 5
+  airport_assign_km: 10
+  # An endpoint within gate_edge_km of the region boundary is where the flight crossed it;
+  # gates are gate_width_km slots along each side.
+  gate_edge_km: 30
+  gate_width_km: 50
+  # Fewer tune-day flights than this and the pair gets no reference (the count is reported).
+  min_flights: 5
+  shape_points: 100
+  station_m: 2000
+  # A station's norms pool fixes within +-station_window stations.
+  station_window: 1
+  # n0 in the shrinkage of a station's sd toward the path-wide sd.
+  shrinkage_flights: 5
+  eta_short_s: 120
+  eta_long_s: 300
+  # Calibration of each residual component's tail (conform/score.py TailTable).
+  tail_points: 400
+  tail_fraction: 0.01
+  match:
+    back_m: 5000
+    ahead_m: 20000
+    # Covers a coverage hole flown at up to 300 m/s, with margin.
+    ahead_speed_mps: 450
+
+# Alert management, the same for every detector in phase 4 (alerts/manage.py). Fixed from the
+# phase 2 mode-switch delays and the 10 s cadence, not tuned on any evaluation output.
+alerts:
+  persist_updates: 2
+  holdoff_s: 300
+  represent_s: 300
+
 # Peak RSS bound for the streaming chain, asserted by tests/test_memory_bound.py and checked
 # against the full-sample run. Machine has 8 GB; the bound leaves room for everything else.
 memory_bound_mb: 500

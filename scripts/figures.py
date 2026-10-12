@@ -1,6 +1,7 @@
 """Figures drawn from results/ only, so every plotted number is one a results file holds.
 
     python -m scripts.figures phase2   figures/phase2_nis.png, figures/phase2_mode_probability.png
+    python -m scripts.figures phase4   figures/phase4_alert_vs_detection.png
 """
 
 import argparse
@@ -127,11 +128,64 @@ def phase2(cfg: dict) -> list[str]:
     return written
 
 
+# Slots 1-5 of the reference palette, validated on SURFACE for adjacent pairs (lines); three are
+# below 3:1 contrast, so each detector also has its own marker and the numbers are in NOTES.md.
+DETECTORS = [
+    ("imm_conformance", "IMM conformance", "#2a78d6", "o"),
+    ("cv_kalman", "single CV Kalman", "#eb6834", "s"),
+    ("fixed_threshold", "fixed distance", "#1baf7a", "^"),
+    ("eta_deviation", "ETA deviation", "#eda100", "D"),
+    ("never_alert", "never alert", "#e87ba4", "v"),
+]
+
+
+def phase4(cfg: dict) -> list[str]:
+    ev = cfg["evaluation"]
+    fig, axes = plt.subplots(1, 3, figsize=(13, 4.4), facecolor=SURFACE, sharey=True)
+    for ax, phase in zip(axes, ("climb", "cruise", "descent")):
+        _style(ax)
+        ax.axvline(ev["alert_budget_per_flight_hour"], color=MUTED, linewidth=1, linestyle="--")
+        ax.axhline(ev["detection_target"], color=MUTED, linewidth=1, linestyle=":")
+        for name, label, color, marker in DETECTORS:
+            result = json.loads(repo_path(f"results/phase4_{name}.json").read_text())
+            sweep = result["sweep"]["test"]
+            fa = np.asarray(sweep["false_alerts_per_flight_hour"][phase], float)
+            det = np.asarray(sweep["detection_rate"][phase], float)
+            # Log axis: a rate of 0 is drawn at the left edge. Drawn in threshold order: with
+            # managed alerts neither axis is monotone in the threshold, so the curve folds back
+            # at the low-threshold end, where flights sit in alert and re-presentations cap the rate.
+            fa = np.maximum(fa, 0.01)
+            if len(fa) > 1:
+                ax.plot(fa, det, color=color, linewidth=1.6, zorder=2)
+            op = result["test_day"]["budget"][phase]
+            ax.plot(max(op["false_alerts_per_flight_hour"], 0.01), op["detection_rate"], marker=marker, markersize=8,
+                    color=color, markeredgecolor=SURFACE, markeredgewidth=1.5, linestyle="none", zorder=3, label=label)
+        ax.set_xscale("log")
+        ax.set_xlim(0.008, 30)
+        ax.set_ylim(-0.02, 1.02)
+        ax.set_title(phase, color=TEXT, fontsize=11, loc="left")
+        ax.set_xlabel("false alerts per flight-hour, test day", color=TEXT_SECONDARY, fontsize=9)
+    axes[0].set_ylabel("detection rate, injected events", color=TEXT_SECONDARY, fontsize=9)
+    axes[0].annotate("budget 2/h", (ev["alert_budget_per_flight_hour"], 0.97), xytext=(4, 0), textcoords="offset points",
+                     color=TEXT_SECONDARY, fontsize=8)
+    axes[0].annotate("target 90%", (0.01, ev["detection_target"]), xytext=(2, 4), textcoords="offset points",
+                     color=TEXT_SECONDARY, fontsize=8)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=5, frameon=False, fontsize=9, labelcolor=TEXT)
+    fig.suptitle("Sweep on 2022-06-27 (lines); markers: budget operating point chosen on 2022-06-20",
+                 color=TEXT, fontsize=10, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.07, 1, 0.95))
+    path = repo_path("figures/phase4_alert_vs_detection.png")
+    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    plt.close(fig)
+    return [str(path)]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["phase2"])
-    parser.parse_args()
-    for path in phase2(load_config()):
+    parser.add_argument("command", choices=["phase2", "phase4"])
+    args = parser.parse_args()
+    for path in {"phase2": phase2, "phase4": phase4}[args.command](load_config()):
         print(path)
 
 

@@ -46,6 +46,7 @@
         "flight_hours": 294.926085,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 2128,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -129,6 +130,7 @@
         "flight_hours": 969.576207,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 4831,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -212,6 +214,7 @@
         "flight_hours": 372.325653,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 2047,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -292,13 +295,18 @@
         "alerts_per_detected_event": null
       },
       "unknown_phase_false_alerts": 0,
-      "unknown_phase_flight_hours": 39.91818
+      "unknown_phase_flight_hours": 39.91818,
+      "all_phases": {
+        "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0
+      }
     },
     "fixed_detection": {
       "climb": {
         "flight_hours": 294.926085,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 2128,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -382,6 +390,7 @@
         "flight_hours": 969.576207,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 4831,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -465,6 +474,7 @@
         "flight_hours": 372.325653,
         "false_alerts": 0,
         "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0,
         "events": 2047,
         "detection_rate": 0.0,
         "detection_by_kind": {
@@ -545,7 +555,11 @@
         "alerts_per_detected_event": null
       },
       "unknown_phase_false_alerts": 0,
-      "unknown_phase_flight_hours": 39.91818
+      "unknown_phase_flight_hours": 39.91818,
+      "all_phases": {
+        "false_alerts_per_flight_hour": 0.0,
+        "share_of_time_in_alert": 0.0
+      }
     }
   },
   "criteria_at_budget": {
@@ -635,6 +649,20 @@
           0.0
         ]
       },
+      "share_of_time_in_alert": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ],
+        "unknown": [
+          0.0
+        ]
+      },
       "detection_rate": {
         "climb": [
           0.0
@@ -665,6 +693,20 @@
           0.0
         ]
       },
+      "share_of_time_in_alert": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ],
+        "unknown": [
+          0.0
+        ]
+      },
       "detection_rate": {
         "climb": [
           0.0
@@ -678,6 +720,6 @@
       }
     }
   },
-  "peak_rss_mb_main_process": 345.12896,
-  "peak_rss_mb_largest_worker": 169.639936
+  "peak_rss_mb_main_process": 402.915328,
+  "peak_rss_mb_largest_worker": 183.631872
 }

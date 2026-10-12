@@ -1,5 +1,6 @@
 """Runs one detector through the suite: tuning-day sweep, operating points, test-day report."""
 
+from collections.abc import Callable
 from functools import partial
 
 import numpy as np
@@ -11,27 +12,36 @@ from evaluate.suite import PHASE_KEYS, Detector, SuiteStats, choose_operating_po
 def _sweep_table(stats: SuiteStats, thresholds: np.ndarray) -> dict:
     fa = stats.fa_rate()
     det = stats.detection()
+    share = stats.alert_share()
     return {
         "thresholds": thresholds,
         "false_alerts_per_flight_hour": {k: fa[:, p] for p, k in enumerate(PHASE_KEYS)},
+        "share_of_time_in_alert": {k: share[:, p] for p, k in enumerate(PHASE_KEYS)},
         "detection_rate": {k: det[:, p] for p, k in enumerate(PHASE_KEYS[:3])},
     }
 
 
-def run_detector(detector: Detector, cfg: dict, workers: int) -> tuple[dict, dict[str, dict]]:
+def run_detector(detector: Detector, cfg: dict, workers: int, keep: Callable[[str], bool] | None = None) -> tuple[dict, dict[str, dict]]:
+    """keep: flight_id -> whether the flight is evaluated (all kept flights when None)."""
     ev = cfg["evaluation"]
+
+    def flights(days: set[str]):
+        for flight in iter_kept_flights(cfg, days):
+            if keep is None or keep(str(flight["flight_id"].iloc[0])):
+                yield flight
+
     thresholds = np.asarray(detector.thresholds, float)
 
     tune = SuiteStats(len(thresholds))
     fn = partial(evaluate_flight, detector=detector, cfg=cfg)
-    for result in map_flights(iter_kept_flights(cfg, set(ev["tune_days"])), fn, workers):
+    for result in map_flights(flights(set(ev["tune_days"])), fn, workers):
         tune.add(result)
     points = choose_operating_points(tune, thresholds, ev["alert_budget_per_flight_hour"], ev["detection_target"])
 
     operating = {name: p["thresholds"] for name, p in points.items()}
     test = SuiteStats(len(thresholds), tuple(operating))
     fn = partial(evaluate_flight, detector=detector, cfg=cfg, operating=operating)
-    for result in map_flights(iter_kept_flights(cfg, set(ev["test_days"])), fn, workers):
+    for result in map_flights(flights(set(ev["test_days"])), fn, workers):
         test.add(result)
 
     reports = {name: operating_report(test, name, cfg) for name in operating}

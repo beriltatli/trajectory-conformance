@@ -149,6 +149,7 @@ def test_operating_report_counts_lead_only_for_gradual_detected_events():
     stats = SuiteStats(1, ("budget",))
     stats.seconds = np.array([0.0, 7200.0, 0.0, 0.0])
     stats.fa_op = {"budget": np.array([0, 3, 0, 0])}
+    stats.in_alert_op = {"budget": np.array([0.0, 1800.0, 0.0, 0.0])}
     stats.events = [
         {"kind": "lateral", "magnitude": 2.0, "sign": 1, "phase": 1, "t_violation": 300.0, "op_first_alert": {"budget": 200.0}, "op_n_alerts": {"budget": 2}},
         {"kind": "lateral", "magnitude": 30.0, "sign": 1, "phase": 1, "t_violation": 60.0, "op_first_alert": {"budget": 50.0}, "op_n_alerts": {"budget": 1}},
@@ -156,7 +157,27 @@ def test_operating_report_counts_lead_only_for_gradual_detected_events():
     ]
     report = operating_report(stats, "budget", CFG)["cruise"]
     assert report["false_alerts_per_flight_hour"] == pytest.approx(1.5)
+    assert report["share_of_time_in_alert"] == pytest.approx(0.25)
     assert report["detection_rate"] == pytest.approx(2 / 3)
     assert report["lead_time_s"] == {"n": 1, "p10": 100.0, "median": 100.0, "p90": 100.0}
     assert report["gradual_events"] == 2 and report["gradual_detected"] == 1
     assert report["alerts_per_detected_event"] == pytest.approx(1.5)
+
+
+def test_budget_point_skips_an_always_on_detector_below_the_normal_range():
+    # Thresholds ascend. At the lowest the detector exceeds on every row and holds one alert per
+    # flight (few starts); in the normal range it starts many; above it, few again.
+    stats = SuiteStats(5)
+    stats.seconds = np.array([3600.0, 3600.0, 3600.0, 0.0])
+    stats.fa = np.array([[1, 1, 1, 0], [9, 9, 9, 0], [4, 4, 4, 0], [2, 2, 2, 0], [0, 0, 0, 0]])
+    stats.events = [{"kind": "lateral", "magnitude": 10.0, "phase": p, "t_violation": 100.0,
+                     "first_alert": np.array([np.nan, 5.0, 5.0, np.nan, np.nan]), "n_alerts": np.array([0, 1, 1, 0, 0])}
+                    for p in range(3)]
+    points = choose_operating_points(stats, np.arange(5.0), budget=2.0, detection_target=0.9)
+    # Thresholds 0, 3 and 4 are within budget; 0 is the always-on detector and detects nothing.
+    stats.events = [{**e, "first_alert": np.array([np.nan, 5.0, 5.0, 7.0, np.nan])} for e in stats.events]
+    stats.n_thresholds = 5
+    points = choose_operating_points(stats, np.arange(5.0), budget=2.0, detection_target=0.9)
+    assert points["budget"]["thresholds"].tolist() == [3.0, 3.0, 3.0]
+    # Detection 1.0 at thresholds 1-3: the highest of them.
+    assert points["fixed_detection"]["thresholds"].tolist() == [3.0, 3.0, 3.0]

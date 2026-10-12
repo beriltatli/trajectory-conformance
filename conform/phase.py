@@ -27,7 +27,9 @@ def trailing_vertical_rate(t: np.ndarray, alt: np.ndarray, window_s: float) -> n
 
 def segment_phases(t: np.ndarray, alt: np.ndarray, window_s: float, level_rate_mps: float) -> np.ndarray:
     # "Cruise" here means level flight at any altitude, so holds and intermediate level-offs on
-    # approach land in it; a known blind spot until phase 4 adds altitude bands.
+    # approach land in it. Kept that way in phase 4: these labels are the evaluation's strata,
+    # fixed in phase 3 before any detector, and the detector does not need finer ones, since the
+    # reference norms already differ station by station between airway and terminal area.
     rate = trailing_vertical_rate(t, alt, window_s)
     phase = np.full(len(t), UNKNOWN, dtype=np.int8)
     known = ~np.isnan(rate)

@@ -4,6 +4,15 @@
                                          flight-hour and per phase -> results/phase1_stub_baselines.json
     python -m scripts.evaluate harness   phase 3: the baselines that need no reference through the
                                          injection suite -> results/phase3_<detector>.json
+    python -m scripts.evaluate references
+                                         phase 4: reference paths from the tune day
+                                         -> data/phase4_references.pkl, results/phase4_references.json
+    python -m scripts.evaluate conformance
+                                         phase 4: the system and all four baselines, with the same
+                                         alert management, on the flights that have a reference
+                                         -> results/phase4_<detector>.json
+    python -m scripts.evaluate streaming phase 4: monitor scores pushed in random chunks against
+                                         whole flights -> results/phase4_streaming_equivalence.json
 """
 
 import argparse
@@ -11,17 +20,24 @@ import json
 
 import numpy as np
 
+from alerts.manage import Managed
 from baselines import fixed_threshold, never_alert
 from baselines.cv_kalman import CvKalmanNis
+from baselines.eta_deviation import EtaDeviation
+from baselines.fixed_threshold import FixedThreshold
 from baselines.never_alert import NeverAlert
+from conform.monitor import ImmConformance
 from conform.phase import PHASE_NAMES, segment_phases
-from evaluate.flights import iter_flights
+from evaluate.conform_checks import score_streaming_gap
+from evaluate.flights import iter_flights, iter_kept_flights
 from evaluate.harness import run_detector
 from evaluate.rates import alert_starts, alerts_by_phase, monitored_seconds_by_phase, per_flight_hour
 from ingest.config import load_config, repo_path
 from ingest.frame import geodetic_to_enu
 from ingest.pipeline import json_ready, peak_rss_mb
+from reference.build import build_references, load, save
 from reference.chord import chord_reference
+from track.imm import ImmConfig
 
 PHASES = [*PHASE_NAMES.values(), "unknown"]
 
@@ -98,14 +114,81 @@ def harness(cfg: dict, workers: int) -> None:
         print(detector.name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1))
 
 
+def references(cfg: dict, workers: int) -> None:
+    refs, summary = build_references(cfg, workers)
+    save(refs, repo_path(cfg["reference"]["path"]))
+    summary["peak_rss_mb_main_process"] = peak_rss_mb()
+    summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
+    repo_path("results/phase4_references.json").write_text(json.dumps(json_ready(summary), indent=2))
+    print(json.dumps(json_ready(summary), indent=1))
+
+
+def phase4_detectors(cfg: dict) -> list:
+    managed = [CvKalmanNis(cfg["imm"]), FixedThreshold(cfg["reference"]), EtaDeviation(cfg["reference"]),
+               ImmConformance(cfg["imm"], cfg["reference"])]
+    return [NeverAlert(), *(Managed(d, cfg["alerts"]) for d in managed)]
+
+
+def conformance(cfg: dict, workers: int, only: list[str] | None) -> None:
+    refs = load(cfg["reference"]["path"])
+
+    def has_reference(flight_id: str) -> bool:
+        return refs.for_flight(flight_id) is not None
+
+    for detector in phase4_detectors(cfg):
+        if only and detector.name not in only:
+            continue
+        summary, events = run_detector(detector, cfg, workers, keep=has_reference)
+        summary["flights_evaluated"] = "flights whose origin-destination pair has a reference (results/phase4_references.json)"
+        summary["alert_management"] = cfg["alerts"] if hasattr(detector, "manage") else None
+        summary["peak_rss_mb_main_process"] = peak_rss_mb()
+        summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
+        repo_path(f"results/phase4_{detector.name}.json").write_text(json.dumps(json_ready(summary), indent=2))
+        np.savez_compressed(repo_path(f"data/phase4_events_{detector.name}.npz"),
+                            **{f"{day}_{k}": v for day, arrays in events.items() for k, v in arrays.items()})
+        print(detector.name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1), flush=True)
+
+
+def streaming(cfg: dict, flights: int) -> None:
+    refs = load(cfg["reference"]["path"])
+    imm = ImmConfig.from_config(cfg["imm"])
+    rng = np.random.default_rng(cfg["seed"])
+    worst, worst_r, chunks, rows, n = 0.0, 0.0, 0, 0, 0
+    for flight in iter_kept_flights(cfg, set(cfg["evaluation"]["test_days"])):
+        if refs.for_flight(str(flight["flight_id"].iloc[0])) is None:
+            continue
+        gap, gap_r, k = score_streaming_gap(flight, refs, imm, cfg["reference"]["match"], rng)
+        worst, worst_r = max(worst, gap), max(worst_r, gap_r)
+        chunks += k
+        rows += len(flight)
+        n += 1
+        if n == flights:
+            break
+    result = {"flights": n, "rows": rows, "chunks": chunks, "chunk_rows": "uniform 1-40",
+              "worst_abs_gap": {"score": worst, "residual": worst_r}, "tolerance": 1e-9,
+              "passed": max(worst, worst_r) < 1e-9}
+    repo_path("results/phase4_streaming_equivalence.json").write_text(json.dumps(json_ready(result), indent=2))
+    print(json.dumps(json_ready(result), indent=1))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub", "harness"])
+    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "streaming"])
+    parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
     cfg = load_config()
     if args.command == "harness":
         harness(cfg, args.workers)
+        return
+    if args.command == "references":
+        references(cfg, args.workers)
+        return
+    if args.command == "conformance":
+        conformance(cfg, args.workers, args.only)
+        return
+    if args.command == "streaming":
+        streaming(cfg, flights=300)
         return
     result = stub(cfg)
     repo_path("results/phase1_stub_baselines.json").write_text(json.dumps(result, indent=2))
