@@ -1,40 +1,29 @@
 """Evaluation entry points.
 
-    python -m scripts.evaluate stub   phase 1: never-alert and fixed-threshold alert rates per
-                                      flight-hour and per phase -> results/phase1_stub_baselines.json
+    python -m scripts.evaluate stub      phase 1: never-alert and fixed-threshold alert rates per
+                                         flight-hour and per phase -> results/phase1_stub_baselines.json
+    python -m scripts.evaluate harness   phase 3: the baselines that need no reference through the
+                                         injection suite -> results/phase3_<detector>.json
 """
 
 import argparse
 import json
-from collections.abc import Iterator
 
 import numpy as np
-import pandas as pd
-import pyarrow.parquet as pq
 
 from baselines import fixed_threshold, never_alert
+from baselines.cv_kalman import CvKalmanNis
+from baselines.never_alert import NeverAlert
 from conform.phase import PHASE_NAMES, segment_phases
+from evaluate.flights import iter_flights
+from evaluate.harness import run_detector
 from evaluate.rates import alert_starts, alerts_by_phase, monitored_seconds_by_phase, per_flight_hour
 from ingest.config import load_config, repo_path
-from ingest.flights import FlightAccumulator
 from ingest.frame import geodetic_to_enu
 from ingest.pipeline import json_ready, peak_rss_mb
 from reference.chord import chord_reference
 
 PHASES = [*PHASE_NAMES.values(), "unknown"]
-
-
-# What tracking and evaluation read; the flight accumulator holds every open flight's rows, and
-# the identity and status columns (callsign, squawk, flags) would roughly double that.
-FLIGHT_COLUMNS = ["flight_id", "lastposupdate", "lat", "lon", "baroaltitude", "velocity", "heading", "vertrate"]
-
-
-def iter_flights(cfg: dict, columns: list[str] | None = None) -> Iterator[pd.DataFrame]:
-    accumulator = FlightAccumulator(cfg["ingest"]["flight_split_gap_s"])
-    source = pq.ParquetFile(repo_path(cfg["data"]["measurements_path"]))
-    for batch in source.iter_batches(batch_size=cfg["ingest"]["chunk_rows"], columns=columns or FLIGHT_COLUMNS):
-        yield from accumulator.push(batch.to_pandas())
-    yield from accumulator.flush()
 
 
 def stub(cfg: dict) -> dict:
@@ -98,11 +87,26 @@ def _add(total: dict[str, int], part: dict[str, int]) -> None:
         total[key] += value
 
 
+def harness(cfg: dict, workers: int) -> None:
+    for detector in (NeverAlert(), CvKalmanNis(cfg["imm"])):
+        summary, events = run_detector(detector, cfg, workers)
+        summary["peak_rss_mb_main_process"] = peak_rss_mb()
+        summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
+        repo_path(f"results/phase3_{detector.name}.json").write_text(json.dumps(json_ready(summary), indent=2))
+        np.savez_compressed(repo_path(f"data/phase3_events_{detector.name}.npz"),
+                            **{f"{day}_{k}": v for day, arrays in events.items() for k, v in arrays.items()})
+        print(detector.name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub"])
-    parser.parse_args()
+    parser.add_argument("command", choices=["stub", "harness"])
+    parser.add_argument("--workers", type=int, default=6)
+    args = parser.parse_args()
     cfg = load_config()
+    if args.command == "harness":
+        harness(cfg, args.workers)
+        return
     result = stub(cfg)
     repo_path("results/phase1_stub_baselines.json").write_text(json.dumps(result, indent=2))
     print(json.dumps({k: v["all"] for k, v in result["baselines"].items()}, indent=2))

@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: check reproduce survey sample ingest stub verify track figures
+.PHONY: check reproduce survey sample ingest stub verify track figures harness
 
 check:
 	$(PY) -m pytest -q
@@ -16,6 +16,9 @@ ingest:
 
 stub:
 	$(PY) -m scripts.evaluate stub
+
+harness:
+	$(PY) -m scripts.evaluate harness
 
 reproduce:
 	$(PY) -m scripts.reproduce

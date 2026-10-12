@@ -1,0 +1,683 @@
+{
+  "detector": "never_alert",
+  "flights": {
+    "tune": 3406,
+    "test": 3370
+  },
+  "events": {
+    "tune": 9036,
+    "test": 9006
+  },
+  "operating_points": {
+    "budget": {
+      "chosen_on": [
+        "2022-06-20"
+      ],
+      "thresholds_by_phase": {
+        "climb": 0.0,
+        "cruise": 0.0,
+        "descent": 0.0
+      },
+      "reachable_on_tune_day": {
+        "climb": true,
+        "cruise": true,
+        "descent": true
+      }
+    },
+    "fixed_detection": {
+      "chosen_on": [
+        "2022-06-20"
+      ],
+      "thresholds_by_phase": {
+        "climb": 0.0,
+        "cruise": 0.0,
+        "descent": 0.0
+      },
+      "reachable_on_tune_day": {
+        "climb": false,
+        "cruise": false,
+        "descent": false
+      }
+    }
+  },
+  "test_day": {
+    "budget": {
+      "climb": {
+        "flight_hours": 294.926085,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 2128,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 717,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 713,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 698,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 118,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 155,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 159,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 138,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 147,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 238,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 234,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 241,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 178,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 160,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 165,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 195,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 745,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "cruise": {
+        "flight_hours": 969.576207,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 4831,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 1612,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 1600,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 1619,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 315,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 306,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 331,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 326,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 334,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 512,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 567,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 521,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 418,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 404,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 390,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 407,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 1622,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "descent": {
+        "flight_hours": 372.325653,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 2047,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 673,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 689,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 685,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 141,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 143,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 127,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 126,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 136,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 239,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 221,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 229,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 155,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 186,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 168,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 176,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 700,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "unknown_phase_false_alerts": 0,
+      "unknown_phase_flight_hours": 39.91818
+    },
+    "fixed_detection": {
+      "climb": {
+        "flight_hours": 294.926085,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 2128,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 717,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 713,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 698,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 118,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 155,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 159,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 138,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 147,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 238,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 234,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 241,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 178,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 160,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 165,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 195,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 745,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "cruise": {
+        "flight_hours": 969.576207,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 4831,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 1612,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 1600,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 1619,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 315,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 306,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 331,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 326,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 334,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 512,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 567,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 521,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 418,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 404,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 390,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 407,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 1622,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "descent": {
+        "flight_hours": 372.325653,
+        "false_alerts": 0,
+        "false_alerts_per_flight_hour": 0.0,
+        "events": 2047,
+        "detection_rate": 0.0,
+        "detection_by_kind": {
+          "lateral": {
+            "events": 673,
+            "detection_rate": 0.0
+          },
+          "longitudinal": {
+            "events": 689,
+            "detection_rate": 0.0
+          },
+          "vertical": {
+            "events": 685,
+            "detection_rate": 0.0
+          }
+        },
+        "detection_by_magnitude": {
+          "lateral": {
+            "2": {
+              "events": 141,
+              "detection_rate": 0.0
+            },
+            "5": {
+              "events": 143,
+              "detection_rate": 0.0
+            },
+            "10": {
+              "events": 127,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 126,
+              "detection_rate": 0.0
+            },
+            "30": {
+              "events": 136,
+              "detection_rate": 0.0
+            }
+          },
+          "longitudinal": {
+            "10": {
+              "events": 239,
+              "detection_rate": 0.0
+            },
+            "20": {
+              "events": 221,
+              "detection_rate": 0.0
+            },
+            "40": {
+              "events": 229,
+              "detection_rate": 0.0
+            }
+          },
+          "vertical": {
+            "250": {
+              "events": 155,
+              "detection_rate": 0.0
+            },
+            "500": {
+              "events": 186,
+              "detection_rate": 0.0
+            },
+            "1000": {
+              "events": 168,
+              "detection_rate": 0.0
+            },
+            "2000": {
+              "events": 176,
+              "detection_rate": 0.0
+            }
+          }
+        },
+        "gradual_events": 700,
+        "gradual_detected": 0,
+        "lead_time_s": {
+          "n": 0
+        },
+        "alerts_per_detected_event": null
+      },
+      "unknown_phase_false_alerts": 0,
+      "unknown_phase_flight_hours": 39.91818
+    }
+  },
+  "criteria_at_budget": {
+    "climb": {
+      "detection_at_least": [
+        0.9,
+        0.0,
+        false
+      ],
+      "false_alerts_per_flight_hour_below": [
+        2.0,
+        0.0,
+        true
+      ],
+      "median_lead_gradual_s_above": [
+        30,
+        null,
+        false
+      ],
+      "alerts_per_event_below": [
+        1.5,
+        null,
+        false
+      ]
+    },
+    "cruise": {
+      "detection_at_least": [
+        0.9,
+        0.0,
+        false
+      ],
+      "false_alerts_per_flight_hour_below": [
+        2.0,
+        0.0,
+        true
+      ],
+      "median_lead_gradual_s_above": [
+        30,
+        null,
+        false
+      ],
+      "alerts_per_event_below": [
+        1.5,
+        null,
+        false
+      ]
+    },
+    "descent": {
+      "detection_at_least": [
+        0.9,
+        0.0,
+        false
+      ],
+      "false_alerts_per_flight_hour_below": [
+        2.0,
+        0.0,
+        true
+      ],
+      "median_lead_gradual_s_above": [
+        30,
+        null,
+        false
+      ],
+      "alerts_per_event_below": [
+        1.5,
+        null,
+        false
+      ]
+    }
+  },
+  "sweep": {
+    "tune": {
+      "thresholds": [
+        0.0
+      ],
+      "false_alerts_per_flight_hour": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ],
+        "unknown": [
+          0.0
+        ]
+      },
+      "detection_rate": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ]
+      }
+    },
+    "test": {
+      "thresholds": [
+        0.0
+      ],
+      "false_alerts_per_flight_hour": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ],
+        "unknown": [
+          0.0
+        ]
+      },
+      "detection_rate": {
+        "climb": [
+          0.0
+        ],
+        "cruise": [
+          0.0
+        ],
+        "descent": [
+          0.0
+        ]
+      }
+    }
+  },
+  "peak_rss_mb_main_process": 345.12896,
+  "peak_rss_mb_largest_worker": 169.639936
+}

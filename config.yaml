@@ -132,6 +132,38 @@ imm:
 evaluation:
   tune_days: ["2022-06-20"]
   test_days: ["2022-06-27"]
+  # Fixed in phase 3, before any detector beyond the baselines existed (NOTES.md, phase 3).
+  horizon_s: 600
+  # Deviation at which conformance is violated, per injected dimension.
+  # 1 NM lateral and longitudinal: RNAV 1 / RNP 1 containment, the PBN specifications for
+  # continental en-route, departure, arrival and approach (03_nasa_tm2020 Table 2; PBN accuracy
+  # applies laterally and longitudinally, 03 sec. 3.3.1). 300 ft vertical: the level-flight
+  # out-of-conformance criterion cited in 03 sec. 5.1.6.
+  significance: {lateral: 1852.0, vertical: 300.0, longitudinal: 1852.0}
+  gradual_min_s: 120
+  detection_target: 0.90
+  alert_budget_per_flight_hour: 2.0
+  median_lead_target_s: 30
+  alerts_per_event_target: 1.5
+
+injection:
+  events:
+    # Onsets need track before them (filter settled, reference matched) and room after them.
+    min_prior_s: 300
+    min_remaining_s: 300
+  lateral:
+    # Heading offset off the flown path, turned into at 1.5 deg/s
+    # (01_reynolds_hansman_conformance_fault_detection.pdf Fig. 5.10; 10 deg is its flight test).
+    magnitudes: [2, 5, 10, 20, 30]
+    turn_rate_dps: 1.5
+  vertical:
+    # Vertical rate offset, ft/min, ramped in over ramp_s.
+    magnitudes: [250, 500, 1000, 2000]
+    ramp_s: 10
+  longitudinal:
+    # Speed offset, kt; 10 kt is the speed-adjustment tolerance (03_nasa_tm2020 glossary 124).
+    magnitudes: [10, 20, 40]
+    accel_mps2: 0.5
 
 # Peak RSS bound for the streaming chain, asserted by tests/test_memory_bound.py and checked
 # against the full-sample run. Machine has 8 GB; the bound leaves room for everything else.

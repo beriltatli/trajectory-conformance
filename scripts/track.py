@@ -22,7 +22,7 @@ from evaluate.filter_checks import mode_delays, nis_consistency
 from evaluate.filter_real import RealFilterStats, flight_summary, streaming_equivalence
 from ingest.config import load_config, repo_path
 from ingest.pipeline import json_ready, peak_rss_mb
-from scripts.evaluate import iter_flights
+from evaluate.flights import iter_flights
 from track.imm import ImmConfig
 
 # Flights handed to the worker pool at a time; bounds how many closed flights wait in memory.
