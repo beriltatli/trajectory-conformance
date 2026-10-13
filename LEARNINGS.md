@@ -99,3 +99,81 @@ deviations, so it would look good. It also depends on when the deviation "starte
 ill-defined for a slow drift (01 sec. 3.4.2). Measured to the violation, the same alert scores
 by whether it was early enough to matter. A detector that is fast to fire but only on large,
 already-violating deviations shows up as negative lead.
+
+## Gate 4 — reference paths, conformance scoring, alert management
+
+Answered. The answers below are condensed and translated from Turkish; the corrections follow
+each one. The numbers come from the cross-fitted rerun the second answer led to.
+
+**Q1.** Why must an alert that stays open for the whole flight be counted again every 300 s,
+and why did counting it once make the budget point pick a detector that is quiet but blind?
+
+*Answer.* An alert costs the controller in proportion to how long it is open, not how often it
+starts; a single alert left on all flight occupies more attention than five short ones. Worse,
+while it is open the detector cannot report anything new on that flight: a real event that
+starts later is lost inside the old alert, so for that flight the detector is blind. The budget
+counts alerts per flight-hour; if a held alert counts once, settings whose alerts stay open and
+merge look cheap, and the optimisation picks exactly those. Re-presenting every 300 s turns
+duration into count, so a stuck setting pays for its time and is pushed out of the budget.
+Check it by comparing single counting with 300 s counting at the chosen threshold: total time
+in alert, and how many injected events start inside an alert that is already open.
+
+*Correction.* Right in substance. Three refinements:
+- Two separate defects were at work, and each needed its own fix. The always-on detectors
+  (fixed distance at 100 m, ETA at 1 s, detection 0) were picked by the old rule "lowest
+  threshold within budget", not by optimising: that rule is fixed by taking the highest
+  detection within budget. Counting a held alert once is what let the IMM monitor meet the
+  budget on the tune day while in alert 51-64% of the test day; that is fixed by
+  re-presentation. Neither fix covers the other's case.
+- A re-presentation is never credited as a detection where the uninjected flight is already in
+  alert: attribution requires the clean flight not to be exceeding at that row. So
+  re-presentation adds cost without adding lucky detections; it cannot make a stuck detector
+  look sharper.
+- The check you proposed was run (`results/phase4_imm_conformance_single_count.json`, NOTES.md
+  phase 4). Counted once, the budget admits lower thresholds (scores 1.36-1.58 against
+  1.85-2.0); flights spend 36-43% of monitored time in alert against 15-21%, and 37-54% of
+  injected events start inside an alert already open, against 18-29%. The reported rate falls
+  (2.10 per flight-hour over all phases, against 2.77). Detection, however, does not collapse:
+  0.114 / 0.264 / 0.170 against 0.122 / 0.233 / 0.103 (climb / cruise / descent), because the
+  lower threshold catches more of the events that start outside an alert. So "blind" holds for
+  about half the events, not for the detector as a whole; what breaks is the alert rate as a
+  measure of the controller's load, which is the reason re-presentation stays.
+
+**Q2.** Each component is mapped to its empirical tail probability on the tune day's reference
+flights. What is the risk?
+
+*Answer.* The same flights are used twice: for the tail probabilities and for choosing the
+thresholds, so the thresholds fit what happened to be quiet in that data and the false-alert
+rate on new flights is higher than reported, like seeing the exam before taking it. Second,
+the far tail: a low budget puts the threshold at an extreme quantile, say 1 in 10,000, and
+below 1/N an empirical probability is either zero or set by the chance position of a few
+samples, so the scale is least reliable exactly where the decision is made. Fix: split the
+flights, calibrate on one part, choose thresholds and report false alerts on the other, and
+state the resolution limit of the tail.
+
+*Correction.* The mechanism is right; the data place the damage elsewhere.
+- The larger reuse was the references, not the tails. Each tune-day flight was one of the 5-7
+  members of its own reference: it had pulled the median toward itself and widened the spread
+  it was measured against. Against references rebuilt without it, the p99 residuals grow by a
+  factor 1.4-7.7: cross-track 14.0 to 22.8 sd, track error 10.6 to 16.7, altitude 87.9 to
+  677, vertical rate 32.4 to 44.7, ground speed 6.3 to 9.8, ETA 16.4 to 27.6
+  (`results/phase4_references.json`, `residual_quantiles`).
+- The reported false-alert rates were never in-sample: they are on the test day, which nothing
+  was fitted on. The optimism showed as the tune-to-test overshoot (IMM monitor 3.4-5.0 per
+  flight-hour against a budget of 2), not as a misreported rate.
+- The thresholds were not in the far tail. The budget point sits at a score of about 2, an
+  exceedance of 1 in 100 fixes: persistence, hold-off and the per-hour budget mean a fix need
+  not be 1-in-10,000 rare. 241,151 held-out fixes resolve scores up to 5.38. But fixes at 10 s
+  are far from independent, and the folds show where the resolution limit bites: at score 2
+  the two folds agree within 10% for cross-track, track error, altitude and vertical rate, but
+  not for ground speed (7.8 against 14.5 sd) or ETA (14.3 against 67.1 sd), whose tails a few
+  flights decide; above score 3 they disagree several-fold (cross-track at score 4: 1,860
+  against 412 sd). That is now in `results/phase4_references.json`, `calibration`.
+- A half split of the flights would leave 41 of the 152 pairs, those with 5 flights, with 2 or
+  3, below the 5 a reference needs. References are therefore left one out (every tune-day
+  flight is scored against its pair rebuilt without it). Tails are split as you proposed, in
+  two folds: a flight is scored with the tails of the fold it is not in. Thresholds are chosen
+  on the tune day; false alerts are reported on the test day. After cross-fitting the IMM
+  monitor's test-day rate is 2.15-2.79 per flight-hour (was 3.4-5.0) at unchanged thresholds,
+  and its detection fell to 0.103-0.233 (was 0.149-0.262): part of the earlier detection was
+  the same optimism. The remaining overshoot is the week between the two days.

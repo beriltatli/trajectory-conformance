@@ -20,8 +20,10 @@ STEPS = [
     ["-m", "scripts.evaluate", "conformance"],
     ["-m", "scripts.evaluate", "single-count"],
     ["-m", "scripts.evaluate", "streaming"],
+    ["-m", "scripts.evaluate", "drift"],
     ["-m", "scripts.figures", "phase2"],
     ["-m", "scripts.figures", "phase4"],
+    ["-m", "scripts.figures", "phase5"],
     ["-m", "pytest", "-q"],
 ]
 

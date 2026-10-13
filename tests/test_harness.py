@@ -151,9 +151,9 @@ def test_operating_report_counts_lead_only_for_gradual_detected_events():
     stats.fa_op = {"budget": np.array([0, 3, 0, 0])}
     stats.in_alert_op = {"budget": np.array([0.0, 1800.0, 0.0, 0.0])}
     stats.events = [
-        {"kind": "lateral", "magnitude": 2.0, "sign": 1, "phase": 1, "t_violation": 300.0, "op_first_alert": {"budget": 200.0}, "op_n_alerts": {"budget": 2}},
-        {"kind": "lateral", "magnitude": 30.0, "sign": 1, "phase": 1, "t_violation": 60.0, "op_first_alert": {"budget": 50.0}, "op_n_alerts": {"budget": 1}},
-        {"kind": "lateral", "magnitude": 2.0, "sign": 1, "phase": 1, "t_violation": 280.0, "op_first_alert": {"budget": np.nan}, "op_n_alerts": {"budget": 0}},
+        {"kind": "lateral", "magnitude": 2.0, "sign": 1, "phase": 1, "t_violation": 300.0, "op_first_alert": {"budget": 200.0}, "op_n_alerts": {"budget": 2}, "op_onset_in_alert": {"budget": False}},
+        {"kind": "lateral", "magnitude": 30.0, "sign": 1, "phase": 1, "t_violation": 60.0, "op_first_alert": {"budget": 50.0}, "op_n_alerts": {"budget": 1}, "op_onset_in_alert": {"budget": False}},
+        {"kind": "lateral", "magnitude": 2.0, "sign": 1, "phase": 1, "t_violation": 280.0, "op_first_alert": {"budget": np.nan}, "op_n_alerts": {"budget": 0}, "op_onset_in_alert": {"budget": True}},
     ]
     report = operating_report(stats, "budget", CFG)["cruise"]
     assert report["false_alerts_per_flight_hour"] == pytest.approx(1.5)
@@ -161,6 +161,8 @@ def test_operating_report_counts_lead_only_for_gradual_detected_events():
     assert report["detection_rate"] == pytest.approx(2 / 3)
     assert report["lead_time_s"] == {"n": 1, "p10": 100.0, "median": 100.0, "p90": 100.0}
     assert report["gradual_events"] == 2 and report["gradual_detected"] == 1
+    assert report["abrupt_events"] == 1 and report["abrupt_detected"] == 1
+    assert report["share_of_events_with_onset_inside_alert"] == pytest.approx(1 / 3)
     assert report["alerts_per_detected_event"] == pytest.approx(1.5)
 
 

@@ -1,0 +1,513 @@
+{
+  "budget_per_flight_hour": 2.0,
+  "guard_score": 2.0,
+  "cap_sd": 2.0,
+  "points": [
+    {
+      "setting": "tauinf_free",
+      "tau_s": null,
+      "guard": false,
+      "source": "results/phase4_imm_conformance.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.554993,
+          "share_of_time_in_alert": 0.213322,
+          "detection_rate": 0.121951,
+          "abrupt_detection_rate": 0.158986,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.052632,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -120.222,
+          "alerts_per_detected_event": 1.2375
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.7939,
+          "share_of_time_in_alert": 0.184789,
+          "detection_rate": 0.232727,
+          "abrupt_detection_rate": 0.317713,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.081937,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -74.662,
+          "alerts_per_detected_event": 1.632812
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.153721,
+          "share_of_time_in_alert": 0.151912,
+          "detection_rate": 0.102655,
+          "abrupt_detection_rate": 0.104956,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.103825,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -189.766,
+          "alerts_per_detected_event": 1.37931
+        }
+      }
+    },
+    {
+      "setting": "tau60_free",
+      "tau_s": 60.0,
+      "guard": false,
+      "source": "results/phase5_imm_conformance_tau60_free.json",
+      "thresholds_by_phase": {
+        "climb": 2.154435,
+        "cruise": 1.995262,
+        "descent": 2.154435
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.811562,
+          "share_of_time_in_alert": 0.242048,
+          "detection_rate": 0.102134,
+          "abrupt_detection_rate": 0.129032,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.052632,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -49.989,
+          "alerts_per_detected_event": 1.328358
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.242385,
+          "share_of_time_in_alert": 0.157744,
+          "detection_rate": 0.204848,
+          "abrupt_detection_rate": 0.274602,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.081937,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -84.8135,
+          "alerts_per_detected_event": 1.659763
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.204042,
+          "share_of_time_in_alert": 0.167885,
+          "detection_rate": 0.097345,
+          "abrupt_detection_rate": 0.09621,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.092896,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -100.275,
+          "alerts_per_detected_event": 1.272727
+        }
+      }
+    },
+    {
+      "setting": "tau120_free",
+      "tau_s": 120.0,
+      "guard": false,
+      "source": "results/phase5_imm_conformance_tau120_free.json",
+      "thresholds_by_phase": {
+        "climb": 2.154435,
+        "cruise": 1.995262,
+        "descent": 2.154435
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.7688,
+          "share_of_time_in_alert": 0.236352,
+          "detection_rate": 0.099085,
+          "abrupt_detection_rate": 0.119816,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.062201,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -49.989,
+          "alerts_per_detected_event": 1.338462
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.106984,
+          "share_of_time_in_alert": 0.143498,
+          "detection_rate": 0.198182,
+          "abrupt_detection_rate": 0.263355,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.081937,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -59.8675,
+          "alerts_per_detected_event": 1.681957
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.073208,
+          "share_of_time_in_alert": 0.152368,
+          "detection_rate": 0.095575,
+          "abrupt_detection_rate": 0.093294,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.098361,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -108.921,
+          "alerts_per_detected_event": 1.166667
+        }
+      }
+    },
+    {
+      "setting": "tau300_free",
+      "tau_s": 300.0,
+      "guard": false,
+      "source": "results/phase5_imm_conformance_tau300_free.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.995262,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 3.164343,
+          "share_of_time_in_alert": 0.258861,
+          "detection_rate": 0.105183,
+          "abrupt_detection_rate": 0.126728,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.066986,
+          "gradual_events": 209,
+          "median_lead_gradual_s": 55.18,
+          "alerts_per_detected_event": 1.362319
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 1.994699,
+          "share_of_time_in_alert": 0.139382,
+          "detection_rate": 0.212121,
+          "abrupt_detection_rate": 0.283037,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.089385,
+          "gradual_events": 537,
+          "median_lead_gradual_s": 20.033,
+          "alerts_per_detected_event": 1.677143
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.646863,
+          "share_of_time_in_alert": 0.174489,
+          "detection_rate": 0.113274,
+          "abrupt_detection_rate": 0.110787,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.120219,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -110.179,
+          "alerts_per_detected_event": 1.296875
+        }
+      }
+    },
+    {
+      "setting": "tau600_free",
+      "tau_s": 600.0,
+      "guard": false,
+      "source": "results/phase5_imm_conformance_tau600_free.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.995262,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 3.132272,
+          "share_of_time_in_alert": 0.251546,
+          "detection_rate": 0.108232,
+          "abrupt_detection_rate": 0.133641,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.062201,
+          "gradual_events": 209,
+          "median_lead_gradual_s": 70.084,
+          "alerts_per_detected_event": 1.380282
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 1.882415,
+          "share_of_time_in_alert": 0.135758,
+          "detection_rate": 0.207879,
+          "abrupt_detection_rate": 0.282099,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.078212,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -29.877,
+          "alerts_per_detected_event": 1.670554
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.636799,
+          "share_of_time_in_alert": 0.170079,
+          "detection_rate": 0.111504,
+          "abrupt_detection_rate": 0.110787,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.114754,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -189.766,
+          "alerts_per_detected_event": 1.238095
+        }
+      }
+    },
+    {
+      "setting": "tau1800_free",
+      "tau_s": 1800.0,
+      "guard": false,
+      "source": "results/phase5_imm_conformance_tau1800_free.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.811562,
+          "share_of_time_in_alert": 0.230657,
+          "detection_rate": 0.129573,
+          "abrupt_detection_rate": 0.163594,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.066986,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -129.5795,
+          "alerts_per_detected_event": 1.258824
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.790597,
+          "share_of_time_in_alert": 0.188498,
+          "detection_rate": 0.236364,
+          "abrupt_detection_rate": 0.322399,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.085661,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -69.762,
+          "alerts_per_detected_event": 1.617949
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.475773,
+          "share_of_time_in_alert": 0.16935,
+          "detection_rate": 0.113274,
+          "abrupt_detection_rate": 0.125364,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.103825,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -189.971,
+          "alerts_per_detected_event": 1.28125
+        }
+      }
+    },
+    {
+      "setting": "tau60_guarded",
+      "tau_s": 60.0,
+      "guard": true,
+      "source": "results/phase5_imm_conformance_tau60_guarded.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.84785
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.490851,
+          "share_of_time_in_alert": 0.212222,
+          "detection_rate": 0.129573,
+          "abrupt_detection_rate": 0.168203,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.057416,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -165.1625,
+          "alerts_per_detected_event": 1.223529
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.708035,
+          "share_of_time_in_alert": 0.180352,
+          "detection_rate": 0.236364,
+          "abrupt_detection_rate": 0.322399,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.083799,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -59.754,
+          "alerts_per_detected_event": 1.635897
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.777697,
+          "share_of_time_in_alert": 0.187736,
+          "detection_rate": 0.102655,
+          "abrupt_detection_rate": 0.104956,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.10929,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -179.7205,
+          "alerts_per_detected_event": 1.413793
+        }
+      }
+    },
+    {
+      "setting": "tau120_guarded",
+      "tau_s": 120.0,
+      "guard": true,
+      "source": "results/phase5_imm_conformance_tau120_guarded.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.84785
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.480161,
+          "share_of_time_in_alert": 0.211302,
+          "detection_rate": 0.125,
+          "abrupt_detection_rate": 0.165899,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.047847,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -230.0,
+          "alerts_per_detected_event": 1.243902
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.70143,
+          "share_of_time_in_alert": 0.180213,
+          "detection_rate": 0.235758,
+          "abrupt_detection_rate": 0.322399,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.081937,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -54.9645,
+          "alerts_per_detected_event": 1.640103
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.767633,
+          "share_of_time_in_alert": 0.188072,
+          "detection_rate": 0.106195,
+          "abrupt_detection_rate": 0.107872,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.114754,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -179.673,
+          "alerts_per_detected_event": 1.4
+        }
+      }
+    },
+    {
+      "setting": "tau300_guarded",
+      "tau_s": 300.0,
+      "guard": true,
+      "source": "results/phase5_imm_conformance_tau300_guarded.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.84785
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.480161,
+          "share_of_time_in_alert": 0.211187,
+          "detection_rate": 0.123476,
+          "abrupt_detection_rate": 0.163594,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.047847,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -230.0,
+          "alerts_per_detected_event": 1.246914
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.665103,
+          "share_of_time_in_alert": 0.177788,
+          "detection_rate": 0.235758,
+          "abrupt_detection_rate": 0.320525,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.085661,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -45.039,
+          "alerts_per_detected_event": 1.632391
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.747504,
+          "share_of_time_in_alert": 0.187103,
+          "detection_rate": 0.104425,
+          "abrupt_detection_rate": 0.110787,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.103825,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -179.651,
+          "alerts_per_detected_event": 1.389831
+        }
+      }
+    },
+    {
+      "setting": "tau600_guarded",
+      "tau_s": 600.0,
+      "guard": true,
+      "source": "results/phase5_imm_conformance_tau600_guarded.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.480161,
+          "share_of_time_in_alert": 0.210445,
+          "detection_rate": 0.11128,
+          "abrupt_detection_rate": 0.14977,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.038278,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -130.0405,
+          "alerts_per_detected_event": 1.232877
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.638683,
+          "share_of_time_in_alert": 0.174898,
+          "detection_rate": 0.226061,
+          "abrupt_detection_rate": 0.308341,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.080074,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -59.754,
+          "alerts_per_detected_event": 1.643432
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.063144,
+          "share_of_time_in_alert": 0.147441,
+          "detection_rate": 0.100885,
+          "abrupt_detection_rate": 0.102041,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.10929,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -184.767,
+          "alerts_per_detected_event": 1.315789
+        }
+      }
+    },
+    {
+      "setting": "tau1800_guarded",
+      "tau_s": 1800.0,
+      "guard": true,
+      "source": "results/phase5_imm_conformance_tau1800_guarded.json",
+      "thresholds_by_phase": {
+        "climb": 1.995262,
+        "cruise": 1.84785,
+        "descent": 1.995262
+      },
+      "phases": {
+        "climb": {
+          "false_alerts_per_flight_hour": 2.522922,
+          "share_of_time_in_alert": 0.212491,
+          "detection_rate": 0.115854,
+          "abrupt_detection_rate": 0.14977,
+          "abrupt_events": 434,
+          "gradual_detection_rate": 0.052632,
+          "gradual_events": 209,
+          "median_lead_gradual_s": -120.222,
+          "alerts_per_detected_event": 1.236842
+        },
+        "cruise": {
+          "false_alerts_per_flight_hour": 2.615566,
+          "share_of_time_in_alert": 0.171717,
+          "detection_rate": 0.231515,
+          "abrupt_detection_rate": 0.317713,
+          "abrupt_events": 1067,
+          "gradual_detection_rate": 0.078212,
+          "gradual_events": 537,
+          "median_lead_gradual_s": -84.986,
+          "alerts_per_detected_event": 1.641361
+        },
+        "descent": {
+          "false_alerts_per_flight_hour": 2.05308,
+          "share_of_time_in_alert": 0.146656,
+          "detection_rate": 0.102655,
+          "abrupt_detection_rate": 0.107872,
+          "abrupt_events": 343,
+          "gradual_detection_rate": 0.103825,
+          "gradual_events": 183,
+          "median_lead_gradual_s": -179.651,
+          "alerts_per_detected_event": 1.344828
+        }
+      }
+    }
+  ]
+}

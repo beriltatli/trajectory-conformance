@@ -15,6 +15,13 @@
                                          phase 4: the system with alerts never re-presented, an
                                          open alert counted once however long it stays open
                                          -> results/phase4_imm_conformance_single_count.json
+    python -m scripts.evaluate drift     phase 5: tails of the adapted residuals per adaptation
+                                         setting -> data/phase5_tails.pkl, results/phase5_tails.json;
+                                         each setting through the suite
+                                         -> results/phase5_imm_conformance_<setting>.json;
+                                         the trade-off -> results/phase5_drift_tradeoff.json;
+                                         every setting read on the unadapted scale
+                                         -> results/phase5_drift_absorption.json
     python -m scripts.evaluate streaming phase 4: monitor scores pushed in random chunks against
                                          whole flights -> results/phase4_streaming_equivalence.json
 """
@@ -32,7 +39,12 @@ from baselines.fixed_threshold import FixedThreshold
 from baselines.never_alert import NeverAlert
 from conform.monitor import ImmConformance
 from conform.phase import PHASE_NAMES, segment_phases
+from drift.calibrate import fit_adapted_tails
+from drift.calibrate import save as save_tails
+from drift.detector import AdaptiveConformance
 from evaluate.conform_checks import score_streaming_gap
+from evaluate.drift import settings as drift_settings
+from evaluate.drift import absorption, tradeoff
 from evaluate.flights import iter_flights, iter_kept_flights
 from evaluate.harness import run_detector
 from evaluate.rates import alert_starts, alerts_by_phase, monitored_seconds_by_phase, per_flight_hour
@@ -137,16 +149,37 @@ def conformance(cfg: dict, workers: int, only: list[str] | None) -> None:
     for detector in phase4_detectors(cfg):
         if only and detector.name not in only:
             continue
-        _run_on_reference_flights(detector, cfg, workers, detector.name, cfg["alerts"] if hasattr(detector, "manage") else None)
+        _run_on_reference_flights(detector, cfg, workers, "phase4", detector.name, cfg["alerts"] if hasattr(detector, "manage") else None)
 
 
 def single_count(cfg: dict, workers: int) -> None:
     alerts = {**cfg["alerts"], "represent_s": np.inf}
     detector = Managed(ImmConformance(cfg["imm"], cfg["reference"]), alerts)
-    _run_on_reference_flights(detector, cfg, workers, f"{detector.name}_single_count", {**alerts, "represent_s": "never"})
+    _run_on_reference_flights(detector, cfg, workers, "phase4", f"{detector.name}_single_count", {**alerts, "represent_s": "never"})
 
 
-def _run_on_reference_flights(detector, cfg: dict, workers: int, name: str, alert_management: dict | None) -> None:
+def drift(cfg: dict, workers: int) -> None:
+    adaptations = drift_settings(cfg)
+    tails, summary = fit_adapted_tails(cfg, adaptations, workers)
+    save_tails(tails, cfg["drift"]["tails_path"])
+    repo_path("results/phase5_tails.json").write_text(json.dumps(json_ready(summary), indent=2))
+    for adaptation in adaptations:
+        detector = Managed(AdaptiveConformance(cfg["imm"], cfg["reference"], cfg["drift"], adaptation), cfg["alerts"])
+        _run_on_reference_flights(detector, cfg, workers, "phase5", detector.name, cfg["alerts"])
+    result = tradeoff(cfg)
+    repo_path("results/phase5_drift_tradeoff.json").write_text(json.dumps(json_ready(result), indent=2))
+    drift_absorption(cfg, workers)
+
+
+def drift_absorption(cfg: dict, workers: int) -> None:
+    result = absorption(cfg, workers)
+    result["peak_rss_mb_main_process"] = peak_rss_mb()
+    result["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
+    repo_path("results/phase5_drift_absorption.json").write_text(json.dumps(json_ready(result), indent=2))
+    print(json.dumps(json_ready(result["points"]), indent=1))
+
+
+def _run_on_reference_flights(detector, cfg: dict, workers: int, phase: str, name: str, alert_management: dict | None) -> None:
     refs = load(cfg["reference"]["path"])
 
     def has_reference(flight_id: str) -> bool:
@@ -157,8 +190,8 @@ def _run_on_reference_flights(detector, cfg: dict, workers: int, name: str, aler
     summary["alert_management"] = alert_management
     summary["peak_rss_mb_main_process"] = peak_rss_mb()
     summary["peak_rss_mb_largest_worker"] = peak_rss_mb(children=True)
-    repo_path(f"results/phase4_{name}.json").write_text(json.dumps(json_ready(summary), indent=2))
-    np.savez_compressed(repo_path(f"data/phase4_events_{name}.npz"),
+    repo_path(f"results/{phase}_{name}.json").write_text(json.dumps(json_ready(summary), indent=2))
+    np.savez_compressed(repo_path(f"data/{phase}_events_{name}.npz"),
                         **{f"{day}_{k}": v for day, arrays in events.items() for k, v in arrays.items()})
     print(name, json.dumps(json_ready({k: summary[k] for k in ("flights", "events", "operating_points", "criteria_at_budget")}), indent=1), flush=True)
 
@@ -187,7 +220,7 @@ def streaming(cfg: dict, flights: int) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "streaming"])
+    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming"])
     parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
@@ -203,6 +236,9 @@ def main() -> None:
         return
     if args.command == "single-count":
         single_count(cfg, args.workers)
+        return
+    if args.command == "drift":
+        drift(cfg, args.workers)
         return
     if args.command == "streaming":
         streaming(cfg, flights=300)

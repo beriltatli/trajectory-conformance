@@ -2,6 +2,7 @@
 
     python -m scripts.figures phase2   figures/phase2_nis.png, figures/phase2_mode_probability.png
     python -m scripts.figures phase4   figures/phase4_alert_vs_detection.png
+    python -m scripts.figures phase5   figures/phase5_drift_tradeoff.png
 """
 
 import argparse
@@ -139,9 +140,17 @@ DETECTORS = [
 ]
 
 
+def _sweep_branches(fa: np.ndarray) -> tuple[slice, slice]:
+    """Thresholds ascend. From the highest threshold down to the one with the most alerts is the
+    usable branch; below it flights sit in alert continuously, re-presentation caps the rate and
+    the curve folds back toward fewer alerts and no detection."""
+    peak = int(np.nanargmax(fa))
+    return slice(peak, None), slice(0, peak + 1)
+
+
 def phase4(cfg: dict) -> list[str]:
     ev = cfg["evaluation"]
-    fig, axes = plt.subplots(1, 3, figsize=(13, 4.4), facecolor=SURFACE, sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(13, 4.6), facecolor=SURFACE, sharey=True)
     for ax, phase in zip(axes, ("climb", "cruise", "descent")):
         _style(ax)
         ax.axvline(ev["alert_budget_per_flight_hour"], color=MUTED, linewidth=1, linestyle="--")
@@ -149,33 +158,133 @@ def phase4(cfg: dict) -> list[str]:
         for name, label, color, marker in DETECTORS:
             result = json.loads(repo_path(f"results/phase4_{name}.json").read_text())
             sweep = result["sweep"]["test"]
+            thresholds = np.asarray(sweep["thresholds"], float)
             fa = np.asarray(sweep["false_alerts_per_flight_hour"][phase], float)
             det = np.asarray(sweep["detection_rate"][phase], float)
-            # Log axis: a rate of 0 is drawn at the left edge. Drawn in threshold order: with
-            # managed alerts neither axis is monotone in the threshold, so the curve folds back
-            # at the low-threshold end, where flights sit in alert and re-presentations cap the rate.
-            fa = np.maximum(fa, 0.01)
-            if len(fa) > 1:
-                ax.plot(fa, det, color=color, linewidth=1.6, zorder=2)
             op = result["test_day"]["budget"][phase]
-            ax.plot(max(op["false_alerts_per_flight_hour"], 0.01), op["detection_rate"], marker=marker, markersize=8,
-                    color=color, markeredgecolor=SURFACE, markeredgewidth=1.5, linestyle="none", zorder=3, label=label)
-        ax.set_xscale("log")
-        ax.set_xlim(0.008, 30)
+            if len(fa) > 1:
+                usable, folded = _sweep_branches(fa)
+                ax.plot(fa[usable], det[usable], color=color, linewidth=1.6, zorder=2)
+                ax.plot(fa[folded], det[folded], color=color, linewidth=1.0, linestyle=(0, (2, 2)), alpha=0.5, zorder=1)
+                # The chosen threshold on the sweep (one threshold for every row), joined to the
+                # operating point (per-phase thresholds, as deployed), whose numbers are the tables'.
+                j = int(np.argmin(np.abs(thresholds - result["operating_points"]["budget"]["thresholds_by_phase"][phase])))
+                ax.plot([fa[j], op["false_alerts_per_flight_hour"]], [det[j], op["detection_rate"]], color=color, linewidth=0.8, zorder=2)
+                ax.plot(fa[j], det[j], marker=marker, markersize=6, markerfacecolor=SURFACE, markeredgecolor=color,
+                        markeredgewidth=1.2, linestyle="none", zorder=3)
+            ax.plot(op["false_alerts_per_flight_hour"], op["detection_rate"], marker=marker, markersize=8,
+                    color=color, markeredgecolor=SURFACE, markeredgewidth=1.0, linestyle="none", zorder=4, label=label)
+        # Linear below 0.01 alerts per flight-hour, so a rate of 0 is drawn at 0, not on a made-up floor.
+        ax.set_xscale("symlog", linthresh=0.01, linscale=0.3)
+        ax.set_xlim(0, 30)
+        ax.set_xticks([0, 0.01, 0.1, 1, 10])
+        ax.set_xticklabels(["0", "0.01", "0.1", "1", "10"])
         ax.set_ylim(-0.02, 1.02)
         ax.set_title(phase, color=TEXT, fontsize=11, loc="left")
         ax.set_xlabel("false alerts per flight-hour, test day", color=TEXT_SECONDARY, fontsize=9)
     axes[0].set_ylabel("detection rate, injected events", color=TEXT_SECONDARY, fontsize=9)
     axes[0].annotate("budget 2/h", (ev["alert_budget_per_flight_hour"], 0.97), xytext=(4, 0), textcoords="offset points",
                      color=TEXT_SECONDARY, fontsize=8)
-    axes[0].annotate("target 90%", (0.01, ev["detection_target"]), xytext=(2, 4), textcoords="offset points",
+    axes[0].annotate("target 90%", (0.0, ev["detection_target"]), xytext=(2, 4), textcoords="offset points",
                      color=TEXT_SECONDARY, fontsize=8)
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="lower center", ncol=5, frameon=False, fontsize=9, labelcolor=TEXT)
-    fig.suptitle("Sweep on 2022-06-27 (lines); markers: budget operating point chosen on 2022-06-20",
-                 color=TEXT, fontsize=10, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.07, 1, 0.95))
+    tune, test = ev["tune_days"][0], ev["test_days"][0]
+    fig.suptitle(f"Lines: threshold sweep on {test}, one threshold for every row (dashed: below the threshold with the most alerts, "
+                 f"flights sit in alert).\nFilled markers: budget operating point chosen on {tune}, per-phase thresholds as deployed "
+                 f"(the tables' numbers); open markers: the same threshold on the sweep.",
+                 color=TEXT, fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.07, 1, 0.93))
     path = repo_path("figures/phase4_alert_vs_detection.png")
+    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    plt.close(fig)
+    return [str(path)]
+
+
+def _tau(point: dict) -> float:
+    # JSON has no infinity; results files write the unadapted monitor's tau_s as null.
+    return np.inf if point["tau_s"] is None else float(point["tau_s"])
+
+
+def _clusters(x: np.ndarray, y: np.ndarray, dx: float = 0.004, dy: float = 0.03) -> list[list[int]]:
+    """Runs of consecutive points close enough for their labels to collide; labelled once."""
+    out = [[0]]
+    for i in range(1, len(x)):
+        j = out[-1][-1]
+        if abs(x[i] - x[j]) < dx and abs(y[i] - y[j]) < dy:
+            out[-1].append(i)
+        else:
+            out.append([i])
+    return out
+
+
+def _tau_label(tau: float) -> str:
+    return "none" if np.isinf(tau) else f"{tau:g} s"
+
+
+def phase5(cfg: dict) -> list[str]:
+    ev = cfg["evaluation"]
+    absorbed = json.loads(repo_path("results/phase5_drift_absorption.json").read_text())
+    budget = json.loads(repo_path("results/phase5_drift_tradeoff.json").read_text())
+    phases = ("climb", "cruise", "descent")
+    fig, axes = plt.subplots(2, 3, figsize=(13, 8.2), facecolor=SURFACE)
+    guards = ((False, "unguarded", SERIES[1], (0, (3, 2))), (True, "guarded", SERIES[0], "-"))
+    for col, phase in enumerate(phases):
+        top, bottom = axes[0, col], axes[1, col]
+        for ax in (top, bottom):
+            _style(ax)
+        for guard, tag, color, style in guards:
+            # Top: the trade-off curve, in time-constant order. The unadapted monitor (tau = inf)
+            # ends both curves: with no adaptation there is nothing to guard.
+            chosen = sorted((q for q in absorbed["points"] if q["guard"] == guard or np.isinf(_tau(q))), key=_tau)
+            x = np.array([q["phases"][phase]["share_of_time_off_norm"] for q in chosen])
+            y = np.array([np.nan if q["phases"][phase]["gradual_absorbed"] is None else q["phases"][phase]["gradual_absorbed"] for q in chosen])
+            top.plot(x, y, color=color, linestyle=style, linewidth=1.6, marker="o", markersize=6, label=tag, zorder=2)
+            if guard:
+                # The cap holds every guarded setting within a few tenths of a percent of each other.
+                adapted = [k for k, q in enumerate(chosen) if not np.isinf(_tau(q))]
+                k = min(adapted, key=lambda i: y[i])
+                top.annotate("guarded,\n60-1800 s", (x[k], y[k]), xytext=(-8, -22), textcoords="offset points", ha="right",
+                             color=TEXT_SECONDARY, fontsize=7.5)
+            else:
+                for members in _clusters(x, y):
+                    taus = [_tau(chosen[i]) for i in members]
+                    text = _tau_label(taus[0]) if len(taus) == 1 else f"{taus[0]:g}-{_tau_label(taus[-1])}"
+                    top.annotate(text, (x[members[-1]], y[members[-1]]), xytext=(5, 4), textcoords="offset points", color=TEXT_SECONDARY, fontsize=7.5)
+            # Bottom: where each setting lands at its own budget point; no line, the order of tau
+            # means nothing in this plane.
+            points = [q for q in budget["points"] if q["guard"] == guard and not np.isinf(_tau(q))]
+            bottom.plot([q["phases"][phase]["false_alerts_per_flight_hour"] for q in points], [q["phases"][phase]["detection_rate"] for q in points],
+                        color=color, marker="o", markersize=6, linestyle="none", label=tag, zorder=3)
+        none = next(q for q in budget["points"] if np.isinf(_tau(q)))["phases"][phase]
+        bottom.plot(none["false_alerts_per_flight_hour"], none["detection_rate"], marker="o", markersize=9, markerfacecolor="none",
+                    markeredgecolor=TEXT, markeredgewidth=1.4, linestyle="none", zorder=4)
+        bottom.annotate("no adaptation", (none["false_alerts_per_flight_hour"], none["detection_rate"]), xytext=(7, -12),
+                        textcoords="offset points", color=TEXT, fontsize=7.5)
+        seen = absorbed["points"][0]["phases"][phase]
+        top.set_title(f"{phase}: {seen['gradual_seen_unadapted']} of {seen['gradual_events']} slow events seen unadapted",
+                      color=TEXT, fontsize=10, loc="left")
+        top.set_xlabel("share of normal flight time still off-norm\n(lower: faster adaptation)", color=TEXT_SECONDARY, fontsize=9)
+        bottom.set_xlabel("false alerts per flight-hour, test day", color=TEXT_SECONDARY, fontsize=9)
+        bottom.axvline(ev["alert_budget_per_flight_hour"], color=MUTED, linewidth=1, linestyle="--")
+        top.set_ylim(-0.03, 1.03)
+        top.set_xlim(0, 0.14)
+        bottom.set_xlim(1.5, 3.5)
+        bottom.set_ylim(0, 0.3)
+    axes[0, 0].set_ylabel("share of those that adaptation\nhides until violation", color=TEXT_SECONDARY, fontsize=9)
+    axes[1, 0].set_ylabel("detection rate at the budget point", color=TEXT_SECONDARY, fontsize=9)
+    axes[1, 0].annotate("budget 2/h", (ev["alert_budget_per_flight_hour"], 0.28), xytext=(4, 0), textcoords="offset points",
+                        color=TEXT_SECONDARY, fontsize=8)
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=2, frameon=False, fontsize=9, labelcolor=TEXT)
+    t = absorbed["thresholds_by_phase"]
+    fig.suptitle(f"Test day {ev['test_days'][0]}. Top: every setting read on the unadapted scale (thresholds {t['climb']:.2f} / {t['cruise']:.2f} / "
+                 f"{t['descent']:.2f}), no alert management;\nunguarded points labelled by adaptation time constant. Bottom: each setting at its own "
+                 f"budget point chosen on {ev['tune_days'][0]}, with alert management.\nGuard: offset frozen above score {budget['guard_score']:g}, "
+                 f"capped at {budget['cap_sd']:g} sd.",
+                 color=TEXT, fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.93))
+    path = repo_path("figures/phase5_drift_tradeoff.png")
     fig.savefig(path, dpi=150, facecolor=SURFACE)
     plt.close(fig)
     return [str(path)]
@@ -183,9 +292,9 @@ def phase4(cfg: dict) -> list[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["phase2", "phase4"])
+    parser.add_argument("command", choices=["phase2", "phase4", "phase5"])
     args = parser.parse_args()
-    for path in {"phase2": phase2, "phase4": phase4}[args.command](load_config()):
+    for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5}[args.command](load_config()):
         print(path)
 
 

@@ -304,12 +304,12 @@ Six residuals are computed: the five quantities above minus their station median
 station sd, plus the ETA error over its sd. This is the vector conformance residual of 01 eq.
 3.7, normalised as in eq. 3.4 by observed conforming behaviour.
 
-Their tails differ by orders of magnitude on the tune-day members:
+Their tails differ by orders of magnitude (held-out tune-day residuals, see cross-fitting below):
 
 | residual | p99 | p99.9 |
 |---|---:|---:|
-| ground speed | 6.3 | 16.6 |
-| altitude | 87.9 | 1,465 |
+| ground speed | 9.8 | 38.4 |
+| altitude | 677 | 4,681 |
 
 Each residual is therefore mapped to -log10 of its empirical exceedance probability, with an
 exponential tail beyond the sample. The score is the largest of the six. Two checks:
@@ -318,6 +318,41 @@ exponential tail beyond the sample. The score is the largest of the six. Two che
   residuals (`results/phase4_streaming_equivalence.json`).
 - **Synthetic.** On a synthetic reference, a 10 deg turn-off scores above 6 within 30 s, long
   before it reaches 1 NM (`tests/test_conformance.py`).
+
+### Cross-fitting (after Gate 4)
+
+The first run scored every tune-day flight against a reference it was a member of, and fitted
+the tails on those same residuals. The thresholds chosen on them were too low for flights the
+references had never seen: the IMM monitor ran at 3.4-5.0 false alerts per flight-hour on the
+test day against a budget of 2. `reference/build.py` now:
+- scores each tune-day flight against its pair's reference rebuilt without it (leave one out;
+  a held-out reference has 4-36 flights, median 9);
+- fits the tails on those held-out residuals in two folds of 708 flights each, and scores a
+  flight with the tails of the fold it is not in;
+- gives test-day flights the reference built from all members and the tails of both folds.
+
+A half split of the flights was rejected: 41 of the 152 pairs have 5 flights and would be left
+with 2 or 3. Build time is 145 s (was ~40 s).
+
+How much the reuse had hidden, p99 of |residual| in sd (`results/phase4_references.json`,
+`residual_quantiles`):
+
+| residual | in sample | held out |
+|---|---:|---:|
+| cross-track | 14.0 | 22.8 |
+| track error | 10.6 | 16.7 |
+| altitude | 87.9 | 677 |
+| vertical rate | 32.4 | 44.7 |
+| ground speed | 6.3 | 9.8 |
+| ETA | 16.4 | 27.6 |
+
+Tail resolution (`calibration`). 241,151 held-out fixes resolve exceedances down to 1 in
+241,151, a score of 5.38; above it the score is extrapolated. Fixes 10 s apart are far from
+independent, so the 1,416 flights behind them are the better count. The two folds' tails agree
+within 10% at a score of 2 for cross-track, track error, altitude and vertical rate, but not for
+ground speed (7.8 against 14.5 sd) or ETA (14.3 against 67.1 sd), whose tails a few flights
+decide. Above a score of 3 they disagree several-fold (cross-track at 4: 1,860 against 412 sd).
+The budget thresholds sit at scores of 1.85-2.0.
 
 ### Alert management, the same for every detector
 
@@ -351,58 +386,179 @@ fixed-detection rows moved.
 ### Results: alert rate against detection rate, per phase, five detectors
 
 `results/phase4_<detector>.json`, `figures/phase4_alert_vs_detection.png`. 1,416 tune-day
-flights (3,612 events) choose the thresholds. The table is 1,096 test-day flights (2,871
-events) at the budget operating point.
+flights (3,612 events) choose the thresholds, cross-fitted as above. The table is 1,096 test-day
+flights (2,871 events) at the budget operating point.
 
 | detector | phase | false alerts / flight-hour | detection | time in alert | median lead, gradual (s) | alerts per detected event |
 |---|---|---:|---:|---:|---:|---:|
 | never alert | climb / cruise / descent | 0 / 0 / 0 | 0 / 0 / 0 | 0 | — | — |
-| fixed distance | climb | 2.42 | 0.184 | 0.153 | -79.9 | 1.36 |
-| fixed distance | cruise | 2.33 | 0.169 | 0.164 | -179.3 | 1.42 |
-| fixed distance | descent | 2.53 | 0.163 | 0.176 | -90.0 | 1.34 |
+| fixed distance | climb | 2.20 | 0.184 | 0.132 | -115.0 | 1.35 |
+| fixed distance | cruise | 1.70 | 0.172 | 0.123 | -189.7 | 1.36 |
+| fixed distance | descent | 2.21 | 0.147 | 0.152 | -139.8 | 1.36 |
 | single CV Kalman | climb | 1.54 | 0.076 | 0.100 | -145.2 | 1.08 |
 | single CV Kalman | cruise | 1.27 | 0.144 | 0.067 | -54.9 | 1.20 |
 | single CV Kalman | descent | 2.14 | 0.115 | 0.148 | -79.8 | 1.14 |
-| ETA deviation | climb | 3.47 | 0.111 | 0.242 | -120.2 | 1.05 |
-| ETA deviation | cruise | 5.38 | 0.099 | 0.370 | -115.1 | 1.04 |
-| ETA deviation | descent | 3.72 | 0.126 | 0.281 | -109.4 | 1.18 |
-| IMM conformance | climb | 4.02 | 0.166 | 0.307 | -59.3 | 1.28 |
-| IMM conformance | cruise | 5.02 | 0.262 | 0.355 | 39.7 | 1.56 |
-| IMM conformance | descent | 3.43 | 0.149 | 0.250 | -120.0 | 1.26 |
+| ETA deviation | climb | 2.42 | 0.096 | 0.173 | -139.9 | 1.06 |
+| ETA deviation | cruise | 4.85 | 0.084 | 0.326 | -50.1 | 1.04 |
+| ETA deviation | descent | 3.03 | 0.140 | 0.238 | -155.1 | 1.08 |
+| IMM conformance | climb | 2.55 | 0.122 | 0.213 | -120.2 | 1.24 |
+| IMM conformance | cruise | 2.79 | 0.233 | 0.185 | -74.7 | 1.63 |
+| IMM conformance | descent | 2.15 | 0.103 | 0.152 | -189.8 | 1.38 |
 
-Detection by magnitude at the budget point, IMM conformance against fixed distance (climb /
-cruise / descent):
+The single CV Kalman uses no reference and did not change. Before cross-fitting the IMM monitor
+read 4.02 / 5.02 / 3.43 false alerts per flight-hour and detected 0.166 / 0.262 / 0.149; its
+thresholds (scores 2.0 / 1.85 / 2.0) did not move, because a score means the same rarity under
+either calibration, but test-day flights now score lower against the wider held-out tails.
 
-| injection | IMM conformance | fixed distance |
-|---|---|---|
-| lateral 10 deg | 0.22 / 0.30 / 0.08 | 0.67 / 0.61 / 0.32 |
-| lateral 30 deg | 0.49 / 0.50 / 0.51 | 0.72 / 0.75 / 0.77 |
-| vertical 2000 ft/min | 0.08 / 0.45 / 0.11 | 0.00 / 0.01 / 0.09 |
-| longitudinal 40 kt | 0.20 / 0.28 / 0.25 | 0.06 / 0.03 / 0.06 |
+Detection by magnitude at the budget point (climb / cruise / descent):
+
+| injection | IMM conformance | fixed distance | ETA deviation |
+|---|---|---|---|
+| lateral 10 deg | 0.13 / 0.14 / 0.05 | 0.59 / 0.58 / 0.35 | 0.06 / 0.09 / 0.08 |
+| lateral 30 deg | 0.38 / 0.49 / 0.31 | 0.74 / 0.79 / 0.77 | 0.19 / 0.21 / 0.21 |
+| vertical 2000 ft/min | 0.10 / 0.52 / 0.09 | 0.02 / 0.03 / 0.00 | 0.06 / 0.01 / 0.13 |
+| longitudinal 40 kt | 0.11 / 0.17 / 0.09 | 0.02 / 0.02 / 0.08 | 0.11 / 0.21 / 0.25 |
+
+### Counting a held alert once, against re-presentation every 300 s
+
+Gate 4 asked for the comparison (`results/phase4_imm_conformance_single_count.json`). The IMM
+monitor with alerts never re-presented, each setting at its own tune-day budget point, test day:
+
+| phase | counting | threshold | false alerts / flight-hour | time in alert | events starting inside an open alert | detection | median lead, gradual (s) |
+|---|---|---:|---:|---:|---:|---:|---:|
+| climb | every 300 s | 2.00 | 2.55 | 0.213 | 0.291 | 0.122 | -120.2 |
+| climb | once | 1.47 | 1.98 | 0.425 | 0.535 | 0.114 | 0.1 |
+| cruise | every 300 s | 1.85 | 2.79 | 0.185 | 0.177 | 0.233 | -74.7 |
+| cruise | once | 1.58 | 1.35 | 0.364 | 0.370 | 0.264 | 25.2 |
+| descent | every 300 s | 2.00 | 2.15 | 0.152 | 0.211 | 0.103 | -189.8 |
+| descent | once | 1.36 | 2.73 | 0.406 | 0.446 | 0.170 | -20.1 |
+
+Counted once, the budget admits lower thresholds, and flights spend about twice as long in
+alert (36-43% of monitored time) while the reported rate falls (2.10 per flight-hour over all
+phases, against 2.77). 37-54% of injected events then start inside an alert already open and
+cannot be credited. Detection does not collapse: the lower threshold catches more of the events
+that start outside an alert, so it comes out similar (climb) or higher (cruise, descent). The
+detector is blind on about half the events, and the alert rate stops measuring the time
+controllers spend on alerts. Re-presentation stays.
 
 ### Reading the results
 
 - **Every success criterion is missed, by every detector, in every phase.** The fixed-detection
   point is unreachable everywhere: no threshold reaches 90% on the tune day. The best
-  detection anywhere on the test-day sweep is 0.32 (CV Kalman, cruise, at 7 alerts per
-  flight-hour).
-- **The IMM conformance detector does not clearly beat the fixed distance threshold.**
-  - It is the only one to detect vertical deviations in cruise (0.45 at 2,000 ft/min). It is
-    the best on longitudinal ones (40 kt: 0.20-0.28; ETA deviation 0.14-0.22). It is the only
-    one with a positive median lead (40 s, cruise).
+  detection anywhere on the test-day sweep is 0.32 (CV Kalman, cruise, at 6.9 alerts per
+  flight-hour); the IMM monitor's best is 0.27 (cruise, at 5.9).
+- **The IMM conformance detector does not beat the fixed distance threshold.**
+  - It is the only one to detect vertical deviations in cruise (0.52 at 2,000 ft/min).
+  - On longitudinal deviations the ETA deviation baseline now does as well or better (40 kt:
+    0.11-0.25 against 0.09-0.17). Before cross-fitting the IMM monitor led there; part of that
+    lead came from the in-sample references.
   - It loses on lateral, the dimension the fixed distance threshold measures directly.
-  - It overshoots the budget on the test day (3.4-5.0 against 2.0). The fixed distance
-    overshoots only slightly (2.3-2.5).
+  - No detector has a positive median lead for gradual events.
+  - Every reference-based detector except the fixed distance in cruise still exceeds the budget
+    on the test day (IMM 2.15-2.79, ETA 2.42-4.85, fixed distance 2.20-2.21 in climb and
+    descent). The overshoot is now a week of change between the two days, not reuse of flights.
 
-  By the brief's own rule, the complexity has not yet earned its place.
-- **Tune-to-test gap.** At the budget point every reference-based detector exceeds the budget
-  on the test day. A tune-day flight is scored against a reference it helped build, and the
-  tails are calibrated on the same flights. So the tune day sees fewer surprises than the test
-  day, and the thresholds come out too low. This is the main methodological weakness of this
-  phase; cross-fitting the references (build from half the tune day, choose thresholds on the
-  other half) would remove it.
+  By the brief's own rule, the complexity has not earned its place.
 - **Why detection is capped.** Real flights depart from the norms of a 50 km-gate pair far more
-  than the injected deviations do: 1% of normal fixes have a track error beyond 10 sd. An
-  injected event is also credited only if it starts an alert on a flight that is not already in
-  one, and at these thresholds flights are in alert 25-36% of the time.
+  than the injected deviations do: 1% of held-out fixes have a cross-track residual beyond
+  22.8 sd. An injected event is also credited only if it starts an alert on a flight that is not
+  already in one, and at the budget point 18-29% of the IMM monitor's events start inside one.
 - **Coverage.** Only 32.5% of test-day flights have a reference.
+
+## Phase 5 — drift: per-flight adaptation and what it absorbs
+
+Code: `drift/adapt.py` (offset and guard), `drift/calibrate.py` (tails per setting),
+`drift/detector.py`, `evaluate/drift.py`; `config.yaml` `drift`. Run: `make drift`.
+
+### What adapts, and why at the flight level
+
+Drift here is a flight's slow departure from the norms of its pair. Within a pair keyed by
+50 km gates, a flight can hold its own flow, flight level or speed for its whole life; the
+phase 4 monitor scores that as a deviation from the first row to the last. The adaptation
+subtracts a running estimate of each residual component's offset. It is an exponentially
+weighted mean with time constant tau, from rows before the current one only. The price is the
+one the brief names: a deviation that grows more slowly than the adaptation is learnt as offset
+and never alerted on, which is how an uncorrected inertial drift (01 sec. 1.3.2, Fig. 1.5)
+would pass.
+
+Drift between days, the week between tune and test day, is not adapted here. It is what still
+puts most detectors over the budget on the test day.
+
+**Guard** (`drift/adapt.py`):
+- Freeze: a row whose adapted residual scores above 2.0 under the unadapted tails (rarer than 1
+  in 100 held-out fixes) does not update the offset.
+- Cap: the offset is clipped at 2 sd per component. 03 sec. 5.1.8 takes mu +- 1.96 sigma of
+  conforming flights as the conformance range, so a flight may learn an offset inside the range
+  normal traffic occupies, not beyond it.
+
+**Settings**: tau = 60, 120, 300, 600, 1800 s, each unguarded and guarded, plus the phase 4
+monitor (tau = inf). All were fixed in `config.yaml` before any run. Adaptation changes the
+residual distribution, so each setting has its tails refitted on the held-out tune-day residuals
+in the same two folds as phase 4 (`results/phase5_tails.json`).
+
+### Two measurements
+
+The first plan read each setting at its own budget point. That cannot show what adaptation
+removes. The score is a rarity, refitted per setting, so a threshold near 2 flags about 1% of
+fixes whatever the adaptation does to their size; only how the exceedances cluster in time can
+change. Both sides are therefore also measured directly, on one fixed scale: the unadapted tails
+and the unadapted budget thresholds (2.00 / 1.85 / 2.00), without alert management
+(`results/phase5_drift_absorption.json`).
+- **Speed side.** The share of monitored time on uninjected test-day flights whose adapted
+  residuals still exceed the threshold: how much of a flight's own off-norm behaviour is learnt
+  away.
+- **Absorption side.** The injected events that the unadapted residuals show before violation
+  (an exceeding row where the uninjected flight does not exceed). Of these, the share that the
+  adapted residuals no longer show before violation.
+
+Same 1,096 test-day flights and 2,871 injected events as phase 4.
+
+### Results
+
+The trade-off curve is `figures/phase5_drift_tradeoff.png`. The unadapted monitor shows only a
+few slow (gradual) events before violation: 19 of 209 in climb, 64 of 537 in cruise and 13 of
+183 in descent. The absorbed shares rest on those counts.
+
+| setting | off-norm time, climb / cruise / descent | slow events hidden, climb / cruise / descent | abrupt events hidden, cruise |
+|---|---|---|---:|
+| no adaptation | 0.127 / 0.091 / 0.089 | 0 / 0 / 0 | 0 |
+| unguarded, 60 s | 0.070 / 0.026 / 0.063 | 0.58 / 0.53 / 0.54 | 0.14 |
+| unguarded, 300 s | 0.106 / 0.043 / 0.080 | 0.68 / 0.39 / 0.54 | 0.10 |
+| unguarded, 1800 s | 0.110 / 0.067 / 0.085 | 0.42 / 0.19 / 0.54 | 0.06 |
+| guarded, 60 s | 0.121 / 0.067 / 0.082 | 0.21 / 0.13 / 0.23 | 0.07 |
+| guarded, 300 s | 0.122 / 0.068 / 0.083 | 0.21 / 0.11 / 0.23 | 0.04 |
+| guarded, 1800 s | 0.124 / 0.071 / 0.084 | 0.16 / 0.09 / 0.23 | 0.03 |
+
+At each setting's own budget point, with alert management (`results/phase5_drift_tradeoff.json`),
+test day:
+
+| setting | false alerts / flight-hour, climb / cruise / descent | detection, climb / cruise / descent | time in alert, cruise |
+|---|---|---|---:|
+| no adaptation | 2.55 / 2.79 / 2.15 | 0.122 / 0.233 / 0.103 | 0.185 |
+| unguarded, 60 s | 2.81 / 2.24 / 2.20 | 0.102 / 0.205 / 0.097 | 0.158 |
+| unguarded, 300 s | 3.16 / 1.99 / 2.65 | 0.105 / 0.212 / 0.113 | 0.139 |
+| unguarded, 600 s | 3.13 / 1.88 / 2.64 | 0.108 / 0.208 / 0.112 | 0.136 |
+| unguarded, 1800 s | 2.81 / 2.79 / 2.48 | 0.130 / 0.236 / 0.113 | 0.188 |
+| guarded, 60 s | 2.49 / 2.71 / 2.78 | 0.130 / 0.236 / 0.103 | 0.180 |
+| guarded, 300 s | 2.48 / 2.67 / 2.75 | 0.123 / 0.236 / 0.104 | 0.178 |
+| guarded, 1800 s | 2.52 / 2.62 / 2.05 | 0.116 / 0.232 / 0.103 | 0.172 |
+
+### Reading the results
+
+- **The trade-off is real on the fixed scale.** Unguarded adaptation at 60 s removes 71% of
+  cruise off-norm time (0.091 to 0.026). It also hides 53% of the slow events the unadapted
+  monitor saw, and 14% of the abrupt ones. Slowing it to 1800 s keeps 74% of the off-norm time
+  (0.067) and still hides 19% of the slow events.
+- **The guard bounds the absorption, and the cap decides it.** Every guarded setting lands
+  within half a percentage point of off-norm time of every other. Once the offset reaches 2 sd,
+  tau no longer matters. Guarded settings hide 9-13% of the cruise slow events, against 19-53%
+  unguarded, for a smaller gain: off-norm time falls to 0.067-0.071 instead of 0.026-0.067.
+- **At the budget point nothing improves beyond noise.** Detection at each setting's own budget
+  point stays within 0.035 of the unadapted monitor in every phase. False alerts move by up
+  to 0.9 per flight-hour, in both directions. In cruise, unguarded 300 and 600 s land within the
+  2 per flight-hour budget (1.99 and 1.88), at detection 0.212 and 0.208 against 0.233. They do
+  so by hiding 39-41% of the slow events, and they put climb at 3.1-3.2 per flight-hour.
+- **The counts are small.** 13-64 slow events are seen unadapted per phase, so one event in
+  descent moves the absorbed share by 0.08.
+- **What is not studied.** Adaptation across flights or days, which the remaining tune-to-test
+  overshoot calls for, and guard parameters other than the configured 2.0 and 2 sd.

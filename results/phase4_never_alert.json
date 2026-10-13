@@ -122,6 +122,8 @@
         },
         "gradual_events": 209,
         "gradual_detected": 0,
+        "abrupt_events": 434,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -207,6 +209,8 @@
         },
         "gradual_events": 537,
         "gradual_detected": 0,
+        "abrupt_events": 1067,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -292,6 +296,8 @@
         },
         "gradual_events": 183,
         "gradual_detected": 0,
+        "abrupt_events": 343,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -385,6 +391,8 @@
         },
         "gradual_events": 209,
         "gradual_detected": 0,
+        "abrupt_events": 434,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -470,6 +478,8 @@
         },
         "gradual_events": 537,
         "gradual_detected": 0,
+        "abrupt_events": 1067,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -555,6 +565,8 @@
         },
         "gradual_events": 183,
         "gradual_detected": 0,
+        "abrupt_events": 343,
+        "abrupt_detected": 0,
         "lead_time_s": {
           "n": 0
         },
@@ -728,6 +740,6 @@
   },
   "flights_evaluated": "flights whose origin-destination pair has a reference (results/phase4_references.json)",
   "alert_management": null,
-  "peak_rss_mb_main_process": 367.067136,
-  "peak_rss_mb_largest_worker": 167.018496
+  "peak_rss_mb_main_process": 333.774848,
+  "peak_rss_mb_largest_worker": 159.90784
 }

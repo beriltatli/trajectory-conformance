@@ -72,3 +72,16 @@ def test_adapted_monitor_scores_are_identical_however_the_flight_is_chunked():
     parts = [m.push(flight.iloc[a:b]) for a, b in zip(cuts[:-1], cuts[1:])]
     assert np.max(np.abs(np.concatenate([p[0] for p in parts]) - whole)) < 1e-9
     assert np.nanmax(np.abs(np.concatenate([p[1] for p in parts]) - whole_r)) < 1e-9
+
+
+def test_row_scores_match_the_monitor_score_row_by_row():
+    from conform.score import score
+    from evaluate.drift import row_scores
+
+    r = np.random.default_rng(3).normal(size=(40, N)) * 4.0
+    r[5, 2] = np.nan
+    r[9, :] = np.nan
+    expected = [score(x, TAILS) for x in r]
+    got = row_scores(r, TAILS)
+    assert np.allclose(got[np.arange(40) != 9], np.array(expected)[np.arange(40) != 9])
+    assert got[9] == -np.inf and np.isnan(expected[9])

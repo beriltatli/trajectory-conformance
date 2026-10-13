@@ -1,0 +1,392 @@
+{
+  "scale": "unadapted tails; unadapted budget thresholds by phase",
+  "thresholds_by_phase": {
+    "climb": 1.995262,
+    "cruise": 1.84785,
+    "descent": 1.995262
+  },
+  "flights_seconds_by_phase": {
+    "climb": 336752.334999,
+    "cruise": 1090089.143002,
+    "descent": 357706.437999
+  },
+  "events": 2871,
+  "points": [
+    {
+      "setting": "tauinf_free",
+      "tau_s": null,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.126913,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.0,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.0
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.091197,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.0,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.0
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.088608,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.0,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.0
+        }
+      }
+    },
+    {
+      "setting": "tau60_free",
+      "tau_s": 60.0,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.069818,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.578947,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.414634
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.025671,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.53125,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.141379
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.062821,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.538462,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.375
+        }
+      }
+    },
+    {
+      "setting": "tau120_free",
+      "tau_s": 120.0,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.085487,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.684211,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.390244
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.03159,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.484375,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.106897
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.073237,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.461538,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.333333
+        }
+      }
+    },
+    {
+      "setting": "tau300_free",
+      "tau_s": 300.0,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.105849,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.684211,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.268293
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.04273,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.390625,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.096552
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.08039,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.538462,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.208333
+        }
+      }
+    },
+    {
+      "setting": "tau600_free",
+      "tau_s": 600.0,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.108064,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.631579,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.195122
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.055494,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.40625,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.086207
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.08239,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.538462,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.083333
+        }
+      }
+    },
+    {
+      "setting": "tau1800_free",
+      "tau_s": 1800.0,
+      "guard": false,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.110411,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.421053,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.04878
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.067321,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.1875,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.062069
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.084719,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.538462,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.041667
+        }
+      }
+    },
+    {
+      "setting": "tau60_guarded",
+      "tau_s": 60.0,
+      "guard": true,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.121137,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.210526,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.073171
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.067114,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.125,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.068966
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.081691,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.230769,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.166667
+        }
+      }
+    },
+    {
+      "setting": "tau120_guarded",
+      "tau_s": 120.0,
+      "guard": true,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.121319,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.210526,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.073171
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.067261,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.125,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.055172
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.081775,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.230769,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.125
+        }
+      }
+    },
+    {
+      "setting": "tau300_guarded",
+      "tau_s": 300.0,
+      "guard": true,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.121616,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.210526,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.04878
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.067738,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.109375,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.041379
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.082618,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.230769,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.083333
+        }
+      }
+    },
+    {
+      "setting": "tau600_guarded",
+      "tau_s": 600.0,
+      "guard": true,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.122457,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.210526,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.04878
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.068534,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.09375,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.037931
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.08298,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.230769,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.083333
+        }
+      }
+    },
+    {
+      "setting": "tau1800_guarded",
+      "tau_s": 1800.0,
+      "guard": true,
+      "phases": {
+        "climb": {
+          "share_of_time_off_norm": 0.124122,
+          "gradual_events": 209,
+          "gradual_seen_unadapted": 19,
+          "gradual_absorbed": 0.157895,
+          "abrupt_events": 434,
+          "abrupt_seen_unadapted": 41,
+          "abrupt_absorbed": 0.0
+        },
+        "cruise": {
+          "share_of_time_off_norm": 0.070798,
+          "gradual_events": 537,
+          "gradual_seen_unadapted": 64,
+          "gradual_absorbed": 0.09375,
+          "abrupt_events": 1067,
+          "abrupt_seen_unadapted": 290,
+          "abrupt_absorbed": 0.027586
+        },
+        "descent": {
+          "share_of_time_off_norm": 0.083628,
+          "gradual_events": 183,
+          "gradual_seen_unadapted": 13,
+          "gradual_absorbed": 0.230769,
+          "abrupt_events": 343,
+          "abrupt_seen_unadapted": 24,
+          "abrupt_absorbed": 0.041667
+        }
+      }
+    }
+  ],
+  "peak_rss_mb_main_process": 340.819968,
+  "peak_rss_mb_largest_worker": 162.234368
+}
