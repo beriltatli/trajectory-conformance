@@ -1,0 +1,1235 @@
+{
+  "events": 2871,
+  "classes": [
+    "detected",
+    "onset_in_alert",
+    "below_threshold",
+    "not_persistent",
+    "masked"
+  ],
+  "by_kind_magnitude_phase": [
+    {
+      "kind": "lateral",
+      "magnitude": 2.0,
+      "phase": "climb",
+      "events": 29,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.068966,
+      "imm_conformance": {
+        "detected": 0.0,
+        "onset_in_alert": 0.034483,
+        "below_threshold": 0.965517,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.034483,
+        "onset_in_alert": 0.068966,
+        "below_threshold": 0.827586,
+        "not_persistent": 0.0,
+        "masked": 0.068966
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.059024,
+        "share_below_1": 1.0
+      },
+      "imm_first_channel": {
+        "track_error": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 2.0,
+      "phase": "cruise",
+      "events": 103,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.145631,
+      "imm_conformance": {
+        "detected": 0.029126,
+        "onset_in_alert": 0.07767,
+        "below_threshold": 0.883495,
+        "not_persistent": 0.009709,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.019417,
+        "onset_in_alert": 0.067961,
+        "below_threshold": 0.893204,
+        "not_persistent": 0.0,
+        "masked": 0.019417
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.119351,
+        "share_below_1": 0.932039
+      },
+      "imm_first_channel": {
+        "vertical_rate": 2,
+        "track_error": 2,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 2.0,
+      "phase": "descent",
+      "events": 49,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.428571,
+      "imm_conformance": {
+        "detected": 0.081633,
+        "onset_in_alert": 0.102041,
+        "below_threshold": 0.77551,
+        "not_persistent": 0.0,
+        "masked": 0.040816
+      },
+      "fixed_threshold": {
+        "detected": 0.020408,
+        "onset_in_alert": 0.040816,
+        "below_threshold": 0.897959,
+        "not_persistent": 0.0,
+        "masked": 0.040816
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.097681,
+        "share_below_1": 0.877551
+      },
+      "imm_first_channel": {
+        "track_error": 5,
+        "ground_speed": 2
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 5.0,
+      "phase": "climb",
+      "events": 52,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.038462,
+      "imm_conformance": {
+        "detected": 0.115385,
+        "onset_in_alert": 0.211538,
+        "below_threshold": 0.673077,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.192308,
+        "onset_in_alert": 0.057692,
+        "below_threshold": 0.730769,
+        "not_persistent": 0.0,
+        "masked": 0.019231
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.227497,
+        "share_below_1": 0.846154
+      },
+      "imm_first_channel": {
+        "track_error": 4,
+        "cross_track": 3,
+        "altitude": 1,
+        "vertical_rate": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 5.0,
+      "phase": "cruise",
+      "events": 103,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.029126,
+      "imm_conformance": {
+        "detected": 0.097087,
+        "onset_in_alert": 0.087379,
+        "below_threshold": 0.776699,
+        "not_persistent": 0.029126,
+        "masked": 0.009709
+      },
+      "fixed_threshold": {
+        "detected": 0.126214,
+        "onset_in_alert": 0.029126,
+        "below_threshold": 0.834951,
+        "not_persistent": 0.0,
+        "masked": 0.009709
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.255165,
+        "share_below_1": 0.893204
+      },
+      "imm_first_channel": {
+        "track_error": 7,
+        "cross_track": 6,
+        "ground_speed": 4,
+        "vertical_rate": 2,
+        "altitude": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 5.0,
+      "phase": "descent",
+      "events": 33,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.090909,
+      "imm_conformance": {
+        "detected": 0.090909,
+        "onset_in_alert": 0.181818,
+        "below_threshold": 0.727273,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.151515,
+        "onset_in_alert": 0.030303,
+        "below_threshold": 0.818182,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.312261,
+        "share_below_1": 0.818182
+      },
+      "imm_first_channel": {
+        "track_error": 2,
+        "vertical_rate": 1,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 10.0,
+      "phase": "climb",
+      "events": 54,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.018519,
+      "imm_conformance": {
+        "detected": 0.12963,
+        "onset_in_alert": 0.092593,
+        "below_threshold": 0.740741,
+        "not_persistent": 0.018519,
+        "masked": 0.018519
+      },
+      "fixed_threshold": {
+        "detected": 0.592593,
+        "onset_in_alert": 0.055556,
+        "below_threshold": 0.333333,
+        "not_persistent": 0.0,
+        "masked": 0.018519
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.346234,
+        "share_below_1": 0.87037
+      },
+      "imm_first_channel": {
+        "track_error": 6,
+        "cross_track": 4,
+        "ground_speed": 1,
+        "altitude": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 10.0,
+      "phase": "cruise",
+      "events": 109,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.137615,
+        "onset_in_alert": 0.055046,
+        "below_threshold": 0.715596,
+        "not_persistent": 0.045872,
+        "masked": 0.045872
+      },
+      "fixed_threshold": {
+        "detected": 0.577982,
+        "onset_in_alert": 0.06422,
+        "below_threshold": 0.348624,
+        "not_persistent": 0.0,
+        "masked": 0.009174
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.552656,
+        "share_below_1": 0.807339
+      },
+      "imm_first_channel": {
+        "track_error": 17,
+        "ground_speed": 6,
+        "vertical_rate": 3,
+        "altitude": 1,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 10.0,
+      "phase": "descent",
+      "events": 37,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.054054,
+      "imm_conformance": {
+        "detected": 0.054054,
+        "onset_in_alert": 0.135135,
+        "below_threshold": 0.810811,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.351351,
+        "onset_in_alert": 0.135135,
+        "below_threshold": 0.513514,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.331659,
+        "share_below_1": 0.864865
+      },
+      "imm_first_channel": {
+        "track_error": 3
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 20.0,
+      "phase": "climb",
+      "events": 40,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.375,
+        "onset_in_alert": 0.175,
+        "below_threshold": 0.375,
+        "not_persistent": 0.025,
+        "masked": 0.05
+      },
+      "fixed_threshold": {
+        "detected": 0.725,
+        "onset_in_alert": 0.125,
+        "below_threshold": 0.15,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.809611,
+        "share_below_1": 0.575
+      },
+      "imm_first_channel": {
+        "track_error": 12,
+        "cross_track": 5,
+        "ground_speed": 2,
+        "altitude": 1,
+        "vertical_rate": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 20.0,
+      "phase": "cruise",
+      "events": 116,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.008621,
+      "imm_conformance": {
+        "detected": 0.310345,
+        "onset_in_alert": 0.094828,
+        "below_threshold": 0.491379,
+        "not_persistent": 0.043103,
+        "masked": 0.060345
+      },
+      "fixed_threshold": {
+        "detected": 0.810345,
+        "onset_in_alert": 0.043103,
+        "below_threshold": 0.12931,
+        "not_persistent": 0.008621,
+        "masked": 0.008621
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.917658,
+        "share_below_1": 0.577586
+      },
+      "imm_first_channel": {
+        "track_error": 36,
+        "ground_speed": 10,
+        "cross_track": 4,
+        "vertical_rate": 4,
+        "eta": 1
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 20.0,
+      "phase": "descent",
+      "events": 36,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.027778,
+      "imm_conformance": {
+        "detected": 0.25,
+        "onset_in_alert": 0.083333,
+        "below_threshold": 0.555556,
+        "not_persistent": 0.027778,
+        "masked": 0.083333
+      },
+      "fixed_threshold": {
+        "detected": 0.666667,
+        "onset_in_alert": 0.111111,
+        "below_threshold": 0.194444,
+        "not_persistent": 0.027778,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.749289,
+        "share_below_1": 0.666667
+      },
+      "imm_first_channel": {
+        "track_error": 8,
+        "ground_speed": 3,
+        "cross_track": 3
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 30.0,
+      "phase": "climb",
+      "events": 47,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.382979,
+        "onset_in_alert": 0.106383,
+        "below_threshold": 0.468085,
+        "not_persistent": 0.0,
+        "masked": 0.042553
+      },
+      "fixed_threshold": {
+        "detected": 0.744681,
+        "onset_in_alert": 0.085106,
+        "below_threshold": 0.042553,
+        "not_persistent": 0.0,
+        "masked": 0.12766
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.877268,
+        "share_below_1": 0.617021
+      },
+      "imm_first_channel": {
+        "track_error": 12,
+        "cross_track": 7,
+        "altitude": 2,
+        "vertical_rate": 2
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 30.0,
+      "phase": "cruise",
+      "events": 110,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.490909,
+        "onset_in_alert": 0.145455,
+        "below_threshold": 0.254545,
+        "not_persistent": 0.045455,
+        "masked": 0.063636
+      },
+      "fixed_threshold": {
+        "detected": 0.790909,
+        "onset_in_alert": 0.072727,
+        "below_threshold": 0.109091,
+        "not_persistent": 0.0,
+        "masked": 0.027273
+      },
+      "imm_signal_over_threshold": {
+        "median": 1.446296,
+        "share_below_1": 0.290909
+      },
+      "imm_first_channel": {
+        "track_error": 57,
+        "cross_track": 11,
+        "ground_speed": 4,
+        "vertical_rate": 4,
+        "altitude": 3
+      }
+    },
+    {
+      "kind": "lateral",
+      "magnitude": 30.0,
+      "phase": "descent",
+      "events": 39,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.307692,
+        "onset_in_alert": 0.205128,
+        "below_threshold": 0.410256,
+        "not_persistent": 0.025641,
+        "masked": 0.051282
+      },
+      "fixed_threshold": {
+        "detected": 0.769231,
+        "onset_in_alert": 0.076923,
+        "below_threshold": 0.153846,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.985636,
+        "share_below_1": 0.512821
+      },
+      "imm_first_channel": {
+        "track_error": 12,
+        "vertical_rate": 3,
+        "ground_speed": 1,
+        "altitude": 1,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 10.0,
+      "phase": "climb",
+      "events": 67,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.119403,
+      "imm_conformance": {
+        "detected": 0.014925,
+        "onset_in_alert": 0.134328,
+        "below_threshold": 0.746269,
+        "not_persistent": 0.059701,
+        "masked": 0.044776
+      },
+      "fixed_threshold": {
+        "detected": 0.029851,
+        "onset_in_alert": 0.074627,
+        "below_threshold": 0.895522,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.108918,
+        "share_below_1": 1.0
+      },
+      "imm_first_channel": {
+        "track_error": 5,
+        "ground_speed": 3,
+        "vertical_rate": 3,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 10.0,
+      "phase": "cruise",
+      "events": 180,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.15,
+      "imm_conformance": {
+        "detected": 0.033333,
+        "onset_in_alert": 0.1,
+        "below_threshold": 0.772222,
+        "not_persistent": 0.055556,
+        "masked": 0.038889
+      },
+      "fixed_threshold": {
+        "detected": 0.016667,
+        "onset_in_alert": 0.072222,
+        "below_threshold": 0.9,
+        "not_persistent": 0.0,
+        "masked": 0.011111
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.171287,
+        "share_below_1": 1.0
+      },
+      "imm_first_channel": {
+        "vertical_rate": 14,
+        "ground_speed": 11,
+        "track_error": 4,
+        "cross_track": 3,
+        "altitude": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 10.0,
+      "phase": "descent",
+      "events": 65,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.169231,
+      "imm_conformance": {
+        "detected": 0.092308,
+        "onset_in_alert": 0.107692,
+        "below_threshold": 0.753846,
+        "not_persistent": 0.030769,
+        "masked": 0.015385
+      },
+      "fixed_threshold": {
+        "detected": 0.030769,
+        "onset_in_alert": 0.107692,
+        "below_threshold": 0.8,
+        "not_persistent": 0.0,
+        "masked": 0.061538
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.139801,
+        "share_below_1": 1.0
+      },
+      "imm_first_channel": {
+        "vertical_rate": 5,
+        "ground_speed": 3,
+        "track_error": 3,
+        "altitude": 1,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 20.0,
+      "phase": "climb",
+      "events": 66,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.030303,
+        "onset_in_alert": 0.136364,
+        "below_threshold": 0.772727,
+        "not_persistent": 0.030303,
+        "masked": 0.030303
+      },
+      "fixed_threshold": {
+        "detected": 0.090909,
+        "onset_in_alert": 0.060606,
+        "below_threshold": 0.818182,
+        "not_persistent": 0.0,
+        "masked": 0.030303
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.201227,
+        "share_below_1": 0.984848
+      },
+      "imm_first_channel": {
+        "ground_speed": 5,
+        "eta": 2,
+        "vertical_rate": 1,
+        "altitude": 1,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 20.0,
+      "phase": "cruise",
+      "events": 189,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.084656,
+        "onset_in_alert": 0.095238,
+        "below_threshold": 0.740741,
+        "not_persistent": 0.042328,
+        "masked": 0.037037
+      },
+      "fixed_threshold": {
+        "detected": 0.031746,
+        "onset_in_alert": 0.05291,
+        "below_threshold": 0.899471,
+        "not_persistent": 0.005291,
+        "masked": 0.010582
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.288888,
+        "share_below_1": 0.957672
+      },
+      "imm_first_channel": {
+        "ground_speed": 17,
+        "vertical_rate": 14,
+        "track_error": 7,
+        "altitude": 2,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 20.0,
+      "phase": "descent",
+      "events": 56,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.017857,
+      "imm_conformance": {
+        "detected": 0.089286,
+        "onset_in_alert": 0.142857,
+        "below_threshold": 0.75,
+        "not_persistent": 0.0,
+        "masked": 0.017857
+      },
+      "fixed_threshold": {
+        "detected": 0.053571,
+        "onset_in_alert": 0.089286,
+        "below_threshold": 0.803571,
+        "not_persistent": 0.017857,
+        "masked": 0.035714
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.22446,
+        "share_below_1": 0.982143
+      },
+      "imm_first_channel": {
+        "track_error": 3,
+        "ground_speed": 3,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 40.0,
+      "phase": "climb",
+      "events": 84,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.107143,
+        "onset_in_alert": 0.095238,
+        "below_threshold": 0.738095,
+        "not_persistent": 0.02381,
+        "masked": 0.035714
+      },
+      "fixed_threshold": {
+        "detected": 0.02381,
+        "onset_in_alert": 0.083333,
+        "below_threshold": 0.845238,
+        "not_persistent": 0.0,
+        "masked": 0.047619
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.357539,
+        "share_below_1": 0.988095
+      },
+      "imm_first_channel": {
+        "ground_speed": 7,
+        "track_error": 2,
+        "cross_track": 2,
+        "altitude": 2,
+        "vertical_rate": 2,
+        "eta": 2
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 40.0,
+      "phase": "cruise",
+      "events": 185,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.172973,
+        "onset_in_alert": 0.086486,
+        "below_threshold": 0.659459,
+        "not_persistent": 0.027027,
+        "masked": 0.054054
+      },
+      "fixed_threshold": {
+        "detected": 0.016216,
+        "onset_in_alert": 0.054054,
+        "below_threshold": 0.924324,
+        "not_persistent": 0.0,
+        "masked": 0.005405
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.474478,
+        "share_below_1": 0.924324
+      },
+      "imm_first_channel": {
+        "ground_speed": 31,
+        "vertical_rate": 14,
+        "track_error": 5,
+        "altitude": 2,
+        "cross_track": 2,
+        "eta": 1
+      }
+    },
+    {
+      "kind": "longitudinal",
+      "magnitude": 40.0,
+      "phase": "descent",
+      "events": 65,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.092308,
+        "onset_in_alert": 0.138462,
+        "below_threshold": 0.692308,
+        "not_persistent": 0.030769,
+        "masked": 0.046154
+      },
+      "fixed_threshold": {
+        "detected": 0.076923,
+        "onset_in_alert": 0.046154,
+        "below_threshold": 0.815385,
+        "not_persistent": 0.0,
+        "masked": 0.061538
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.331128,
+        "share_below_1": 0.892308
+      },
+      "imm_first_channel": {
+        "track_error": 9,
+        "ground_speed": 4,
+        "vertical_rate": 2
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 250.0,
+      "phase": "climb",
+      "events": 62,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.080645,
+        "onset_in_alert": 0.080645,
+        "below_threshold": 0.83871,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.032258,
+        "below_threshold": 0.951613,
+        "not_persistent": 0.0,
+        "masked": 0.016129
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.024325,
+        "share_below_1": 0.919355
+      },
+      "imm_first_channel": {
+        "vertical_rate": 5,
+        "altitude": 2
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 250.0,
+      "phase": "cruise",
+      "events": 148,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.324324,
+        "onset_in_alert": 0.094595,
+        "below_threshold": 0.540541,
+        "not_persistent": 0.013514,
+        "masked": 0.027027
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.101351,
+        "below_threshold": 0.898649,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.264872,
+        "share_below_1": 0.601351
+      },
+      "imm_first_channel": {
+        "vertical_rate": 60,
+        "eta": 1,
+        "ground_speed": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 250.0,
+      "phase": "descent",
+      "events": 37,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.054054,
+        "onset_in_alert": 0.27027,
+        "below_threshold": 0.621622,
+        "not_persistent": 0.027027,
+        "masked": 0.027027
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.081081,
+        "below_threshold": 0.918919,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.032387,
+        "share_below_1": 0.891892
+      },
+      "imm_first_channel": {
+        "vertical_rate": 4,
+        "ground_speed": 2
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 500.0,
+      "phase": "climb",
+      "events": 49,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.122449,
+        "onset_in_alert": 0.061224,
+        "below_threshold": 0.77551,
+        "not_persistent": 0.020408,
+        "masked": 0.020408
+      },
+      "fixed_threshold": {
+        "detected": 0.020408,
+        "onset_in_alert": 0.081633,
+        "below_threshold": 0.877551,
+        "not_persistent": 0.0,
+        "masked": 0.020408
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.053896,
+        "share_below_1": 0.816327
+      },
+      "imm_first_channel": {
+        "vertical_rate": 9,
+        "ground_speed": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 500.0,
+      "phase": "cruise",
+      "events": 146,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.308219,
+        "onset_in_alert": 0.075342,
+        "below_threshold": 0.582192,
+        "not_persistent": 0.013699,
+        "masked": 0.020548
+      },
+      "fixed_threshold": {
+        "detected": 0.020548,
+        "onset_in_alert": 0.061644,
+        "below_threshold": 0.910959,
+        "not_persistent": 0.0,
+        "masked": 0.006849
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.505291,
+        "share_below_1": 0.623288
+      },
+      "imm_first_channel": {
+        "vertical_rate": 51,
+        "altitude": 3,
+        "track_error": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 500.0,
+      "phase": "descent",
+      "events": 54,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.055556,
+        "onset_in_alert": 0.111111,
+        "below_threshold": 0.759259,
+        "not_persistent": 0.0,
+        "masked": 0.074074
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.037037,
+        "below_threshold": 0.925926,
+        "not_persistent": 0.037037,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.060808,
+        "share_below_1": 0.87037
+      },
+      "imm_first_channel": {
+        "vertical_rate": 7,
+        "track_error": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 1000.0,
+      "phase": "climb",
+      "events": 58,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.103448,
+        "onset_in_alert": 0.172414,
+        "below_threshold": 0.689655,
+        "not_persistent": 0.017241,
+        "masked": 0.017241
+      },
+      "fixed_threshold": {
+        "detected": 0.034483,
+        "onset_in_alert": 0.051724,
+        "below_threshold": 0.896552,
+        "not_persistent": 0.0,
+        "masked": 0.017241
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.074504,
+        "share_below_1": 0.87931
+      },
+      "imm_first_channel": {
+        "vertical_rate": 10,
+        "cross_track": 1,
+        "ground_speed": 1,
+        "eta": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 1000.0,
+      "phase": "cruise",
+      "events": 138,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.398551,
+        "onset_in_alert": 0.072464,
+        "below_threshold": 0.492754,
+        "not_persistent": 0.021739,
+        "masked": 0.014493
+      },
+      "fixed_threshold": {
+        "detected": 0.036232,
+        "onset_in_alert": 0.057971,
+        "below_threshold": 0.884058,
+        "not_persistent": 0.0,
+        "masked": 0.021739
+      },
+      "imm_signal_over_threshold": {
+        "median": 1.012949,
+        "share_below_1": 0.492754
+      },
+      "imm_first_channel": {
+        "vertical_rate": 65,
+        "altitude": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 1000.0,
+      "phase": "descent",
+      "events": 47,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.042553,
+        "onset_in_alert": 0.148936,
+        "below_threshold": 0.787234,
+        "not_persistent": 0.0,
+        "masked": 0.021277
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.06383,
+        "below_threshold": 0.93617,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.09573,
+        "share_below_1": 0.957447
+      },
+      "imm_first_channel": {
+        "track_error": 2,
+        "vertical_rate": 2,
+        "cross_track": 1
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 2000.0,
+      "phase": "climb",
+      "events": 48,
+      "violation_within_2_fixes": 0.020833,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.104167,
+        "onset_in_alert": 0.229167,
+        "below_threshold": 0.645833,
+        "not_persistent": 0.0,
+        "masked": 0.020833
+      },
+      "fixed_threshold": {
+        "detected": 0.020833,
+        "onset_in_alert": 0.125,
+        "below_threshold": 0.854167,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.199057,
+        "share_below_1": 0.75
+      },
+      "imm_first_channel": {
+        "vertical_rate": 10,
+        "altitude": 2
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 2000.0,
+      "phase": "cruise",
+      "events": 123,
+      "violation_within_2_fixes": 0.0,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.520325,
+        "onset_in_alert": 0.056911,
+        "below_threshold": 0.382114,
+        "not_persistent": 0.03252,
+        "masked": 0.00813
+      },
+      "fixed_threshold": {
+        "detected": 0.03252,
+        "onset_in_alert": 0.065041,
+        "below_threshold": 0.902439,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "imm_signal_over_threshold": {
+        "median": 1.760115,
+        "share_below_1": 0.398374
+      },
+      "imm_first_channel": {
+        "vertical_rate": 70
+      }
+    },
+    {
+      "kind": "vertical",
+      "magnitude": 2000.0,
+      "phase": "descent",
+      "events": 47,
+      "violation_within_2_fixes": 0.021277,
+      "never_violates": 0.0,
+      "imm_conformance": {
+        "detected": 0.085106,
+        "onset_in_alert": 0.12766,
+        "below_threshold": 0.787234,
+        "not_persistent": 0.0,
+        "masked": 0.0
+      },
+      "fixed_threshold": {
+        "detected": 0.0,
+        "onset_in_alert": 0.106383,
+        "below_threshold": 0.829787,
+        "not_persistent": 0.0,
+        "masked": 0.06383
+      },
+      "imm_signal_over_threshold": {
+        "median": 0.236113,
+        "share_below_1": 0.87234
+      },
+      "imm_first_channel": {
+        "vertical_rate": 4
+      }
+    }
+  ],
+  "overall": {
+    "imm_conformance": {
+      "detected": 0.181818,
+      "onset_in_alert": 0.10728,
+      "below_threshold": 0.655172,
+      "not_persistent": 0.025078,
+      "masked": 0.030651
+    },
+    "fixed_threshold": {
+      "detected": 0.169627,
+      "onset_in_alert": 0.067572,
+      "below_threshold": 0.742947,
+      "not_persistent": 0.00209,
+      "masked": 0.017764
+    },
+    "lateral": {
+      "imm_conformance": {
+        "detected": 0.202717,
+        "onset_in_alert": 0.110763,
+        "below_threshold": 0.629049,
+        "not_persistent": 0.024033,
+        "masked": 0.033438
+      },
+      "fixed_threshold": {
+        "detected": 0.458725,
+        "onset_in_alert": 0.064786,
+        "below_threshold": 0.453501,
+        "not_persistent": 0.00209,
+        "masked": 0.020899
+      },
+      "violation_within_2_fixes": 0.0,
+      "imm_first_channel": {
+        "track_error": 184,
+        "cross_track": 47,
+        "ground_speed": 33,
+        "vertical_rate": 23,
+        "altitude": 11,
+        "eta": 1
+      }
+    },
+    "longitudinal": {
+      "imm_conformance": {
+        "detected": 0.086729,
+        "onset_in_alert": 0.106583,
+        "below_threshold": 0.731452,
+        "not_persistent": 0.036573,
+        "masked": 0.038662
+      },
+      "fixed_threshold": {
+        "detected": 0.033438,
+        "onset_in_alert": 0.066876,
+        "below_threshold": 0.875653,
+        "not_persistent": 0.00209,
+        "masked": 0.021944
+      },
+      "violation_within_2_fixes": 0.0,
+      "imm_first_channel": {
+        "ground_speed": 84,
+        "vertical_rate": 55,
+        "track_error": 38,
+        "cross_track": 12,
+        "altitude": 9,
+        "eta": 5
+      }
+    },
+    "vertical": {
+      "imm_conformance": {
+        "detected": 0.256008,
+        "onset_in_alert": 0.104493,
+        "below_threshold": 0.605016,
+        "not_persistent": 0.014629,
+        "masked": 0.019854
+      },
+      "fixed_threshold": {
+        "detected": 0.016719,
+        "onset_in_alert": 0.071055,
+        "below_threshold": 0.899687,
+        "not_persistent": 0.00209,
+        "masked": 0.010449
+      },
+      "violation_within_2_fixes": 0.00209,
+      "imm_first_channel": {
+        "vertical_rate": 297,
+        "altitude": 8,
+        "ground_speed": 5,
+        "track_error": 4,
+        "cross_track": 2,
+        "eta": 2
+      }
+    }
+  }
+}

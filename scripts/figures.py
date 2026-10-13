@@ -3,6 +3,7 @@
     python -m scripts.figures phase2   figures/phase2_nis.png, figures/phase2_mode_probability.png
     python -m scripts.figures phase4   figures/phase4_alert_vs_detection.png
     python -m scripts.figures phase5   figures/phase5_drift_tradeoff.png
+    python -m scripts.figures phase6   figures/phase6_detectability.png
 """
 
 import argparse
@@ -298,6 +299,59 @@ def phase5(cfg: dict) -> list[str]:
     return [str(path)]
 
 
+# Why an event is missed (evaluate/breakdown.py), merged into four groups for the figure.
+MISS_GROUPS = (
+    ("detected", ("detected",), SERIES[0]),
+    ("flight already in alert", ("onset_in_alert",), SERIES[1]),
+    ("lost to persistence / hold-off", ("not_persistent", "masked"), MUTED),
+    ("never rarer than the threshold", ("below_threshold",), BAND),
+)
+
+
+def phase6(cfg: dict) -> list[str]:
+    ev = cfg["evaluation"]
+    result = json.loads(repo_path("results/phase6_detectability.json").read_text())
+    rows = result["by_kind_magnitude_phase"]
+    units = {"lateral": "deg", "vertical": "ft/min", "longitudinal": "kt"}
+    keys = sorted({(r["kind"], r["magnitude"]) for r in rows}, key=lambda k: (("lateral", "vertical", "longitudinal").index(k[0]), k[1]))
+    detectors = (("imm_conformance", "IMM conformance monitor"), ("fixed_threshold", "fixed cross-track distance"))
+    fig, axes = plt.subplots(1, 2, figsize=(12, 7.2), sharey=True, facecolor=SURFACE)
+    y = np.arange(len(keys))[::-1]
+    for ax, (name, label) in zip(axes, detectors):
+        _style(ax)
+        ax.grid(False)
+        left = np.zeros(len(keys))
+        for group, classes, color in MISS_GROUPS:
+            share = np.array([
+                sum(r["events"] * sum(r[name][c] for c in classes) for r in rows if (r["kind"], r["magnitude"]) == k)
+                / sum(r["events"] for r in rows if (r["kind"], r["magnitude"]) == k)
+                for k in keys])
+            ax.barh(y, share, left=left, color=color, height=0.72, label=group, edgecolor=SURFACE, linewidth=0.8)
+            if group == "detected":
+                for yi, v in zip(y, share):
+                    ax.annotate(f"{v:.2f}", (1.0, yi), xytext=(4, 0), textcoords="offset points", va="center", fontsize=8,
+                                color=SERIES[0], annotation_clip=False)
+            left += share
+        ax.set_xlim(0, 1)
+        ax.set_title(label, color=TEXT, fontsize=10, loc="left")
+        ax.set_xlabel("share of injected events (climb, cruise and descent pooled)", color=TEXT_SECONDARY, fontsize=9)
+    axes[0].set_yticks(y, [f"{k[0]} {k[1]:g} {units[k[0]]}" for k in keys])
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=4, frameon=False, fontsize=9, labelcolor=TEXT)
+    fast = sum(r["events"] * r["violation_within_2_fixes"] for r in rows) / sum(r["events"] for r in rows)
+    fig.suptitle(f"Why injected deviations are missed: every event on {ev['test_days'][0]}, at the operating point chosen on "
+                 f"{ev['tune_days'][0]} for {ev['alert_budget_per_flight_hour']:g} false alerts per flight-hour "
+                 f"(blue numbers: detection rate).\nLight grey: the deviation never makes the score rarer than that threshold, "
+                 f"so no alert logic on the same score could flag it. The 10 s update rate is not\nthe limit: "
+                 f"{100 * fast:.2f}% of events violate 1 NM / 300 ft within two fixes of onset.",
+                 color=TEXT, fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.05, 0.98, 0.92))
+    path = repo_path("figures/phase6_detectability.png")
+    _save(fig, path, cfg)
+    plt.close(fig)
+    return [str(path)]
+
+
 def _save(fig, path, cfg: dict) -> None:
     # A smoke run on synthetic traffic must never be mistaken for a result.
     if "synthetic" in cfg:
@@ -307,9 +361,9 @@ def _save(fig, path, cfg: dict) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["phase2", "phase4", "phase5"])
+    parser.add_argument("command", choices=["phase2", "phase4", "phase5", "phase6"])
     args = parser.parse_args()
-    for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5}[args.command](load_config()):
+    for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5, "phase6": phase6}[args.command](load_config()):
         print(path)
 
 

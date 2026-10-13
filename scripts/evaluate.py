@@ -22,6 +22,9 @@
                                          the trade-off -> results/phase5_drift_tradeoff.json;
                                          every setting read on the unadapted scale
                                          -> results/phase5_drift_absorption.json
+    python -m scripts.evaluate breakdown phase 6: every test-day event of the IMM monitor and the fixed
+                                         distance at their budget points, classed by why it was or
+                                         was not detected -> results/phase6_detectability.json
     python -m scripts.evaluate streaming phase 4: monitor scores pushed in random chunks against
                                          whole flights -> results/phase4_streaming_equivalence.json
 """
@@ -42,6 +45,7 @@ from conform.phase import PHASE_NAMES, segment_phases
 from drift.calibrate import fit_adapted_tails
 from drift.calibrate import save as save_tails
 from drift.detector import AdaptiveConformance
+from evaluate.breakdown import breakdown as event_breakdown
 from evaluate.conform_checks import score_streaming_gap
 from evaluate.drift import settings as drift_settings
 from evaluate.drift import absorption, tradeoff
@@ -220,7 +224,7 @@ def streaming(cfg: dict, flights: int) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming"])
+    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming", "breakdown"])
     parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
@@ -239,6 +243,11 @@ def main() -> None:
         return
     if args.command == "drift":
         drift(cfg, args.workers)
+        return
+    if args.command == "breakdown":
+        result = event_breakdown(cfg, args.workers)
+        repo_path("results/phase6_detectability.json").write_text(json.dumps(json_ready(result), indent=2))
+        print(json.dumps(json_ready(result["overall"]), indent=1))
         return
     if args.command == "streaming":
         streaming(cfg, flights=300)

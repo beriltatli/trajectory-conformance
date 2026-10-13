@@ -602,3 +602,48 @@ loads from cdn.jsdelivr.net.
 - **Not published.** The export holds OpenSky data, so it stays in `data/` and the replay is
   served on localhost only (DATA.md, sec. 3.iii). Flights are numbered T0001... in start order;
   no icao24 or callsign is exported.
+
+## Phase 6 — what limits detection
+
+`python -m scripts.evaluate breakdown` (`evaluate/breakdown.py`, `results/phase6_detectability.json`,
+`figures/phase6_detectability.png`). Each of the 2,871 test-day events of phase 4 is put in
+one class for the IMM monitor and for the fixed distance, at their budget points. The
+breakdown's detected share equals the suite's detection rate in every phase for both detectors
+(IMM 0.122 / 0.233 / 0.103, fixed distance 0.184 / 0.172 / 0.147), so it is the same
+computation, not a re-implementation.
+
+| class | meaning |
+|---|---|
+| detected | the suite's rule |
+| onset in alert | the uninjected flight is in alert for the whole 600 s window; nothing can be attributed |
+| below threshold | no row where the injected flight exceeds the operating threshold and the uninjected one does not |
+| not persistent / masked | attributable exceedances exist, but never two in a row, or every alert start is inside the flight's own alert |
+
+Shares over all events (IMM / fixed distance):
+
+| kind | detected | onset in alert | below threshold | not persistent + masked |
+|---|---|---|---|---|
+| lateral | 0.20 / 0.46 | 0.11 / 0.06 | 0.63 / 0.45 | 0.06 / 0.02 |
+| vertical | 0.26 / 0.02 | 0.10 / 0.07 | 0.61 / 0.90 | 0.03 / 0.01 |
+| longitudinal | 0.09 / 0.03 | 0.11 / 0.07 | 0.73 / 0.88 | 0.08 / 0.02 |
+
+- **The update rate is not the limit.** 2 of 2,871 events (0.07%) reach 1 NM or 300 ft within
+  two fixes of onset, the only ones no alert with 2-update persistence could precede. Events
+  that never violate within the horizon are 15% of 10 kt longitudinal and up to 43% of 2 deg
+  lateral in descent (the flight lands first).
+- **The corridor is.** For both detectors most missed events are below threshold: the
+  deviation never becomes rarer, against the reference norms, than the 2 per flight-hour budget
+  allows. The largest change an injection makes in its own channels, over the residual at the
+  IMM threshold (both in station sd), has a median below 1 for every kind, magnitude and phase
+  except lateral 30 deg in cruise (1.45) and vertical 1,000 and 2,000 ft/min in cruise (1.01,
+  1.76). The norms are wide because a 50 km gate pair mixes flows (phase 4: median station sd
+  4.2 km cross-track), and the tails are heavy: at the thresholds (scores 1.85-2.0) a residual must reach
+  17.6-22.8 sd cross-track, 13.2-16.6 sd track error or 33-45 sd vertical rate.
+- **Alert logic costs little.** Persistence and hold-off lose 3-8% of events; 10-11% start
+  while the uninjected flight is in alert for the whole window (IMM).
+- **Where the IMM monitor is weak, and where it is not.** On lateral offsets of 10 deg or more
+  the fixed distance detects 0.54-0.78 against the monitor's 0.12-0.43; on vertical rate offsets
+  the monitor detects 0.22-0.33 and the fixed distance 0.00-0.03. The monitor flags lateral
+  events first through track error (184 events) more than cross-track (47), and vertical ones
+  through vertical rate (297 of 318). The two detectors fail on different events, which is what
+  phase 6's fused detector tests.
