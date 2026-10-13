@@ -50,6 +50,7 @@ def result_path(adaptation: Adaptation) -> str:
 
 
 def tradeoff(cfg: dict) -> dict:
+    budget_rate = cfg["evaluation"]["alert_budget_per_flight_hour"]
     points = []
     for adaptation in [UNADAPTED, *settings(cfg)]:
         summary = json.loads(repo_path(result_path(adaptation)).read_text())
@@ -68,10 +69,21 @@ def tradeoff(cfg: dict) -> dict:
                 "gradual_events": r["gradual_events"],
                 "median_lead_gradual_s": r["lead_time_s"].get("median"),
                 "alerts_per_detected_event": r["alerts_per_detected_event"],
+                "sweep_detection_within_budget_on_test_day": _sweep_detection_within(summary["sweep"]["test"], phase, budget_rate),
             }
         points.append(point)
     return {"budget_per_flight_hour": cfg["evaluation"]["alert_budget_per_flight_hour"], "guard_score": cfg["drift"]["guard_score"],
             "cap_sd": cfg["drift"]["cap_sd"], "points": points}
+
+
+def _sweep_detection_within(sweep: dict, phase: str, budget_rate: float) -> float | None:
+    """Best test-day detection among thresholds whose test-day rate is within the budget. Read off
+    the test day itself, so not an operating point anyone could deploy; it compares settings at an
+    equal alert rate, which their tune-day budget points do not."""
+    fa = np.asarray(sweep["false_alerts_per_flight_hour"][phase], float)
+    det = np.asarray(sweep["detection_rate"][phase], float)
+    ok = fa <= budget_rate
+    return float(np.nanmax(det[ok])) if ok.any() else None
 
 
 def _ratio(num: int, den: int) -> float | None:

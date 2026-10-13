@@ -177,3 +177,77 @@ state the resolution limit of the tail.
   monitor's test-day rate is 2.15-2.79 per flight-hour (was 3.4-5.0) at unchanged thresholds,
   and its detection fell to 0.103-0.233 (was 0.149-0.262): part of the earlier detection was
   the same optimism. The remaining overshoot is the week between the two days.
+
+## Gate 5 — drift: per-flight adaptation
+
+Answered. Condensed and translated from Turkish; corrections follow each answer.
+
+**Q1.** Adaptation removes a flight's offset and narrows the residuals markedly. Why does it
+still not lower the false-alert rate at its own budget point, and what has the rarity score
+to do with it?
+
+*Answer.* The score measures rank among normal flights, not size: "what share of normal data
+is larger than this". The threshold is chosen so that a set share of normal data exceeds it, so
+the false-alert rate at the budget point is the budget by definition; however much adaptation
+narrows the residuals, the threshold is re-chosen on the same narrowed distribution. Halve every
+grade in a class and the bottom 10% are the same students. The benefit of adaptation, if any,
+shows in detection at the same false-alert rate: it helps only if it narrows normal residuals
+more than anomalous ones.
+
+*Correction.* The mechanism and the conclusion are right. Three corrections:
+- The rate is not the budget by definition. Refitted tails fix the share of *fixes* a score
+  threshold flags. Alerts per flight-hour count something else: exceedances after persistence,
+  hold-off and re-presentation, so they depend on how exceedances cluster in time. Adaptation
+  changes that (long episodes become shorter ones), which is why the settings' rates at their
+  budget points range from 1.88 to 3.16 on the test day. And the test day is not where the
+  threshold was chosen.
+- The grades analogy fits a uniform rescale; adaptation is not one. It subtracts each flight's
+  own offset, which reorders fixes across flights: a flight that holds a persistent offset drops
+  in rank. Any benefit would have to come from that reordering.
+- The comparison you asked for. At the budget points the settings sit at different alert rates,
+  so a fair reading is at equal rate: the best test-day detection among thresholds within 2 per
+  flight-hour on the test sweep (`results/phase5_drift_tradeoff.json`; read off the test day,
+  so not deployable). No adaptation 0.066 / 0.215 / 0.073 (climb / cruise / descent); guarded,
+  any tau, 0.064 / 0.210-0.213 / 0.067-0.069; unguarded 0.044-0.069 / 0.170-0.212 /
+  0.046-0.092. Adaptation does not separate better. Unguarded, it shrinks the anomalies too: it
+  hides 6-14% of the abrupt cruise events and 19-53% of the slow ones that the unadapted monitor
+  shows.
+
+**Q2.** How far behind a ramp of constant slope does an unguarded adaptation with tau = 300 s
+run? Below what slope does a deviation never cross the threshold? Why does the cap, not tau,
+decide how much a guarded setting absorbs?
+
+*Answer.* The offset is a first-order (exponentially weighted) filter. Behind a ramp of slope s
+it settles at a lag of s x tau, so the residual never exceeds s x tau however long the ramp runs.
+With the threshold at residual level theta, an alert needs s x tau > theta, so every ramp
+slower than s* = theta / tau is absorbed forever; with theta = 300 m and tau = 300 s, 1 m/s,
+which is 3.6 km an hour unalerted. The guard caps the offset at C: the filter follows with lag
+tau until the offset reaches C, then every further metre goes into the residual, which grows
+without bound and crosses the threshold. The total absorbed is at most C; tau sets only how
+fast C is reached, and a slow ramp is detected after about (C + theta) / s, in which tau does
+not appear.
+
+*Correction.* The derivation is right. Four refinements:
+- Discrete form. The offset updates once per 10 s fix and the residual of a fix uses the offset
+  from before it, so the steady residual is s x dt / (1 - exp(-dt / tau)), about
+  s x (tau + dt / 2): 305 s x s at tau = 300 s, not 300.
+- theta is not in the config. The threshold is a score: 2.0 for the unguarded 300 s setting in
+  cruise. In residual units it is a different multiple of the station spread for each
+  component: 14.6 sd cross-track, 13.2 sd track error, 309 sd altitude, 51 sd vertical rate,
+  4.6 sd ground speed, 11.8 sd ETA. In physical units it then varies with the station. Over
+  cruise-like stations (p10-p90), the cross-track threshold is 26-219 km, so s* at tau = 300 s
+  is 88-729 m/s. That is faster than any aircraft drifts, so every lateral ramp is absorbed in
+  that channel. The unadapted monitor would not see a slow lateral ramp there within the 600 s
+  horizon either. The slow deviations it does see, it sees at stations with tight norms and
+  through rate components.
+- Rate components see a step, not a ramp. A heading offset is a constant track error, and a
+  vertical rate offset is a constant vertical rate residual. The adaptation decays a step h as
+  exp(-t / tau). The step is visible for about tau x ln(h / theta) if h > theta, and never if
+  h < theta. On those channels tau sets a window in time, not a limit on slope.
+- The cap argument holds, and the data show how small C is here. C = 2 sd. The guarded 300 s
+  setting's cruise thresholds are 6.4 sd ground speed, 15.9 sd cross-track and 326 sd
+  altitude, so the cap can absorb 31%, 13% and under 1% of them. That is why every guarded setting sits within half a
+  percentage point of off-norm time of every other, and close to no adaptation. The 9-23% of
+  slow events it still hides are events just above the threshold, tipped below it by up to
+  2 sd. The freeze also acts before the cap: once the adapted residual scores above 2.0 the
+  offset stops, so a ramp with s x tau above that level is never learnt at all.

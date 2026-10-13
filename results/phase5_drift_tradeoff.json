@@ -23,7 +23,8 @@
           "gradual_detection_rate": 0.052632,
           "gradual_events": 209,
           "median_lead_gradual_s": -120.222,
-          "alerts_per_detected_event": 1.2375
+          "alerts_per_detected_event": 1.2375,
+          "sweep_detection_within_budget_on_test_day": 0.065549
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.7939,
@@ -34,7 +35,8 @@
           "gradual_detection_rate": 0.081937,
           "gradual_events": 537,
           "median_lead_gradual_s": -74.662,
-          "alerts_per_detected_event": 1.632812
+          "alerts_per_detected_event": 1.632812,
+          "sweep_detection_within_budget_on_test_day": 0.214545
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.153721,
@@ -45,7 +47,8 @@
           "gradual_detection_rate": 0.103825,
           "gradual_events": 183,
           "median_lead_gradual_s": -189.766,
-          "alerts_per_detected_event": 1.37931
+          "alerts_per_detected_event": 1.37931,
+          "sweep_detection_within_budget_on_test_day": 0.072566
         }
       }
     },
@@ -69,7 +72,8 @@
           "gradual_detection_rate": 0.052632,
           "gradual_events": 209,
           "median_lead_gradual_s": -49.989,
-          "alerts_per_detected_event": 1.328358
+          "alerts_per_detected_event": 1.328358,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.242385,
@@ -80,7 +84,8 @@
           "gradual_detection_rate": 0.081937,
           "gradual_events": 537,
           "median_lead_gradual_s": -84.8135,
-          "alerts_per_detected_event": 1.659763
+          "alerts_per_detected_event": 1.659763,
+          "sweep_detection_within_budget_on_test_day": 0.178788
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.204042,
@@ -91,7 +96,8 @@
           "gradual_detection_rate": 0.092896,
           "gradual_events": 183,
           "median_lead_gradual_s": -100.275,
-          "alerts_per_detected_event": 1.272727
+          "alerts_per_detected_event": 1.272727,
+          "sweep_detection_within_budget_on_test_day": 0.063717
         }
       }
     },
@@ -115,7 +121,8 @@
           "gradual_detection_rate": 0.062201,
           "gradual_events": 209,
           "median_lead_gradual_s": -49.989,
-          "alerts_per_detected_event": 1.338462
+          "alerts_per_detected_event": 1.338462,
+          "sweep_detection_within_budget_on_test_day": 0.054878
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.106984,
@@ -126,7 +133,8 @@
           "gradual_detection_rate": 0.081937,
           "gradual_events": 537,
           "median_lead_gradual_s": -59.8675,
-          "alerts_per_detected_event": 1.681957
+          "alerts_per_detected_event": 1.681957,
+          "sweep_detection_within_budget_on_test_day": 0.169697
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.073208,
@@ -137,7 +145,8 @@
           "gradual_detection_rate": 0.098361,
           "gradual_events": 183,
           "median_lead_gradual_s": -108.921,
-          "alerts_per_detected_event": 1.166667
+          "alerts_per_detected_event": 1.166667,
+          "sweep_detection_within_budget_on_test_day": 0.061947
         }
       }
     },
@@ -161,7 +170,8 @@
           "gradual_detection_rate": 0.066986,
           "gradual_events": 209,
           "median_lead_gradual_s": 55.18,
-          "alerts_per_detected_event": 1.362319
+          "alerts_per_detected_event": 1.362319,
+          "sweep_detection_within_budget_on_test_day": 0.044207
         },
         "cruise": {
           "false_alerts_per_flight_hour": 1.994699,
@@ -172,7 +182,8 @@
           "gradual_detection_rate": 0.089385,
           "gradual_events": 537,
           "median_lead_gradual_s": 20.033,
-          "alerts_per_detected_event": 1.677143
+          "alerts_per_detected_event": 1.677143,
+          "sweep_detection_within_budget_on_test_day": 0.212121
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.646863,
@@ -183,7 +194,8 @@
           "gradual_detection_rate": 0.120219,
           "gradual_events": 183,
           "median_lead_gradual_s": -110.179,
-          "alerts_per_detected_event": 1.296875
+          "alerts_per_detected_event": 1.296875,
+          "sweep_detection_within_budget_on_test_day": 0.046018
         }
       }
     },
@@ -207,7 +219,8 @@
           "gradual_detection_rate": 0.062201,
           "gradual_events": 209,
           "median_lead_gradual_s": 70.084,
-          "alerts_per_detected_event": 1.380282
+          "alerts_per_detected_event": 1.380282,
+          "sweep_detection_within_budget_on_test_day": 0.068598
         },
         "cruise": {
           "false_alerts_per_flight_hour": 1.882415,
@@ -218,7 +231,8 @@
           "gradual_detection_rate": 0.078212,
           "gradual_events": 537,
           "median_lead_gradual_s": -29.877,
-          "alerts_per_detected_event": 1.670554
+          "alerts_per_detected_event": 1.670554,
+          "sweep_detection_within_budget_on_test_day": 0.207879
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.636799,
@@ -229,7 +243,8 @@
           "gradual_detection_rate": 0.114754,
           "gradual_events": 183,
           "median_lead_gradual_s": -189.766,
-          "alerts_per_detected_event": 1.238095
+          "alerts_per_detected_event": 1.238095,
+          "sweep_detection_within_budget_on_test_day": 0.092035
         }
       }
     },
@@ -253,7 +268,8 @@
           "gradual_detection_rate": 0.066986,
           "gradual_events": 209,
           "median_lead_gradual_s": -129.5795,
-          "alerts_per_detected_event": 1.258824
+          "alerts_per_detected_event": 1.258824,
+          "sweep_detection_within_budget_on_test_day": 0.068598
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.790597,
@@ -264,7 +280,8 @@
           "gradual_detection_rate": 0.085661,
           "gradual_events": 537,
           "median_lead_gradual_s": -69.762,
-          "alerts_per_detected_event": 1.617949
+          "alerts_per_detected_event": 1.617949,
+          "sweep_detection_within_budget_on_test_day": 0.211515
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.475773,
@@ -275,7 +292,8 @@
           "gradual_detection_rate": 0.103825,
           "gradual_events": 183,
           "median_lead_gradual_s": -189.971,
-          "alerts_per_detected_event": 1.28125
+          "alerts_per_detected_event": 1.28125,
+          "sweep_detection_within_budget_on_test_day": 0.081416
         }
       }
     },
@@ -299,7 +317,8 @@
           "gradual_detection_rate": 0.057416,
           "gradual_events": 209,
           "median_lead_gradual_s": -165.1625,
-          "alerts_per_detected_event": 1.223529
+          "alerts_per_detected_event": 1.223529,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.708035,
@@ -310,7 +329,8 @@
           "gradual_detection_rate": 0.083799,
           "gradual_events": 537,
           "median_lead_gradual_s": -59.754,
-          "alerts_per_detected_event": 1.635897
+          "alerts_per_detected_event": 1.635897,
+          "sweep_detection_within_budget_on_test_day": 0.210909
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.777697,
@@ -321,7 +341,8 @@
           "gradual_detection_rate": 0.10929,
           "gradual_events": 183,
           "median_lead_gradual_s": -179.7205,
-          "alerts_per_detected_event": 1.413793
+          "alerts_per_detected_event": 1.413793,
+          "sweep_detection_within_budget_on_test_day": 0.069027
         }
       }
     },
@@ -345,7 +366,8 @@
           "gradual_detection_rate": 0.047847,
           "gradual_events": 209,
           "median_lead_gradual_s": -230.0,
-          "alerts_per_detected_event": 1.243902
+          "alerts_per_detected_event": 1.243902,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.70143,
@@ -356,7 +378,8 @@
           "gradual_detection_rate": 0.081937,
           "gradual_events": 537,
           "median_lead_gradual_s": -54.9645,
-          "alerts_per_detected_event": 1.640103
+          "alerts_per_detected_event": 1.640103,
+          "sweep_detection_within_budget_on_test_day": 0.212121
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.767633,
@@ -367,7 +390,8 @@
           "gradual_detection_rate": 0.114754,
           "gradual_events": 183,
           "median_lead_gradual_s": -179.673,
-          "alerts_per_detected_event": 1.4
+          "alerts_per_detected_event": 1.4,
+          "sweep_detection_within_budget_on_test_day": 0.069027
         }
       }
     },
@@ -391,7 +415,8 @@
           "gradual_detection_rate": 0.047847,
           "gradual_events": 209,
           "median_lead_gradual_s": -230.0,
-          "alerts_per_detected_event": 1.246914
+          "alerts_per_detected_event": 1.246914,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.665103,
@@ -402,7 +427,8 @@
           "gradual_detection_rate": 0.085661,
           "gradual_events": 537,
           "median_lead_gradual_s": -45.039,
-          "alerts_per_detected_event": 1.632391
+          "alerts_per_detected_event": 1.632391,
+          "sweep_detection_within_budget_on_test_day": 0.212727
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.747504,
@@ -413,7 +439,8 @@
           "gradual_detection_rate": 0.103825,
           "gradual_events": 183,
           "median_lead_gradual_s": -179.651,
-          "alerts_per_detected_event": 1.389831
+          "alerts_per_detected_event": 1.389831,
+          "sweep_detection_within_budget_on_test_day": 0.067257
         }
       }
     },
@@ -437,7 +464,8 @@
           "gradual_detection_rate": 0.038278,
           "gradual_events": 209,
           "median_lead_gradual_s": -130.0405,
-          "alerts_per_detected_event": 1.232877
+          "alerts_per_detected_event": 1.232877,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.638683,
@@ -448,7 +476,8 @@
           "gradual_detection_rate": 0.080074,
           "gradual_events": 537,
           "median_lead_gradual_s": -59.754,
-          "alerts_per_detected_event": 1.643432
+          "alerts_per_detected_event": 1.643432,
+          "sweep_detection_within_budget_on_test_day": 0.211515
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.063144,
@@ -459,7 +488,8 @@
           "gradual_detection_rate": 0.10929,
           "gradual_events": 183,
           "median_lead_gradual_s": -184.767,
-          "alerts_per_detected_event": 1.315789
+          "alerts_per_detected_event": 1.315789,
+          "sweep_detection_within_budget_on_test_day": 0.067257
         }
       }
     },
@@ -483,7 +513,8 @@
           "gradual_detection_rate": 0.052632,
           "gradual_events": 209,
           "median_lead_gradual_s": -120.222,
-          "alerts_per_detected_event": 1.236842
+          "alerts_per_detected_event": 1.236842,
+          "sweep_detection_within_budget_on_test_day": 0.064024
         },
         "cruise": {
           "false_alerts_per_flight_hour": 2.615566,
@@ -494,7 +525,8 @@
           "gradual_detection_rate": 0.078212,
           "gradual_events": 537,
           "median_lead_gradual_s": -84.986,
-          "alerts_per_detected_event": 1.641361
+          "alerts_per_detected_event": 1.641361,
+          "sweep_detection_within_budget_on_test_day": 0.210303
         },
         "descent": {
           "false_alerts_per_flight_hour": 2.05308,
@@ -505,7 +537,8 @@
           "gradual_detection_rate": 0.103825,
           "gradual_events": 183,
           "median_lead_gradual_s": -179.651,
-          "alerts_per_detected_event": 1.344828
+          "alerts_per_detected_event": 1.344828,
+          "sweep_detection_within_budget_on_test_day": 0.069027
         }
       }
     }

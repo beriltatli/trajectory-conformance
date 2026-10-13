@@ -558,6 +558,18 @@ test day:
   to 0.9 per flight-hour, in both directions. In cruise, unguarded 300 and 600 s land within the
   2 per flight-hour budget (1.99 and 1.88), at detection 0.212 and 0.208 against 0.233. They do
   so by hiding 39-41% of the slow events, and they put climb at 3.1-3.2 per flight-hour.
+- **At an equal alert rate nothing improves either.** The best test-day detection among
+  thresholds within 2 per flight-hour on the test sweep, read off the test day and so not an
+  operating point (`sweep_detection_within_budget_on_test_day`), climb / cruise / descent:
+
+  | setting | detection |
+  |---|---|
+  | no adaptation | 0.066 / 0.215 / 0.073 |
+  | guarded, any tau | 0.064 / 0.210-0.213 / 0.067-0.069 |
+  | unguarded, any tau | 0.044-0.069 / 0.170-0.212 / 0.046-0.092 |
+
+  Adaptation removes off-norm time from normal flights. It also removes part of the injected
+  deviations, so the two do not separate better.
 - **The counts are small.** 13-64 slow events are seen unadapted per phase, so one event in
   descent moves the absorbed share by 0.08.
 - **What is not studied.** Adaptation across flights or days, which the remaining tune-to-test
