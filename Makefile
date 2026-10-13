@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: env smoke check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
+.PHONY: env smoke multiday-data folds check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
 
 # Pinned environment: Python 3.12 (pyproject.toml), exact versions in requirements.txt.
 env:
@@ -12,6 +12,20 @@ env:
 smoke:
 	rm -rf build/smoke
 	TC_CONFIG=configs/smoke.yaml TC_OUT=build/smoke $(PY) -m scripts.reproduce --synthetic
+	TC_CONFIG=configs/smoke_multiday.yaml TC_OUT=build/smoke/multiday $(PY) -m scripts.synth
+	TC_CONFIG=configs/smoke_multiday.yaml TC_OUT=build/smoke/multiday $(PY) -m scripts.run ingest
+	TC_OUT=build/smoke/multiday $(PY) -m scripts.folds run --config configs/smoke_multiday.yaml --out build/smoke/multiday
+	TC_OUT=build/smoke/multiday $(PY) -m scripts.folds aggregate --config configs/smoke_multiday.yaml --out build/smoke/multiday
+
+# Rolling evaluation over six Mondays (configs/multiday.yaml); everything OpenSky-derived stays
+# in data/multiday/, the aggregate goes to results/phase6_rolling.json.
+multiday-data:
+	TC_CONFIG=configs/multiday.yaml TC_OUT=data/multiday $(PY) -m scripts.fetch sample
+	TC_CONFIG=configs/multiday.yaml TC_OUT=data/multiday $(PY) -m scripts.run ingest
+
+folds:
+	$(PY) -m scripts.folds run
+	$(PY) -m scripts.folds aggregate
 
 check:
 	$(PY) -m pytest -q

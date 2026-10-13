@@ -1,0 +1,10 @@
+# Synthetic smoke run of the rolling evaluation (scripts/folds.py): three synthetic Mondays,
+# two folds. Ingested with TC_OUT=build/smoke/multiday.
+extends: smoke.yaml
+
+sample:
+  days: ["2001-01-01", "2001-01-08", "2001-01-15"]
+
+folds:
+  - {name: "a", tune: "2001-01-01", test: "2001-01-08", unseen_test_day: true}
+  - {name: "b", tune: "2001-01-08", test: "2001-01-15", unseen_test_day: true}
