@@ -574,3 +574,31 @@ test day:
   descent moves the absorbed share by 0.08.
 - **What is not studied.** Adaptation across flights or days, which the remaining tune-to-test
   overshoot calls for, and guard parameters other than the configured 2.0 and 2 sd.
+
+## 3D replay (sim/)
+
+A three.js replay of the test day, for looking at what the numbers above are made of.
+`make sim-data` writes `sim/assets/basemap.json` (Natural Earth 1:10m v5.1.2, public domain,
+clipped to the region +- 1 deg) and `data/sim/scene.json` + `scene.bin` (58 MB, about 70 s on
+6 workers); `make sim` serves the repository on 127.0.0.1:8765, open `/sim/`. three.js 0.170.0
+loads from cdn.jsdelivr.net.
+
+- **Same code as the evaluation.** `scripts/sim.py` runs the IMM conformance monitor and the
+  fixed distance baseline through `alerts/manage.py` at their phase 4 budget thresholds, and
+  draws the injected events with `evaluate/inject.py` and the suite's seed. Detection is
+  credited with the suite's `_attributable`. Checked: the export reproduces the test-day
+  detection rates of both detectors in every phase exactly (IMM 0.122 / 0.233 / 0.103, fixed
+  distance 0.184 / 0.172 / 0.147, 656 / 1,650 / 565 events).
+- **What is shown.** All 3,844 test-day tracks; the 1,096 with a reference are coloured by score
+  over their phase's threshold, with the rarest component, both detectors' open and presented
+  alerts, and the corridor (median path at median altitude, +-2 robust sd cross-track). Each of
+  the 2,871 injected events can be replayed against the uninjected flight, with onset,
+  violation and first-alert times.
+- **Causal display.** Positions are interpolated between fixes; score, phase and alert state are
+  those of the last fix, as the monitor had them. In a coverage gap the panel says how old that
+  fix is.
+- **Approximate.** The rolling "alerts per flight-hour" counts every minute a reference flight is
+  in the air, not the suite's monitored seconds per phase; it is a guide, not a reported rate.
+- **Not published.** The export holds OpenSky data, so it stays in `data/` and the replay is
+  served on localhost only (DATA.md, sec. 3.iii). Flights are numbered T0001... in start order;
+  no icao24 or callsign is exported.

@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: check reproduce survey sample ingest stub verify track figures harness references conformance drift
+.PHONY: check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
 
 check:
 	$(PY) -m pytest -q
@@ -45,3 +45,12 @@ figures:
 	$(PY) -m scripts.figures phase2
 	$(PY) -m scripts.figures phase4
 	$(PY) -m scripts.figures phase5
+
+# 3D replay (sim/): data export, then a local-only server (the export is OpenSky data; DATA.md).
+sim-data:
+	$(PY) -m scripts.sim basemap
+	$(PY) -m scripts.sim export
+
+sim:
+	@echo "http://127.0.0.1:8765/sim/"
+	$(PY) -m http.server 8765 --bind 127.0.0.1
