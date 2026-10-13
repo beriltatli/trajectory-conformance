@@ -647,3 +647,64 @@ Shares over all events (IMM / fixed distance):
   events first through track error (184 events) more than cross-track (47), and vertical ones
   through vertical rate (297 of 318). The two detectors fail on different events, which is what
   phase 6's fused detector tests.
+
+## Phase 6 — filter consistency per component, and per-phase R and q
+
+`python -m scripts.track consistency` (`evaluate/consistency.py`) splits the phase 2 NIS into
+its components: e = innovation / predicted sd of the expected model, which is N(0, 1) for a
+consistent filter (median e^2 0.455, 5% of |e| above 1.96). `results/phase6_consistency.json`,
+tune day 2022-06-20, median e^2:
+
+| phase | east / north | baro altitude | v east / v north | vertical rate |
+|---|---|---|---|---|
+| climb | 0.34 / 0.30 | 0.34 | 0.34 / 0.30 | 0.27 |
+| cruise | 0.21 / 0.21 | 0.04 | 0.12 / 0.12 | 0.04 |
+| descent | 0.38 / 0.30 | 0.30 | 0.38 / 0.30 | 0.12 |
+
+with 9-14% of |e| above 1.96 in climb and descent. The cruise core is not one mis-scaled R:
+- **Altitude and vertical rate** are reported on 25 ft and 64 ft/min grids. In level flight the
+  reading does not move, so the rounding error is a constant, not white noise, and the
+  innovation is near zero whatever R says.
+- **Position and velocity** run below target in cruise even on synthetic traffic whose noise is
+  exactly the configured R (median 0.15-0.19, `make smoke`): the predicted covariance carries
+  process noise and mixing that straight flight does not use.
+
+**Fit** (`python -m scripts.track qr-fit`, `evaluate/qr_fit.py`, tune day only, 600 flights,
+8 fixed-point iterations, `results/phase6_qr_fit.json`, `configs/qr_fitted.yaml`). Per phase
+(the online phase from the track's own baro history, identical to conform/phase.py,
+`tests/test_imm.py`), a factor on the measurement sd of position (with the timestamp term),
+altitude, velocity and vertical rate, each bounded below by the reported resolution / sqrt(12);
+and a factor on q where velocity's factor reaches its floor. Target: the median e^2, the core,
+not the 95% line (gate 2).
+
+| phase | position | altitude | velocity | vertical rate | q |
+|---|---:|---:|---:|---:|---:|
+| climb | 0.79 | 1.00 (floor) | 0.40 | 0.31 (floor) | 1 |
+| cruise | 0.91 | 1.00 (floor) | 0.30 (floor) | 0.31 (floor) | 0.069 |
+| descent | 0.75 | 1.00 (floor) | 0.56 | 0.31 (floor) | 1 |
+
+- A first version let q set the velocity group in every phase: in climb, q at 0.11 of its value
+  moved the velocity median only from 0.32 to 0.28 (R sets it there), in cruise from 0.12 to
+  0.45. Without the floors the fit drove the cruise vertical rate sd to 0.0003 m/s and the
+  altitude sd to 0.2 m, below what the message encodes, with the median still at 0.02.
+- **Test day (not fitted on), `figures/phase6_consistency.png`.** Position and velocity medians
+  reach 0.34-0.47 in every phase (were 0.08-0.38). Altitude and vertical rate stay below target
+  at their floors. The tails get heavier: in cruise 18-19% of velocity |e| exceed 1.96 (were
+  5%). The joint six-component NIS gets worse, not better: above its 95% line 31 / 13 / 26% ->
+  45 / 30 / 37% (climb / cruise / descent), median NIS/dof 1.06 / 0.27 / 0.94 -> 1.68 / 1.19 /
+  1.33. Centring each marginal does not fix the correlations between components, and a narrow
+  Gaussian core under a heavy tail is what the data are; a heavy-tailed (Student-t) measurement
+  model, not a rescaled R, is what would make this filter consistent.
+- **Detection barely moves** (`results/phase6_qr_<detector>.json`, the full phase 4 suite with
+  the fitted filter, old -> new, test day, climb / cruise / descent):
+
+  | detector | thresholds | false alerts / flight-hour | detection |
+  |---|---|---|---|
+  | IMM conformance | unchanged | 2.55 / 2.79 / 2.15 -> 2.51 / 2.69 / 2.21 | 0.122 / 0.233 / 0.103 -> 0.110 / 0.248 / 0.094 |
+  | single CV Kalman | re-chosen | 1.54 / 1.27 / 2.14 -> 1.51 / 1.50 / 1.47 | 0.076 / 0.144 / 0.115 -> 0.084 / 0.150 / 0.126 |
+  | ETA deviation | unchanged | unchanged | within 0.004 |
+  | fixed distance | unchanged | identical | identical (it uses no filter: a regression check) |
+
+  The monitor scores residuals against reference norms through empirical tails, so the filter's
+  covariance never enters its score; only its state estimates do, and those are nearly the same.
+  The configured R and q stay the default; the fitted ones are a documented alternative.
