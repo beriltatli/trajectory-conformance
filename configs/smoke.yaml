@@ -1,0 +1,26 @@
+# Synthetic smoke run (`make smoke`): the whole pipeline on traffic from synth/traffic.py, no
+# OpenSky data. Every key not set here comes from config.yaml. Outputs go to TC_OUT
+# (build/smoke), never to data/, results/ or figures/.
+extends: ../config.yaml
+
+synthetic:
+  seed: 7
+  flights_per_hour: 60
+
+sample:
+  # Two synthetic Mondays one week apart, three hours each. The dates only label the days.
+  days: ["2001-01-01", "2001-01-08"]
+  hours: [12, 13, 14]
+
+evaluation:
+  tune_days: ["2001-01-01"]
+  test_days: ["2001-01-08"]
+
+imm:
+  checks:
+    nis_runs: 10
+    nis_duration_s: 600
+    delay_runs: 10
+
+drift:
+  tau_s: [300]
