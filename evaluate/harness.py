@@ -58,4 +58,4 @@ def run_detector(detector: Detector, cfg: dict, workers: int, keep: Callable[[st
         "criteria_at_budget": criteria(reports["budget"], cfg),
         "sweep": {"tune": _sweep_table(tune, thresholds), "test": _sweep_table(test, thresholds)},
     }
-    return summary, {"tune": tune.event_arrays(), "test": test.event_arrays()}
+    return summary, {day: {**stats.event_arrays(), **stats.flight_arrays()} for day, stats in (("tune", tune), ("test", test))}

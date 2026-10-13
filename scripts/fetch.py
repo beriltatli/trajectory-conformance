@@ -139,8 +139,10 @@ def sample(cfg: dict) -> dict:
         if not ((repo_path(cfg["data"]["filtered_dir"]) / f"{day}-{hour:02d}.parquet").exists() and tar_name(day, hour) in log["files"])
     ]
     # Long-lived connections to the bucket were observed to stall (0 KB/s) while fresh ones ran
-    # at ~2 MB/s, so downloads run three at a time, each resuming on a fresh connection.
-    with ThreadPoolExecutor(max_workers=3) as pool:
+    # at ~2 MB/s, so downloads run three at a time, each resuming on a fresh connection. A
+    # finished tar waits on disk until it is filtered, so up to workers + 1 tars are on disk at
+    # once; data.download_workers lowers that where disk is short.
+    with ThreadPoolExecutor(max_workers=cfg["data"].get("download_workers", 3)) as pool:
         futures = {key: pool.submit(fetch_verified, cfg, *key) for key in todo}
         for (day, hour), future in futures.items():
             path, digest, size = future.result()

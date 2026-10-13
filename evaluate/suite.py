@@ -141,7 +141,7 @@ def evaluate_flight(flight: pd.DataFrame, detector: Detector, cfg: dict, operati
             "t_violation": t_violation, "first_alert": first, "n_alerts": count,
             "op_first_alert": op_first, "op_n_alerts": op_count, "op_onset_in_alert": op_onset_in_alert,
         })
-    return {"seconds": np.array([seconds[k] for k in PHASE_KEYS]), "fa": fa, "fa_op": fa_op, "in_alert": in_alert,
+    return {"flight_id": key, "seconds": np.array([seconds[k] for k in PHASE_KEYS]), "fa": fa, "fa_op": fa_op, "in_alert": in_alert,
             "in_alert_op": in_alert_op, "events": events}
 
 
@@ -176,8 +176,21 @@ class SuiteStats:
     in_alert: np.ndarray | None = None
     in_alert_op: dict = field(default_factory=dict)
     events: list = field(default_factory=list)
+    # Per flight, in the order added, for resampling by flight (evaluate/bootstrap.py).
+    per_flight: dict = field(default_factory=lambda: {"flight_id": [], "seconds": [], "fa": [], "fa_op": {}, "in_alert_op": {}})
 
     def add(self, result: dict) -> None:
+        index = self.flights
+        pf = self.per_flight
+        pf["flight_id"].append(result.get("flight_id", ""))
+        pf["seconds"].append(result["seconds"])
+        pf["fa"].append(result["fa"])
+        for name, counts in result["fa_op"].items():
+            pf["fa_op"].setdefault(name, []).append(counts)
+        for name, seconds in result["in_alert_op"].items():
+            pf["in_alert_op"].setdefault(name, []).append(seconds)
+        for event in result["events"]:
+            event["flight"] = index
         self.flights += 1
         self.seconds += result["seconds"]
         self.fa = result["fa"] if self.fa is None else self.fa + result["fa"]
@@ -208,7 +221,22 @@ class SuiteStats:
             "t_violation": np.array([x["t_violation"] for x in e], float),
             "first_alert": np.array([x["first_alert"] for x in e], float).reshape(len(e), self.n_thresholds),
             "n_alerts": np.array([x["n_alerts"] for x in e], int).reshape(len(e), self.n_thresholds),
+            "flight": np.array([x.get("flight", -1) for x in e], int),
+            **{f"op_first_alert_{name}": np.array([x["op_first_alert"][name] for x in e], float) for name in self.fa_op},
         }
+
+    def flight_arrays(self) -> dict[str, np.ndarray]:
+        """Per-flight counts behind every rate, so rates can be recomputed on resampled flights."""
+        pf = self.per_flight
+        out = {
+            "flight_id": np.array(pf["flight_id"], dtype=str),
+            "flight_seconds": np.array(pf["seconds"], float).reshape(-1, 4),
+            "flight_fa": np.array(pf["fa"], np.int64).reshape(-1, self.n_thresholds, 4),
+        }
+        for name in pf["fa_op"]:
+            out[f"flight_fa_op_{name}"] = np.array(pf["fa_op"][name], np.int64).reshape(-1, 4)
+            out[f"flight_in_alert_op_{name}"] = np.array(pf["in_alert_op"][name], float).reshape(-1, 4)
+        return out
 
     def detection(self) -> np.ndarray:
         """Sweep: detection rate, (thresholds, phases); all kinds and magnitudes pooled."""

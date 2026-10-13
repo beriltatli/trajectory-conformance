@@ -1,0 +1,23 @@
+# Multi-day evaluation (NOTES.md, "Rolling evaluation"): six consecutive Mondays, rolling
+# tune -> test one week apart. Run with TC_OUT=data/multiday so the original two-day sample
+# and every committed phase 1-5 result stay as they are. Every key not set here comes from
+# config.yaml, which is frozen for this study: nothing in it is changed after a fold is run.
+extends: ../config.yaml
+
+data:
+  # Disk was 1.4 GiB free; at most two tars (~460 MB) are on disk at once.
+  download_workers: 1
+
+sample:
+  days: ["2022-05-23", "2022-05-30", "2022-06-06", "2022-06-13", "2022-06-20", "2022-06-27"]
+
+# Tune on one Monday, test on the next. 2022-06-20 and 2022-06-27 were the phase 3-5 tune and
+# test days: the design was revised after looking at both, so only the first three test days
+# were never looked at before the configuration was frozen. 2022-06-06 is Whit Monday, a
+# public holiday in Germany.
+folds:
+  - {name: "0523-0530", tune: "2022-05-23", test: "2022-05-30", unseen_test_day: true}
+  - {name: "0530-0606", tune: "2022-05-30", test: "2022-06-06", unseen_test_day: true}
+  - {name: "0606-0613", tune: "2022-06-06", test: "2022-06-13", unseen_test_day: true}
+  - {name: "0613-0620", tune: "2022-06-13", test: "2022-06-20", unseen_test_day: false}
+  - {name: "0620-0627", tune: "2022-06-20", test: "2022-06-27", unseen_test_day: false}
