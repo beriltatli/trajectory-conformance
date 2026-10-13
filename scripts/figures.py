@@ -155,6 +155,12 @@ def phase4(cfg: dict) -> list[str]:
         _style(ax)
         ax.axvline(ev["alert_budget_per_flight_hour"], color=MUTED, linewidth=1, linestyle="--")
         ax.axhline(ev["detection_target"], color=MUTED, linewidth=1, linestyle=":")
+        # Below 3 false alerts the sweep moves in steps of one alert, and raising the threshold can
+        # split one held alert into two, so a curve there may step back toward more alerts.
+        hours = json.loads(repo_path("results/phase4_never_alert.json").read_text())["test_day"]["budget"][phase]["flight_hours"]
+        ax.axvspan(0, 3 / hours, color=BAND, alpha=0.5, zorder=0)
+        ax.annotate(f"< 3 alerts\n(1 = {1 / hours:.3f}/h)", (0, 0.5), xytext=(2, 0), textcoords="offset points",
+                    color=TEXT_SECONDARY, fontsize=7, va="center")
         for name, label, color, marker in DETECTORS:
             result = json.loads(repo_path(f"results/phase4_{name}.json").read_text())
             sweep = result["sweep"]["test"]
@@ -192,7 +198,9 @@ def phase4(cfg: dict) -> list[str]:
     tune, test = ev["tune_days"][0], ev["test_days"][0]
     fig.suptitle(f"Lines: threshold sweep on {test}, one threshold for every row (dashed: below the threshold with the most alerts, "
                  f"flights sit in alert).\nFilled markers: budget operating point chosen on {tune}, per-phase thresholds as deployed "
-                 f"(the tables' numbers); open markers: the same threshold on the sweep.",
+                 f"(the tables' numbers); open markers: the same threshold on the sweep.\n"
+                 f"Shaded: fewer than 3 false alerts on the test day, where curves move in steps of one alert and can step back "
+                 f"(a higher threshold can split one held alert into two).",
                  color=TEXT, fontsize=9, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0.07, 1, 0.93))
     path = repo_path("figures/phase4_alert_vs_detection.png")
