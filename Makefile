@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: env smoke multiday-data folds check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
+.PHONY: env smoke demo multiday-data folds check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
 
 # Pinned environment: Python 3.12 (pyproject.toml), exact versions in requirements.txt.
 env:
@@ -70,6 +70,17 @@ figures:
 	$(PY) -m scripts.figures phase2
 	$(PY) -m scripts.figures phase4
 	$(PY) -m scripts.figures phase5
+
+# Public replay on synthetic traffic (configs/demo.yaml) -> sim/demo/, which GitHub Pages serves.
+DEMO := TC_CONFIG=configs/demo.yaml TC_OUT=build/demo
+demo:
+	rm -rf build/demo sim/demo
+	$(DEMO) $(PY) -m scripts.synth
+	$(DEMO) $(PY) -m scripts.run ingest
+	$(DEMO) $(PY) -m scripts.evaluate references
+	$(DEMO) $(PY) -m scripts.evaluate conformance --only imm_conformance fixed_threshold
+	$(DEMO) $(PY) -m scripts.sim export
+	mkdir -p sim/demo && cp build/demo/data/sim/scene.json build/demo/data/sim/scene.bin sim/demo/
 
 # 3D replay (sim/): data export, then a local-only server (the export is OpenSky data; DATA.md).
 sim-data:

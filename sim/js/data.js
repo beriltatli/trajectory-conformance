@@ -21,7 +21,7 @@ async function fetchWithProgress(url, onBytes) {
 export async function loadScene(dataBase, onProgress) {
   const [meta, basemap] = await Promise.all([
     fetch(`${dataBase}scene.json`).then((r) => {
-      if (!r.ok) throw new Error(`${dataBase}scene.json: HTTP ${r.status} — run "make sim-data" first`);
+      if (!r.ok) throw new Error(`${dataBase}scene.json: HTTP ${r.status} — run "make sim-data" (OpenSky, local) or "make demo" (synthetic) first`);
       return r.json();
     }),
     fetch('assets/basemap.json').then((r) => r.json()),

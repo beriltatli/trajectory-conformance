@@ -162,7 +162,9 @@ export class UI {
 
   _buildTopbar() {
     const st = this.state;
-    $('#day').textContent = `${this.d.meta.day} · test day · UTC`;
+    $('#day').textContent = this.d.meta.source === 'synthetic'
+      ? 'Synthetic traffic · same detectors and thresholds · demo'
+      : `${this.d.meta.day} · test day · UTC · OpenSky (local only)`;
     $('#play').addEventListener('click', () => this.actions.togglePlay());
     $('#speed').addEventListener('change', (e) => { st.speed = Number(e.target.value); });
     $('#speed').value = String(st.speed);

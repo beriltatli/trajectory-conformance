@@ -3,8 +3,21 @@ import { loadScene } from './data.js';
 import { World } from './world.js';
 import { UI } from './ui.js';
 
-// Served from the repository root (make sim), so the export in data/sim/ is one level up.
-const DATA = '../data/sim/';
+// Two sources. Served from the repository root (make sim), the OpenSky export in data/sim/ is
+// one level up; it is never published. Otherwise, or with ?data=demo, the synthetic replay in
+// demo/ (make demo, and the GitHub Pages build). ?data=local insists on the OpenSky export.
+async function dataBase() {
+  const asked = new URLSearchParams(location.search).get('data');
+  if (asked === 'demo') return 'demo/';
+  if (asked === 'local') return '../data/sim/';
+  try {
+    const res = await fetch('../data/sim/scene.json', { method: 'HEAD' });
+    if (res.ok) return '../data/sim/';
+  } catch (err) {
+    // not served from the repository: fall through to the demo
+  }
+  return 'demo/';
+}
 
 const state = {
   T: 0,
@@ -33,7 +46,7 @@ const loadingText = document.querySelector('#loading-text');
 async function start() {
   let data;
   try {
-    data = await loadScene(DATA, (got, total) => {
+    data = await loadScene(await dataBase(), (got, total) => {
       progress.style.width = `${(100 * got) / total}%`;
       loadingText.textContent = `Loading traffic · ${(got / 1e6).toFixed(0)} / ${(total / 1e6).toFixed(0)} MB`;
     });
@@ -45,8 +58,9 @@ async function start() {
   loadingText.textContent = 'Building scene';
   await new Promise((r) => requestAnimationFrame(r));
 
-  // Start mid-afternoon, when the sample has the most traffic in the air.
-  state.T = data.tMin + 2.5 * 3600;
+  // Start mid-afternoon, when the sample has the most traffic in the air (or mid-way through a
+  // shorter synthetic day).
+  state.T = Math.min(data.tMin + 2.5 * 3600, 0.5 * (data.tMin + data.tMax));
   const world = new World(document.querySelector('#viewport'), data, state);
 
   const actions = {

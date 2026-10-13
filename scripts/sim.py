@@ -293,6 +293,8 @@ def export(cfg: dict, workers: int) -> None:
     (out_dir / "scene.bin").write_bytes(data_bytes + comp.tobytes())
     ev = cfg["evaluation"]
     meta = {
+        # The viewer labels the replay by this: synthetic traffic may be published, OpenSky data may not.
+        "source": "synthetic" if "synthetic" in cfg else "opensky",
         "day": day, "day_start_epoch": day_start, "centre": centre, "bbox": cfg["region"]["bbox"],
         "columns": list(COLUMNS), "components": list(COMPONENTS), "comp_byte_offset": len(data_bytes),
         "rows": rows_total, "comp_rows": comp_total,

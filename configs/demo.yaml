@@ -1,0 +1,11 @@
+# Synthetic traffic for the public replay (make demo, GitHub Pages): denser than the smoke run so
+# the scene looks like an afternoon of traffic. Same detectors, alert management and threshold
+# rule as the OpenSky evaluation; thresholds are chosen on the synthetic tune day.
+extends: smoke.yaml
+
+synthetic:
+  seed: 11
+  flights_per_hour: 110
+
+sample:
+  hours: [12, 13, 14, 15]
