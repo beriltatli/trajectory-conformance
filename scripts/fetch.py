@@ -145,7 +145,13 @@ def sample(cfg: dict) -> dict:
     with ThreadPoolExecutor(max_workers=cfg["data"].get("download_workers", 3)) as pool:
         futures = {key: pool.submit(fetch_verified, cfg, *key) for key in todo}
         for (day, hour), future in futures.items():
-            path, digest, size = future.result()
+            try:
+                path, digest, size = future.result()
+            except BaseException:
+                # Without this the pool would go on downloading every queued tar, none of which
+                # would be filtered or deleted.
+                pool.shutdown(wait=False, cancel_futures=True)
+                raise
             name = tar_name(day, hour)
             out_path = repo_path(cfg["data"]["filtered_dir"]) / f"{day}-{hour:02d}.parquet"
             counts = filter_file(cfg, bbox, path, out_path)
