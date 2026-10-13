@@ -92,6 +92,30 @@ class Gate:
 
 
 @dataclass(frozen=True, slots=True)
+class PhaseScale:
+    """Per flight phase, factors on the measurement sd and on every model's q (phase 6,
+    evaluate/qr_fit.py). The phase is the one conform/phase.py segment_phases gives, computed
+    online from the track's own baro altitudes; an update of unknown phase uses the base values."""
+
+    window_s: float
+    level_rate_mps: float
+    r_scale: np.ndarray
+    """(3, MEAS_DIM): climb, cruise, descent."""
+    q_scale: np.ndarray
+    """(3,)."""
+
+    @classmethod
+    def from_config(cls, spec: dict) -> "PhaseScale":
+        phases = ("climb", "cruise", "descent")
+        groups = {"position": (0, 1), "altitude": (2,), "velocity": (3, 4), "vertical_rate": (5,)}
+        r = np.ones((3, MEAS_DIM))
+        for p, name in enumerate(phases):
+            for group, idx in groups.items():
+                r[p, list(idx)] = float(spec[name]["r_scale"][group])
+        return cls(float(spec["window_s"]), float(spec["level_rate_mps"]), r, np.array([float(spec[name]["q_scale"]) for name in phases]))
+
+
+@dataclass(frozen=True, slots=True)
 class ImmConfig:
     models: tuple[FilterModel, ...]
     switching: Switching
@@ -102,6 +126,7 @@ class ImmConfig:
     init_velocity_sd_missing: float
     gate: Gate | None
     mix_own_acceleration: bool = True
+    phase_scale: PhaseScale | None = None
 
     @classmethod
     def from_config(cls, imm_cfg: dict) -> "ImmConfig":
@@ -119,6 +144,7 @@ class ImmConfig:
             init_acceleration_sd=float(imm_cfg["init"]["acceleration_sd_mps2"]),
             init_velocity_sd_missing=float(imm_cfg["init"]["velocity_sd_missing_mps"]),
             gate=Gate(**gate) if gate else None,
+            phase_scale=PhaseScale.from_config(imm_cfg["phase_scale"]) if imm_cfg.get("phase_scale") else None,
         )
 
     def only(self, name: str) -> "ImmConfig":
@@ -160,6 +186,9 @@ class ImmTrack:
     covs: list[np.ndarray] = field(default_factory=list)
     mode_prob: np.ndarray = field(default_factory=lambda: np.empty(0))
     rejected_run: np.ndarray = field(default_factory=lambda: np.zeros(len(_GATE_GROUPS), np.int64))
+    # Recent (time, baro altitude) for the online phase; kept across restarts, like the flight's.
+    altitudes: list = field(default_factory=list)
+    phase: int = -1
 
     @property
     def started(self) -> bool:
@@ -186,16 +215,44 @@ class ImmTrack:
         return ImmStep(t, state, cov, self.mode_prob.copy(), self.mode_prob.copy(), np.nan, np.nan, 0,
                        np.full(n, np.nan), missing, missing.copy(), np.zeros(MEAS_DIM, bool), restarted)
 
+    def _observe_phase(self, t: float, altitude: float) -> int:
+        """segment_phases at this update: the trailing vertical rate over window_s of the valid
+        altitudes so far, unknown (-1) if this altitude is missing or the window is under half
+        covered."""
+        ps = self.cfg.phase_scale
+        if np.isnan(altitude):
+            return -1
+        self.altitudes.append((t, altitude))
+        while self.altitudes[0][0] < t - ps.window_s:
+            self.altitudes.pop(0)
+        t0, a0 = self.altitudes[0]
+        span = t - t0
+        if span < 0.5 * ps.window_s:
+            return -1
+        rate = (altitude - a0) / span
+        return 0 if rate > ps.level_rate_mps else 2 if rate < -ps.level_rate_mps else 1
+
+    def _r_scale(self) -> np.ndarray:
+        ps = self.cfg.phase_scale
+        return np.ones(MEAS_DIM) if ps is None or self.phase < 0 else ps.r_scale[self.phase]
+
+    def _q_scale(self) -> float:
+        ps = self.cfg.phase_scale
+        return 1.0 if ps is None or self.phase < 0 else float(ps.q_scale[self.phase])
+
     def measurement_cov(self, z: np.ndarray) -> np.ndarray:
-        r = np.diag(self.cfg.measurement_sd**2)
+        r = np.diag((self.cfg.measurement_sd * self._r_scale()) ** 2)
         velocity = z[3:6].copy()
         known = ~np.isnan(velocity)
         combined = sum(p * x for p, x in zip(self.mode_prob, self.states))
         velocity[~known] = combined[VEL][~known]
-        r[:3, :3] += self.cfg.timestamp_sd_s**2 * np.outer(velocity, velocity)
+        # The timestamp term is part of the position error, so it takes the position's scale.
+        r[:3, :3] += (self.cfg.timestamp_sd_s * self._r_scale()[0]) ** 2 * np.outer(velocity, velocity)
         return r
 
     def update(self, t: float, z: np.ndarray) -> ImmStep:
+        if self.cfg.phase_scale is not None:
+            self.phase = self._observe_phase(t, float(z[2]))
         if not self.started:
             return self.start(t, z)
         dt = t - self.t
@@ -217,7 +274,8 @@ class ImmTrack:
                 x0, p0 = constrain_turn(x0, p0)
             phi = model.transition(dt, x0)
             predicted_states.append(phi @ x0)
-            predicted_covs.append(phi @ p0 @ phi.T + model.noise(dt))
+            noise = model.noise(dt)
+            predicted_covs.append(phi @ p0 @ phi.T + (noise if self.cfg.phase_scale is None else self._q_scale() * noise))
 
         rejected = self._gate(z, dt, r_full, predicted_states, predicted_covs)
         group_rejected = np.array([rejected[g[0]] for g in _GATE_GROUPS])

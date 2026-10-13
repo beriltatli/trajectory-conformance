@@ -1,0 +1,28 @@
+# Written by `python -m scripts.track qr-fit` (evaluate/qr_fit.py) from the tune day only:
+# config.yaml with per-phase R and Q scales. Run the pipeline with TC_CONFIG=configs/qr_fitted.yaml.
+extends: ../config.yaml
+imm:
+  phase_scale:
+    window_s: 60
+    level_rate_mps: 2.5
+    climb:
+      r_scale:
+        position: 0.78718
+        altitude: 0.999866
+        velocity: 0.396485
+        vertical_rate: 0.312847
+      q_scale: 1.0
+    cruise:
+      r_scale:
+        position: 0.905265
+        altitude: 0.999866
+        velocity: 0.296989
+        vertical_rate: 0.312847
+      q_scale: 0.06887
+    descent:
+      r_scale:
+        position: 0.750549
+        altitude: 0.999866
+        velocity: 0.558201
+        vertical_rate: 0.312847
+      q_scale: 1.0

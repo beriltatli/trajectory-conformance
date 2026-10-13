@@ -25,6 +25,10 @@
     python -m scripts.evaluate breakdown phase 6: every test-day event of the IMM monitor and the fixed
                                          distance at their budget points, classed by why it was or
                                          was not detected -> results/phase6_detectability.json
+    python -m scripts.evaluate fusion    phase 6: the IMM score fused with the rarity of the fixed
+                                         distance (conform/fusion.py) -> data/phase6_fusion_tails.pkl,
+                                         results/phase6_fusion_tails.json,
+                                         results/phase6_fused_conformance.json
     python -m scripts.evaluate streaming phase 4: monitor scores pushed in random chunks against
                                          whole flights -> results/phase4_streaming_equivalence.json
 """
@@ -40,6 +44,8 @@ from baselines.cv_kalman import CvKalmanNis
 from baselines.eta_deviation import EtaDeviation
 from baselines.fixed_threshold import FixedThreshold
 from baselines.never_alert import NeverAlert
+from conform.fusion import FusedConformance, fit_distance_tails
+from conform.fusion import save as save_distance_tails
 from conform.monitor import ImmConformance
 from conform.phase import PHASE_NAMES, segment_phases
 from drift.calibrate import fit_adapted_tails
@@ -162,6 +168,17 @@ def single_count(cfg: dict, workers: int) -> None:
     _run_on_reference_flights(detector, cfg, workers, "phase4", f"{detector.name}_single_count", {**alerts, "represent_s": "never"})
 
 
+FUSION_TAILS = "data/phase6_fusion_tails.pkl"
+
+
+def fusion(cfg: dict, workers: int) -> None:
+    tails, summary = fit_distance_tails(cfg, workers)
+    save_distance_tails(tails, FUSION_TAILS)
+    repo_path("results/phase6_fusion_tails.json").write_text(json.dumps(json_ready(summary), indent=2))
+    detector = Managed(FusedConformance(cfg["imm"], cfg["reference"], FUSION_TAILS), cfg["alerts"])
+    _run_on_reference_flights(detector, cfg, workers, "phase6", detector.name, cfg["alerts"])
+
+
 def drift(cfg: dict, workers: int) -> None:
     adaptations = drift_settings(cfg)
     tails, summary = fit_adapted_tails(cfg, adaptations, workers)
@@ -224,7 +241,7 @@ def streaming(cfg: dict, flights: int) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming", "breakdown"])
+    parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming", "breakdown", "fusion"])
     parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
@@ -243,6 +260,9 @@ def main() -> None:
         return
     if args.command == "drift":
         drift(cfg, args.workers)
+        return
+    if args.command == "fusion":
+        fusion(cfg, args.workers)
         return
     if args.command == "breakdown":
         result = event_breakdown(cfg, args.workers)

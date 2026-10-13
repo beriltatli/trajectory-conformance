@@ -5,8 +5,8 @@
 extends: ../config.yaml
 
 data:
-  # Disk was 1.4 GiB free; at most two tars (~460 MB) are on disk at once.
-  download_workers: 1
+  # At most workers + 1 tars (~230 MB each) are on disk at once; 3.4 GiB were free.
+  download_workers: 3
 
 sample:
   days: ["2022-05-23", "2022-05-30", "2022-06-06", "2022-06-13", "2022-06-20", "2022-06-27"]

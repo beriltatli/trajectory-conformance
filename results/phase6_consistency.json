@@ -1,0 +1,328 @@
+{
+  "expected": {
+    "median_e2": 0.454936,
+    "share_above_95": 0.05
+  },
+  "days": {
+    "2022-06-20": {
+      "climb": {
+        "baro_altitude": {
+          "updates": 108867,
+          "median_e2": 0.334965,
+          "scale_to_consistent_median": 0.858074,
+          "share_above_95": 0.141861
+        },
+        "east": {
+          "updates": 109251,
+          "median_e2": 0.334965,
+          "scale_to_consistent_median": 0.858074,
+          "share_above_95": 0.11242
+        },
+        "north": {
+          "updates": 109251,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.103111
+        },
+        "v_east": {
+          "updates": 109139,
+          "median_e2": 0.334965,
+          "scale_to_consistent_median": 0.858074,
+          "share_above_95": 0.114698
+        },
+        "v_north": {
+          "updates": 109139,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.106057
+        },
+        "vertical_rate": {
+          "updates": 109172,
+          "median_e2": 0.266073,
+          "scale_to_consistent_median": 0.764759,
+          "share_above_95": 0.137151
+        }
+      },
+      "cruise": {
+        "baro_altitude": {
+          "updates": 366216,
+          "median_e2": 0.037584,
+          "scale_to_consistent_median": 0.287425,
+          "share_above_95": 0.040654
+        },
+        "east": {
+          "updates": 365956,
+          "median_e2": 0.211349,
+          "scale_to_consistent_median": 0.681592,
+          "share_above_95": 0.095129
+        },
+        "north": {
+          "updates": 365956,
+          "median_e2": 0.211349,
+          "scale_to_consistent_median": 0.681592,
+          "share_above_95": 0.088568
+        },
+        "v_east": {
+          "updates": 360996,
+          "median_e2": 0.11885,
+          "scale_to_consistent_median": 0.511122,
+          "share_above_95": 0.074131
+        },
+        "v_north": {
+          "updates": 360996,
+          "median_e2": 0.11885,
+          "scale_to_consistent_median": 0.511122,
+          "share_above_95": 0.073865
+        },
+        "vertical_rate": {
+          "updates": 361387,
+          "median_e2": 0.04217,
+          "scale_to_consistent_median": 0.304456,
+          "share_above_95": 0.026149
+        }
+      },
+      "descent": {
+        "baro_altitude": {
+          "updates": 130665,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.10768
+        },
+        "east": {
+          "updates": 130832,
+          "median_e2": 0.375837,
+          "scale_to_consistent_median": 0.908918,
+          "share_above_95": 0.109492
+        },
+        "north": {
+          "updates": 130832,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.094602
+        },
+        "v_east": {
+          "updates": 130808,
+          "median_e2": 0.375837,
+          "scale_to_consistent_median": 0.908918,
+          "share_above_95": 0.130932
+        },
+        "v_north": {
+          "updates": 130808,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.108992
+        },
+        "vertical_rate": {
+          "updates": 130850,
+          "median_e2": 0.11885,
+          "scale_to_consistent_median": 0.511122,
+          "share_above_95": 0.086626
+        }
+      },
+      "unknown": {
+        "baro_altitude": {
+          "updates": 1919,
+          "median_e2": 0.375837,
+          "scale_to_consistent_median": 0.908918,
+          "share_above_95": 0.219385
+        },
+        "east": {
+          "updates": 3597,
+          "median_e2": 2.113489,
+          "scale_to_consistent_median": 2.155384,
+          "share_above_95": 0.415346
+        },
+        "north": {
+          "updates": 3597,
+          "median_e2": 2.113489,
+          "scale_to_consistent_median": 2.155384,
+          "share_above_95": 0.427023
+        },
+        "v_east": {
+          "updates": 3500,
+          "median_e2": 1.883649,
+          "scale_to_consistent_median": 2.034814,
+          "share_above_95": 0.403714
+        },
+        "v_north": {
+          "updates": 3500,
+          "median_e2": 1.883649,
+          "scale_to_consistent_median": 2.034814,
+          "share_above_95": 0.407714
+        },
+        "vertical_rate": {
+          "updates": 3504,
+          "median_e2": 0.005309,
+          "scale_to_consistent_median": 0.108025,
+          "share_above_95": 0.082192
+        }
+      }
+    },
+    "2022-06-27": {
+      "climb": {
+        "baro_altitude": {
+          "updates": 103579,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.123452
+        },
+        "east": {
+          "updates": 104024,
+          "median_e2": 0.334965,
+          "scale_to_consistent_median": 0.858074,
+          "share_above_95": 0.101188
+        },
+        "north": {
+          "updates": 104024,
+          "median_e2": 0.266073,
+          "scale_to_consistent_median": 0.764759,
+          "share_above_95": 0.087134
+        },
+        "v_east": {
+          "updates": 103900,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.103831
+        },
+        "v_north": {
+          "updates": 103900,
+          "median_e2": 0.266073,
+          "scale_to_consistent_median": 0.764759,
+          "share_above_95": 0.094889
+        },
+        "vertical_rate": {
+          "updates": 103900,
+          "median_e2": 0.237137,
+          "scale_to_consistent_median": 0.721979,
+          "share_above_95": 0.138508
+        }
+      },
+      "cruise": {
+        "baro_altitude": {
+          "updates": 346416,
+          "median_e2": 0.010593,
+          "scale_to_consistent_median": 0.152589,
+          "share_above_95": 0.028463
+        },
+        "east": {
+          "updates": 346396,
+          "median_e2": 0.16788,
+          "scale_to_consistent_median": 0.60747,
+          "share_above_95": 0.062146
+        },
+        "north": {
+          "updates": 346396,
+          "median_e2": 0.16788,
+          "scale_to_consistent_median": 0.60747,
+          "share_above_95": 0.057547
+        },
+        "v_east": {
+          "updates": 345021,
+          "median_e2": 0.094406,
+          "scale_to_consistent_median": 0.455538,
+          "share_above_95": 0.051261
+        },
+        "v_north": {
+          "updates": 345021,
+          "median_e2": 0.08414,
+          "scale_to_consistent_median": 0.430056,
+          "share_above_95": 0.050469
+        },
+        "vertical_rate": {
+          "updates": 345080,
+          "median_e2": 0.026607,
+          "scale_to_consistent_median": 0.241838,
+          "share_above_95": 0.024209
+        }
+      },
+      "descent": {
+        "baro_altitude": {
+          "updates": 134115,
+          "median_e2": 0.237137,
+          "scale_to_consistent_median": 0.721979,
+          "share_above_95": 0.088335
+        },
+        "east": {
+          "updates": 134411,
+          "median_e2": 0.375837,
+          "scale_to_consistent_median": 0.908918,
+          "share_above_95": 0.100833
+        },
+        "north": {
+          "updates": 134411,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.09
+        },
+        "v_east": {
+          "updates": 134153,
+          "median_e2": 0.421697,
+          "scale_to_consistent_median": 0.962775,
+          "share_above_95": 0.129732
+        },
+        "v_north": {
+          "updates": 134153,
+          "median_e2": 0.298538,
+          "scale_to_consistent_median": 0.810074,
+          "share_above_95": 0.107951
+        },
+        "vertical_rate": {
+          "updates": 134155,
+          "median_e2": 0.11885,
+          "scale_to_consistent_median": 0.511122,
+          "share_above_95": 0.083277
+        }
+      },
+      "unknown": {
+        "baro_altitude": {
+          "updates": 1851,
+          "median_e2": 0.530884,
+          "scale_to_consistent_median": 1.080251,
+          "share_above_95": 0.240951
+        },
+        "east": {
+          "updates": 2203,
+          "median_e2": 2.660725,
+          "scale_to_consistent_median": 2.418381,
+          "share_above_95": 0.450295
+        },
+        "north": {
+          "updates": 2203,
+          "median_e2": 2.113489,
+          "scale_to_consistent_median": 2.155384,
+          "share_above_95": 0.440763
+        },
+        "v_east": {
+          "updates": 2154,
+          "median_e2": 1.678804,
+          "scale_to_consistent_median": 1.920988,
+          "share_above_95": 0.409471
+        },
+        "v_north": {
+          "updates": 2154,
+          "median_e2": 1.333521,
+          "scale_to_consistent_median": 1.712082,
+          "share_above_95": 0.38208
+        },
+        "vertical_rate": {
+          "updates": 2154,
+          "median_e2": 0.105925,
+          "scale_to_consistent_median": 0.48253,
+          "share_above_95": 0.132312
+        }
+      }
+    }
+  },
+  "measurement_sd": {
+    "position_m": 3.5,
+    "altitude_m": 2.2,
+    "velocity_mps": 0.5,
+    "vertical_rate_mps": 0.3,
+    "timestamp_s": 0.05
+  },
+  "q": {
+    "cv": 0.05,
+    "ca": 0.5,
+    "turn": 0.05
+  }
+}

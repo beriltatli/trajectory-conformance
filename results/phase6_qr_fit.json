@@ -1,0 +1,482 @@
+{
+  "tune_days": [
+    "2022-06-20"
+  ],
+  "flights": 600,
+  "target_median_e2": 0.454936,
+  "floors": {
+    "position": 0.090726,
+    "altitude": 0.999866,
+    "velocity": 0.296989,
+    "vertical_rate": 0.312847
+  },
+  "floor_binding": {
+    "climb": [
+      "altitude",
+      "vertical_rate"
+    ],
+    "cruise": [
+      "altitude",
+      "vertical_rate"
+    ],
+    "descent": [
+      "altitude",
+      "vertical_rate"
+    ]
+  },
+  "phase_scale": {
+    "window_s": 60,
+    "level_rate_mps": 2.5,
+    "climb": {
+      "r_scale": {
+        "position": 0.78718,
+        "altitude": 0.999866,
+        "velocity": 0.396485,
+        "vertical_rate": 0.312847
+      },
+      "q_scale": 1.0
+    },
+    "cruise": {
+      "r_scale": {
+        "position": 0.905265,
+        "altitude": 0.999866,
+        "velocity": 0.296989,
+        "vertical_rate": 0.312847
+      },
+      "q_scale": 0.06887
+    },
+    "descent": {
+      "r_scale": {
+        "position": 0.750549,
+        "altitude": 0.999866,
+        "velocity": 0.558201,
+        "vertical_rate": 0.312847
+      },
+      "q_scale": 1.0
+    }
+  },
+  "history": [
+    {
+      "iteration": 0,
+      "scales": {
+        "climb": {
+          "position": 1.0,
+          "altitude": 1.0,
+          "velocity": 1.0,
+          "vertical_rate": 1.0,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 1.0,
+          "altitude": 1.0,
+          "velocity": 1.0,
+          "vertical_rate": 1.0,
+          "q": 1.0
+        },
+        "descent": {
+          "position": 1.0,
+          "altitude": 1.0,
+          "velocity": 1.0,
+          "vertical_rate": 1.0,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.355401,
+          "altitude": 0.334965,
+          "velocity": 0.316752,
+          "vertical_rate": 0.266073
+        },
+        "cruise": {
+          "position": 0.211349,
+          "altitude": 0.053088,
+          "velocity": 0.11885,
+          "vertical_rate": 0.04217
+        },
+        "descent": {
+          "position": 0.355401,
+          "altitude": 0.298538,
+          "velocity": 0.355401,
+          "vertical_rate": 0.11885
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "scales": {
+        "climb": {
+          "position": 0.883862,
+          "altitude": 0.999866,
+          "velocity": 0.834419,
+          "vertical_rate": 0.764759,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.681592,
+          "altitude": 0.999866,
+          "velocity": 0.511122,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "descent": {
+          "position": 0.883862,
+          "altitude": 0.999866,
+          "velocity": 0.883862,
+          "vertical_rate": 0.511122,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.355401,
+          "altitude": 0.334965,
+          "velocity": 0.316752,
+          "vertical_rate": 0.237137
+        },
+        "cruise": {
+          "position": 0.355401,
+          "altitude": 0.08414,
+          "velocity": 0.178123,
+          "vertical_rate": 0.009441
+        },
+        "descent": {
+          "position": 0.398767,
+          "altitude": 0.334965,
+          "velocity": 0.378331,
+          "vertical_rate": 0.16788
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "scales": {
+        "climb": {
+          "position": 0.781211,
+          "altitude": 0.999866,
+          "velocity": 0.696255,
+          "vertical_rate": 0.55214,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.602433,
+          "altitude": 0.999866,
+          "velocity": 0.319822,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "descent": {
+          "position": 0.827501,
+          "altitude": 0.999866,
+          "velocity": 0.806018,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.398767,
+          "altitude": 0.375837,
+          "velocity": 0.355401,
+          "vertical_rate": 0.237137
+        },
+        "cruise": {
+          "position": 0.421697,
+          "altitude": 0.08414,
+          "velocity": 0.224243,
+          "vertical_rate": 0.010593
+        },
+        "descent": {
+          "position": 0.424494,
+          "altitude": 0.334965,
+          "velocity": 0.398767,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "scales": {
+        "climb": {
+          "position": 0.731396,
+          "altitude": 0.999866,
+          "velocity": 0.615393,
+          "vertical_rate": 0.398634,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.580007,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.492911
+        },
+        "descent": {
+          "position": 0.799335,
+          "altitude": 0.999866,
+          "velocity": 0.754621,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.447424,
+          "altitude": 0.375837,
+          "velocity": 0.355401,
+          "vertical_rate": 0.237137
+        },
+        "cruise": {
+          "position": 0.530884,
+          "altitude": 0.11885,
+          "velocity": 0.216976,
+          "vertical_rate": 0.016788
+        },
+        "descent": {
+          "position": 0.424494,
+          "altitude": 0.334965,
+          "velocity": 0.398767,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 4,
+      "scales": {
+        "climb": {
+          "position": 0.725332,
+          "altitude": 0.999866,
+          "velocity": 0.543922,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.626554,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.235088
+        },
+        "descent": {
+          "position": 0.772129,
+          "altitude": 0.999866,
+          "velocity": 0.706502,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.447424,
+          "altitude": 0.375837,
+          "velocity": 0.378331,
+          "vertical_rate": 0.211349
+        },
+        "cruise": {
+          "position": 0.595662,
+          "altitude": 0.16788,
+          "velocity": 0.243452,
+          "vertical_rate": 0.026607
+        },
+        "descent": {
+          "position": 0.424494,
+          "altitude": 0.334965,
+          "velocity": 0.398767,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 5,
+      "scales": {
+        "climb": {
+          "position": 0.719318,
+          "altitude": 0.999866,
+          "velocity": 0.496018,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.71694,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.125803
+        },
+        "descent": {
+          "position": 0.745848,
+          "altitude": 0.999866,
+          "velocity": 0.661451,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.447424,
+          "altitude": 0.375837,
+          "velocity": 0.378331,
+          "vertical_rate": 0.211349
+        },
+        "cruise": {
+          "position": 0.563273,
+          "altitude": 0.237137,
+          "velocity": 0.320955,
+          "vertical_rate": 0.047315
+        },
+        "descent": {
+          "position": 0.447424,
+          "altitude": 0.334965,
+          "velocity": 0.398767,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 6,
+      "scales": {
+        "climb": {
+          "position": 0.713354,
+          "altitude": 0.999866,
+          "velocity": 0.452333,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.79775,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.088754
+        },
+        "descent": {
+          "position": 0.739664,
+          "altitude": 0.999866,
+          "velocity": 0.619272,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.502018,
+          "altitude": 0.375837,
+          "velocity": 0.398767,
+          "vertical_rate": 0.211349
+        },
+        "cruise": {
+          "position": 0.530884,
+          "altitude": 0.266073,
+          "velocity": 0.378331,
+          "vertical_rate": 0.066834
+        },
+        "descent": {
+          "position": 0.447424,
+          "altitude": 0.334965,
+          "velocity": 0.398767,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 7,
+      "scales": {
+        "climb": {
+          "position": 0.749358,
+          "altitude": 0.999866,
+          "velocity": 0.423489,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.861771,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.073809
+        },
+        "descent": {
+          "position": 0.733531,
+          "altitude": 0.999866,
+          "velocity": 0.579784,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.502018,
+          "altitude": 0.375837,
+          "velocity": 0.398767,
+          "vertical_rate": 0.211349
+        },
+        "cruise": {
+          "position": 0.502018,
+          "altitude": 0.266073,
+          "velocity": 0.424494,
+          "vertical_rate": 0.074989
+        },
+        "descent": {
+          "position": 0.47629,
+          "altitude": 0.334965,
+          "velocity": 0.421697,
+          "vertical_rate": 0.188365
+        }
+      }
+    },
+    {
+      "iteration": 8,
+      "scales": {
+        "climb": {
+          "position": 0.78718,
+          "altitude": 0.999866,
+          "velocity": 0.396485,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        },
+        "cruise": {
+          "position": 0.905265,
+          "altitude": 0.999866,
+          "velocity": 0.296989,
+          "vertical_rate": 0.312847,
+          "q": 0.06887
+        },
+        "descent": {
+          "position": 0.750549,
+          "altitude": 0.999866,
+          "velocity": 0.558201,
+          "vertical_rate": 0.312847,
+          "q": 1.0
+        }
+      },
+      "median_e2": {
+        "climb": {
+          "position": 0.502018,
+          "altitude": 0.375837,
+          "velocity": 0.398767,
+          "vertical_rate": 0.211349
+        },
+        "cruise": {
+          "position": 0.473151,
+          "altitude": 0.298538,
+          "velocity": 0.447424,
+          "vertical_rate": 0.08414
+        },
+        "descent": {
+          "position": 0.47629,
+          "altitude": 0.334965,
+          "velocity": 0.421697,
+          "vertical_rate": 0.188365
+        }
+      }
+    }
+  ],
+  "components": [
+    "east",
+    "north",
+    "baro_altitude",
+    "v_east",
+    "v_north",
+    "vertical_rate"
+  ]
+}

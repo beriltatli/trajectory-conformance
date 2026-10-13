@@ -8,6 +8,11 @@
     python -m scripts.track streaming
                                      online track bank vs whole-flight runs on the first rows
                                      of the sample -> results/phase2_streaming_equivalence.json
+    python -m scripts.track consistency
+                                     normalised innovation per component and phase
+                                     -> results/phase6_consistency.json
+    python -m scripts.track qr-fit   per-phase R and Q scales fitted on the tune day
+                                     -> results/phase6_qr_fit.json, configs/qr_fitted.yaml
 """
 
 import argparse
@@ -18,7 +23,9 @@ from concurrent.futures import ProcessPoolExecutor
 from dataclasses import replace
 from functools import partial
 
+from evaluate.consistency import Consistency, flight_e2
 from evaluate.filter_checks import mode_delays, nis_consistency
+from evaluate.qr_fit import fit as qr_fit
 from evaluate.filter_real import RealFilterStats, flight_summary, streaming_equivalence
 from ingest.config import load_config, repo_path
 from ingest.pipeline import json_ready, peak_rss_mb
@@ -77,12 +84,53 @@ def real(cfg: dict, workers: int) -> tuple[dict, dict]:
     return json_ready(summary), json_ready(noise)
 
 
+def consistency(cfg: dict, workers: int) -> dict:
+    imm = ImmConfig.from_config(cfg["imm"])
+    ing = cfg["ingest"]
+    stats = Consistency()
+    fn = partial(flight_e2, cfg=imm, window_s=cfg["phase"]["window_s"], level_rate_mps=cfg["phase"]["level_rate_mps"],
+                 burn_in=cfg["imm"]["checks"]["burn_in_updates"])
+    batch = []
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        for flight in iter_flights(cfg):
+            t = flight["lastposupdate"].to_numpy(float)
+            if len(flight) < ing["min_flight_updates"] or t[-1] - t[0] < ing["min_flight_duration_s"]:
+                continue
+            batch.append(flight)
+            if len(batch) == BATCH_FLIGHTS:
+                for item in pool.map(fn, batch):
+                    stats.add(item)
+                batch = []
+        for item in pool.map(fn, batch):
+            stats.add(item)
+    out = stats.summary()
+    out["measurement_sd"] = cfg["imm"]["measurement_sd"]
+    out["q"] = cfg["imm"]["q"]
+    return json_ready(out)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["verify", "real", "streaming"])
+    parser.add_argument("command", choices=["verify", "real", "streaming", "consistency", "qr-fit"])
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
     cfg = load_config()
+    if args.command == "qr-fit":
+        import yaml
+
+        result = json_ready(qr_fit(cfg, args.workers, iterations=8, sample_flights=600))
+        repo_path("results/phase6_qr_fit.json").write_text(json.dumps(result, indent=2))
+        header = ("# Written by `python -m scripts.track qr-fit` (evaluate/qr_fit.py) from the tune day only:\n"
+                  "# config.yaml with per-phase R and Q scales. Run the pipeline with TC_CONFIG=configs/qr_fitted.yaml.\n")
+        repo_path("configs/qr_fitted.yaml").write_text(header + yaml.safe_dump({"extends": "../config.yaml", "imm": {"phase_scale": result["phase_scale"]}}, sort_keys=False))
+        return
+    if args.command == "consistency":
+        result = consistency(cfg, args.workers)
+        repo_path("results/phase6_consistency.json").write_text(json.dumps(result, indent=2))
+        for day, phases in result["days"].items():
+            for phase, comps in phases.items():
+                print(day, f"{phase:8s}", "  ".join(f"{c}:{v['median_e2']:.3f}/{v['share_above_95']:.2f}" for c, v in comps.items()))
+        return
     if args.command == "verify":
         result = verify(cfg)
         repo_path("results/phase2_filter_checks.json").write_text(json.dumps(result, indent=2))

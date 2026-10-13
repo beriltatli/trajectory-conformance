@@ -3,7 +3,7 @@
     python -m scripts.figures phase2   figures/phase2_nis.png, figures/phase2_mode_probability.png
     python -m scripts.figures phase4   figures/phase4_alert_vs_detection.png
     python -m scripts.figures phase5   figures/phase5_drift_tradeoff.png
-    python -m scripts.figures phase6   figures/phase6_detectability.png
+    python -m scripts.figures phase6   figures/phase6_detectability.png, figures/phase6_consistency.png
 """
 
 import argparse
@@ -352,6 +352,58 @@ def phase6(cfg: dict) -> list[str]:
     return [str(path)]
 
 
+def phase6_consistency(cfg: dict) -> list[str]:
+    before = json.loads(repo_path("results/phase6_consistency.json").read_text())
+    after = json.loads(repo_path("results/phase6_consistency_fitted.json").read_text())
+    nis_before = json.loads(repo_path("results/phase2_real_filter.json").read_text())["nis"]["nis"]
+    nis_after = json.loads(repo_path("results/phase6_real_filter_fitted.json").read_text())["nis"]["nis"]
+    fit = json.loads(repo_path("results/phase6_qr_fit.json").read_text())
+    day = cfg["evaluation"]["test_days"][0]
+    comps = ("east", "north", "baro_altitude", "v_east", "v_north", "vertical_rate")
+    names = ("east", "north", "baro alt", "v east", "v north", "vert. rate")
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6.4), sharex=True, facecolor=SURFACE)
+    x = np.arange(len(comps))
+    for col, phase in enumerate(PHASE_ORDER):
+        for row, (key, target, label) in enumerate((("median_e2", 0.455, "median of e\u00b2  (target 0.455)"),
+                                                    ("share_above_95", 0.05, "share of |e| > 1.96  (target 5%)"))):
+            ax = axes[row, col]
+            _style(ax)
+            b = [before["days"][day][phase][c][key] for c in comps]
+            a = [after["days"][day][phase][c][key] for c in comps]
+            ax.axhline(target, color=MUTED, linestyle="--", linewidth=1)
+            ax.scatter(x, b, s=36, facecolor=SURFACE, edgecolor=MUTED, linewidth=1.4, zorder=3, label="configured R and q")
+            ax.scatter(x, a, s=36, color=SERIES[0], zorder=4, label=f"R and q fitted per phase on {fit['tune_days'][0]}")
+            for xi, (bi, ai) in enumerate(zip(b, a)):
+                ax.plot([xi, xi], [bi, ai], color=GRID, linewidth=1.5, zorder=2)
+            if row == 0:
+                ax.set_yscale("log")
+                ax.set_ylim(0.005, 2)
+                nb, na = nis_before[day][phase], nis_after[day][phase]
+                ax.set_title(f"{phase}   (joint NIS > 95% line: {100 * nb['above_chi2_95']:.0f}% \u2192 "
+                             f"{100 * na['above_chi2_95']:.0f}%)", color=TEXT, fontsize=9, loc="left")
+            else:
+                ax.set_ylim(0, 0.25)
+                ax.set_xticks(x, names, rotation=35, ha="right")
+            if col == 0:
+                ax.set_ylabel(label, color=TEXT_SECONDARY, fontsize=9)
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=2, frameon=False, fontsize=9, labelcolor=TEXT)
+    floors = ", ".join(sorted({g.replace("_", " ") for gs in fit["floor_binding"].values() for g in gs}))
+    fig.suptitle(f"Filter consistency per measurement component on {day} (not used for fitting); e = innovation / predicted sd of "
+                 f"the expected model, N(0, 1) if consistent.\nFitting R (and q in cruise) per phase centres position and "
+                 f"velocity, but the tails get heavier and the joint NIS worse; {floors} sit at the resolution floor\n"
+                 f"(25 ft, 64 ft/min roundings are constant in level flight, not white noise), which no R can fix.",
+                 color=TEXT, fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.05, 1, 0.9))
+    path = repo_path("figures/phase6_consistency.png")
+    _save(fig, path, cfg)
+    plt.close(fig)
+    return [str(path)]
+
+
+PHASE_ORDER = ("climb", "cruise", "descent")
+
+
 def _save(fig, path, cfg: dict) -> None:
     # A smoke run on synthetic traffic must never be mistaken for a result.
     if "synthetic" in cfg:
@@ -363,7 +415,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["phase2", "phase4", "phase5", "phase6"])
     args = parser.parse_args()
-    for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5, "phase6": phase6}[args.command](load_config()):
+    for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5,
+                  "phase6": lambda c: [*phase6(c), *phase6_consistency(c)]}[args.command](load_config()):
         print(path)
 
 

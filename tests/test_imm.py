@@ -160,3 +160,30 @@ def test_track_rejects_time_going_backwards():
     track.update(100.0, z)
     with pytest.raises(ValueError):
         track.update(100.0, z)
+
+
+def test_online_phase_equals_segment_phases_and_unit_scales_change_nothing():
+    from dataclasses import replace
+
+    from conform.phase import segment_phases
+    from track.imm import PhaseScale
+
+    cfg = ImmConfig.from_config(load_config()["imm"])
+    rng = np.random.default_rng(5)
+    t = np.cumsum(rng.uniform(9.6, 11.0, 300))
+    alt = np.concatenate([np.linspace(500, 6000, 100), np.full(100, 6000.0), np.linspace(6000, 900, 100)])
+    alt = np.round(alt / 7.62) * 7.62
+    alt[[17, 150]] = np.nan
+    z = np.zeros((len(t), 6))
+    z[:, 0] = 200.0 * t
+    z[:, 2] = alt
+    z[:, 3] = 200.0
+    unit = PhaseScale(60.0, 2.5, np.ones((3, 6)), np.ones(3))
+    track = ImmTrack(replace(cfg, phase_scale=unit))
+    base = ImmTrack(cfg)
+    phases = []
+    for k in range(len(t)):
+        a, b = track.update(float(t[k]), z[k]), base.update(float(t[k]), z[k])
+        phases.append(track.phase)
+        assert np.array_equal(a.state, b.state) and np.array_equal(a.cov, b.cov)
+    assert np.array_equal(np.array(phases), segment_phases(t, alt, 60.0, 2.5))

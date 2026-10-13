@@ -33,7 +33,9 @@ from ingest.pipeline import json_ready
 # passes its own config and OUT.
 MULTIDAY = REPO / "configs" / "multiday.yaml"
 OUT = REPO / "data" / "multiday"
-DETECTORS = ("imm_conformance", "fixed_threshold", "cv_kalman", "eta_deviation")
+DETECTORS = ("imm_conformance", "fixed_threshold", "cv_kalman", "eta_deviation", "fused_conformance")
+# Result files: phase 4 detectors, and those added in phase 6.
+PREFIX = {"fused_conformance": "phase6"}
 SYSTEM = "imm_conformance"
 REPLICATES = 2000
 # Keys that differ between runs of the same computation (machine load), not results.
@@ -64,7 +66,7 @@ def run(cfg: dict, only: list[str] | None, workers: int) -> None:
             "evaluation": {"tune_days": [fold["tune"]], "test_days": [fold["test"]]},
         }))
         env = {**os.environ, "TC_CONFIG": str(fold_cfg), "TC_OUT": str(out)}
-        for step in (["references"], ["conformance"]):
+        for step in (["references"], ["conformance"], ["fusion"]):
             print(f"==> {fold['name']}: {step[0]}", flush=True)
             subprocess.run([sys.executable, "-m", "scripts.evaluate", *step, "--workers", str(workers)], env=env, check=True, cwd=REPO)
 
@@ -72,13 +74,13 @@ def run(cfg: dict, only: list[str] | None, workers: int) -> None:
 def _days(fold: dict) -> dict[str, DayCounts]:
     out = {}
     for name in DETECTORS:
-        with np.load(fold_dir(fold["name"]) / "data" / f"phase4_events_{name}.npz") as arrays:
+        with np.load(fold_dir(fold["name"]) / "data" / f"{PREFIX.get(name, 'phase4')}_events_{name}.npz") as arrays:
             out[name] = DayCounts.from_npz(arrays)
     return out
 
 
 def _point(fold: dict, name: str) -> dict:
-    summary = json.loads((fold_dir(fold["name"]) / "results" / f"phase4_{name}.json").read_text())
+    summary = json.loads((fold_dir(fold["name"]) / "results" / f"{PREFIX.get(name, 'phase4')}_{name}.json").read_text())
     budget = summary["test_day"]["budget"]
     return {
         "thresholds_by_phase": summary["operating_points"]["budget"]["thresholds_by_phase"],
@@ -96,7 +98,7 @@ def _strip(value):
 
 def _reproduces_phase4(fold: dict) -> dict:
     out = {}
-    for name in DETECTORS:
+    for name in (d for d in DETECTORS if d not in PREFIX):
         new = json.loads((fold_dir(fold["name"]) / "results" / f"phase4_{name}.json").read_text())
         old = json.loads(repo_path(f"results/phase4_{name}.json").read_text())
         out[name] = _strip(new) == _strip(old)
