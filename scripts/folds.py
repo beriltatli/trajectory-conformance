@@ -33,7 +33,7 @@ from ingest.pipeline import json_ready
 # passes its own config and OUT.
 MULTIDAY = REPO / "configs" / "multiday.yaml"
 OUT = REPO / "data" / "multiday"
-DETECTORS = ("imm_conformance", "fixed_threshold", "cv_kalman", "eta_deviation", "fused_conformance")
+DETECTORS = ("imm_conformance", "fixed_threshold", "cv_kalman", "fused_conformance")
 # Result files: phase 4 detectors, and those added in phase 6.
 PREFIX = {"fused_conformance": "phase6"}
 SYSTEM = "imm_conformance"
@@ -66,7 +66,15 @@ def run(cfg: dict, only: list[str] | None, workers: int) -> None:
             "evaluation": {"tune_days": [fold["tune"]], "test_days": [fold["test"]]},
         }))
         env = {**os.environ, "TC_CONFIG": str(fold_cfg), "TC_OUT": str(out)}
-        for step in (["references"], ["conformance"], ["fusion"]):
+        # The fusion offset is the one chosen on 2022-06-20 (results/phase6_fusion_tails.json);
+        # without that file (the synthetic smoke run) each fold chooses on its own tune day.
+        chosen = repo_path("results/phase6_fusion_tails.json")
+        fusion = ["fusion"]
+        if chosen.exists():
+            fusion += ["--offset", str(json.loads(chosen.read_text())["offset_choice"]["offset"])]
+        for step in (["references"], ["conformance", "--only", "never_alert", "imm_conformance", "fixed_threshold", "cv_kalman"], fusion):
+            if step[0] == "references" and (out / "data" / "phase4_references.pkl").exists():
+                continue
             print(f"==> {fold['name']}: {step[0]}", flush=True)
             subprocess.run([sys.executable, "-m", "scripts.evaluate", *step, "--workers", str(workers)], env=env, check=True, cwd=REPO)
 

@@ -7,8 +7,15 @@ monitor catches vertical rate offsets the fixed distance cannot see (0.22-0.33 a
 first mapped to its own rarity, -log10 of its exceedance probability among tune-day reference
 flights scored against their held-out references, with the same two-fold cross-fitting as the
 monitor's tails (reference/build.py): a tune-day flight is scored with the tail of the fold it
-is not in, a test-day flight with the tail of all. The fused score is the larger of the two
-rarities; one threshold, one alert budget and the same alert management as every detector.
+is not in, a test-day flight with the tail of all. The fused score is the larger of the IMM score
+and the distance's rarity plus an offset c; one threshold, one alert budget and the same alert
+management as every detector.
+
+The offset is needed because the two run at different rarities for the same alert rate: within
+the budget the fixed distance alone sits near a rarity of 1 (its exceedances come in long runs on
+few flights, so 10% of fixes cost few alerts), the monitor near 2. With c = 0 a shared threshold
+cuts the distance at about 54 km and the fusion inherits none of its lateral detection. c is
+chosen on the tune day (scripts/evaluate.py fusion).
 """
 
 import pickle
@@ -72,6 +79,7 @@ class FusedConformance:
     imm_cfg: dict
     ref_cfg: dict
     tails_path: str
+    offset: float = 0.0
     name: str = "fused_conformance"
     thresholds: np.ndarray = field(default_factory=lambda: np.geomspace(1.0, 1e4, 121))
 
@@ -84,4 +92,4 @@ class FusedConformance:
         distance = self._distance.scores(flight)
         tail = load_tails(self.tails_path).for_flight(str(flight["flight_id"].iloc[0]))
         rarity = np.where(np.isfinite(distance), tail.score(np.nan_to_num(distance)), np.nan)
-        return np.fmax(imm, rarity)
+        return np.fmax(imm, rarity + self.offset)

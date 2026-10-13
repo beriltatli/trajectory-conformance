@@ -4,6 +4,7 @@
     python -m scripts.figures phase4   figures/phase4_alert_vs_detection.png
     python -m scripts.figures phase5   figures/phase5_drift_tradeoff.png
     python -m scripts.figures phase6   figures/phase6_detectability.png, figures/phase6_consistency.png
+    python -m scripts.figures rolling  figures/phase6_rolling.png
 """
 
 import argparse
@@ -403,6 +404,62 @@ def phase6_consistency(cfg: dict) -> list[str]:
 
 PHASE_ORDER = ("climb", "cruise", "descent")
 
+ROLLING_DETECTORS = {
+    "imm_conformance": ("IMM conformance monitor", SERIES[0], "o"),
+    "fixed_threshold": ("fixed cross-track distance", SERIES[2], "^"),
+    "fused_conformance": ("IMM + distance, fused", "#8a5cd1", "D"),
+    "cv_kalman": ("single CV Kalman (NIS)", SERIES[1], "s"),
+}
+
+
+def rolling(cfg: dict) -> list[str]:
+    r = json.loads(repo_path("results/phase6_rolling.json").read_text())
+    folds = list(r["folds"])
+    pooled = r["pooled"]["unseen_test_days"]
+    names = [n for n in ROLLING_DETECTORS if n in r["detectors"]]
+    columns = [*folds, "pooled"]
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), facecolor=SURFACE)
+    for ax, (metric, label) in zip(axes, (("fa_rate", "false alerts per flight-hour, all phases"),
+                                          ("detection", "detection rate, all phases pooled"))):
+        _style(ax)
+        seen = [i for i, f in enumerate(folds) if not r["folds"][f]["unseen_test_day"]]
+        if seen:
+            ax.axvspan(min(seen) - 0.5, max(seen) + 0.5, color=BAND, alpha=0.6, zorder=0)
+        ax.axvline(len(folds) - 0.5, color=MUTED, linewidth=0.8)
+        for k, name in enumerate(names):
+            label_d, color, marker = ROLLING_DETECTORS[name]
+            dx = (k - (len(names) - 1) / 2) * 0.16
+            for i, col in enumerate(columns):
+                boot = pooled["bootstrap"] if col == "pooled" else r["folds"][col]["bootstrap"]
+                m = boot["detectors"][name][metric]["all"]
+                ax.errorbar(i + dx, m["estimate"], yerr=[[m["estimate"] - m["ci95"][0]], [m["ci95"][1] - m["estimate"]]],
+                            fmt=marker, color=color, markersize=6 if col != "pooled" else 8, capsize=2, linewidth=1.2,
+                            label=label_d if i == 0 else None)
+        if metric == "fa_rate":
+            ax.axhline(r["budget_per_flight_hour"], color=MUTED, linestyle="--", linewidth=1)
+            ax.annotate(f"budget {r['budget_per_flight_hour']:g}/h", (len(columns) - 0.6, r["budget_per_flight_hour"]), xytext=(0, 4),
+                        textcoords="offset points", ha="right", color=TEXT_SECONDARY, fontsize=8)
+            ax.set_ylim(bottom=0)
+        else:
+            ax.set_ylim(0, max(0.35, ax.get_ylim()[1]))
+        ticks = [f"{r['folds'][f]['test_day'][5:]}\n(tuned {r['folds'][f]['tune_day'][5:]})" for f in folds] + ["unseen days\npooled"]
+        ax.set_xticks(range(len(columns)), ticks, fontsize=8)
+        ax.set_xlim(-0.5, len(columns) - 0.5)
+        ax.set_ylabel(label, color=TEXT_SECONDARY, fontsize=9)
+        if seen:
+            ax.text(np.mean(seen), ax.get_ylim()[1], "test days looked at\nwhile designing", ha="center", va="top", fontsize=7.5, color=TEXT_SECONDARY)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=len(names), frameon=False, fontsize=9, labelcolor=TEXT)
+    fig.suptitle("Rolling evaluation: thresholds chosen on one Monday for 2 false alerts per flight-hour, applied to the next. "
+                 "Bars: 95% interval, flights resampled\n(stratified by day for the pooled column, which covers only test days never "
+                 "looked at before the configuration was frozen).",
+                 color=TEXT, fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.07, 1, 0.9))
+    path = repo_path("figures/phase6_rolling.png")
+    _save(fig, path, cfg)
+    plt.close(fig)
+    return [str(path)]
+
 
 def _save(fig, path, cfg: dict) -> None:
     # A smoke run on synthetic traffic must never be mistaken for a result.
@@ -413,10 +470,10 @@ def _save(fig, path, cfg: dict) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["phase2", "phase4", "phase5", "phase6"])
+    parser.add_argument("command", choices=["phase2", "phase4", "phase5", "phase6", "rolling"])
     args = parser.parse_args()
     for path in {"phase2": phase2, "phase4": phase4, "phase5": phase5,
-                  "phase6": lambda c: [*phase6(c), *phase6_consistency(c)]}[args.command](load_config()):
+                  "phase6": lambda c: [*phase6(c), *phase6_consistency(c)], "rolling": rolling}[args.command](load_config()):
         print(path)
 
 

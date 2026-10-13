@@ -171,12 +171,46 @@ def single_count(cfg: dict, workers: int) -> None:
 FUSION_TAILS = "data/phase6_fusion_tails.pkl"
 
 
-def fusion(cfg: dict, workers: int) -> None:
+FUSION_OFFSETS = (0.5, 1.0, 1.5)
+
+
+def fusion(cfg: dict, workers: int, offset: float | None = None) -> None:
+    """Distance tails, then the fused detector at each candidate offset; the offset with the
+    highest tune-day detection at the budget point (events pooled over phases) is kept as
+    phase6_fused_conformance. The test day plays no part in the choice. With `offset` given
+    (the rolling folds reuse the one chosen on 2022-06-20), only that one is run."""
     tails, summary = fit_distance_tails(cfg, workers)
     save_distance_tails(tails, FUSION_TAILS)
+    tune_detection = {}
+    for offset in (FUSION_OFFSETS if offset is None else (offset,)):
+        detector = Managed(FusedConformance(cfg["imm"], cfg["reference"], FUSION_TAILS, offset), cfg["alerts"])
+        name = f"{detector.name}_c{offset:g}"
+        _run_on_reference_flights(detector, cfg, workers, "phase6", name, cfg["alerts"])
+        tune_detection[offset] = _tune_budget_detection(repo_path(f"results/phase6_{name}.json"), repo_path(f"data/phase6_events_{name}.npz"))
+    best = max(tune_detection, key=lambda c: (tune_detection[c], -c))
+    for kind, ext in (("results/phase6_", ".json"), ("data/phase6_events_", ".npz")):
+        repo_path(f"{kind}fused_conformance{ext}").write_bytes(repo_path(f"{kind}fused_conformance_c{best:g}{ext}").read_bytes())
+    summary["offset_choice"] = {"chosen_on": cfg["evaluation"]["tune_days"], "tune_day_detection_at_budget": {f"{c:g}": d for c, d in tune_detection.items()},
+                                "offset": best}
     repo_path("results/phase6_fusion_tails.json").write_text(json.dumps(json_ready(summary), indent=2))
-    detector = Managed(FusedConformance(cfg["imm"], cfg["reference"], FUSION_TAILS), cfg["alerts"])
-    _run_on_reference_flights(detector, cfg, workers, "phase6", detector.name, cfg["alerts"])
+    print("fusion offset", best, tune_detection)
+
+
+def _tune_budget_detection(summary_path, events_path) -> float:
+    """Tune-day detection, all phases' events pooled, at the per-phase budget thresholds chosen
+    on the tune day: each tune event read off the sweep at its phase's threshold."""
+    summary = json.loads(summary_path.read_text())
+    thresholds = np.asarray(summary["sweep"]["tune"]["thresholds"], float)
+    chosen = summary["operating_points"]["budget"]["thresholds_by_phase"]
+    with np.load(events_path) as ev:
+        phase, first = ev["tune_phase"], ev["tune_first_alert"]
+    hits = total = 0
+    for p, key in enumerate(("climb", "cruise", "descent")):
+        j = int(np.argmin(np.abs(thresholds - chosen[key])))
+        sel = phase == p
+        hits += int((~np.isnan(first[sel, j])).sum())
+        total += int(sel.sum())
+    return hits / total
 
 
 def drift(cfg: dict, workers: int) -> None:
@@ -244,6 +278,7 @@ def main() -> None:
     parser.add_argument("command", choices=["stub", "harness", "references", "conformance", "single-count", "drift", "streaming", "breakdown", "fusion"])
     parser.add_argument("--only", nargs="*", help="conformance: run only these detectors")
     parser.add_argument("--workers", type=int, default=6)
+    parser.add_argument("--offset", type=float, help="fusion: use this offset instead of choosing one")
     args = parser.parse_args()
     cfg = load_config()
     if args.command == "harness":
@@ -262,7 +297,7 @@ def main() -> None:
         drift(cfg, args.workers)
         return
     if args.command == "fusion":
-        fusion(cfg, args.workers)
+        fusion(cfg, args.workers, args.offset)
         return
     if args.command == "breakdown":
         result = event_breakdown(cfg, args.workers)
