@@ -88,11 +88,11 @@ def phase2(cfg: dict) -> list[str]:
     right.set_xlim(1e-3, 1e4)
     right.set_xlabel("NIS / measurement components", color=TEXT_SECONDARY, fontsize=9)
     right.set_ylabel("density per decade", color=TEXT_SECONDARY, fontsize=9)
-    right.set_title(f"Real sample, {test_day} (not used for tuning)", color=TEXT, fontsize=10, loc="left")
+    right.set_title(f"{'Synthetic traffic' if 'synthetic' in cfg else 'Real sample'}, {test_day} (not used for tuning)", color=TEXT, fontsize=10, loc="left")
     right.legend(loc="upper right", fontsize=8, frameon=False, labelcolor=TEXT)
     fig.tight_layout()
     path = repo_path("figures/phase2_nis.png")
-    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    _save(fig, path, cfg)
     plt.close(fig)
     written.append(str(path))
 
@@ -123,7 +123,7 @@ def phase2(cfg: dict) -> list[str]:
     fig.legend(handles, labels, loc="upper right", ncol=3, fontsize=8, frameon=False, labelcolor=TEXT)
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     path = repo_path("figures/phase2_mode_probability.png")
-    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    _save(fig, path, cfg)
     plt.close(fig)
     written.append(str(path))
     return written
@@ -204,7 +204,7 @@ def phase4(cfg: dict) -> list[str]:
                  color=TEXT, fontsize=9, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0.07, 1, 0.93))
     path = repo_path("figures/phase4_alert_vs_detection.png")
-    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    _save(fig, path, cfg)
     plt.close(fig)
     return [str(path)]
 
@@ -293,9 +293,16 @@ def phase5(cfg: dict) -> list[str]:
                  color=TEXT, fontsize=9, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0.04, 1, 0.93))
     path = repo_path("figures/phase5_drift_tradeoff.png")
-    fig.savefig(path, dpi=150, facecolor=SURFACE)
+    _save(fig, path, cfg)
     plt.close(fig)
     return [str(path)]
+
+
+def _save(fig, path, cfg: dict) -> None:
+    # A smoke run on synthetic traffic must never be mistaken for a result.
+    if "synthetic" in cfg:
+        fig.text(0.005, 0.005, "SYNTHETIC TRAFFIC, smoke run", ha="left", va="bottom", color=TEXT_SECONDARY, fontsize=9)
+    fig.savefig(path, dpi=150, facecolor=SURFACE)
 
 
 def main() -> None:

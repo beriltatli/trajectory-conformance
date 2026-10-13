@@ -1,6 +1,17 @@
 PY := .venv/bin/python
 
-.PHONY: check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
+.PHONY: env smoke check reproduce survey sample ingest stub verify track figures harness references conformance drift sim-data sim
+
+# Pinned environment: Python 3.12 (pyproject.toml), exact versions in requirements.txt.
+env:
+	python3.12 -m venv .venv
+	$(PY) -m pip install -r requirements.txt
+
+# The whole pipeline on synthetic traffic (configs/smoke.yaml), no OpenSky data; outputs in
+# build/smoke/, never in data/, results/ or figures/. About 3 min on 8 cores.
+smoke:
+	rm -rf build/smoke
+	TC_CONFIG=configs/smoke.yaml TC_OUT=build/smoke $(PY) -m scripts.reproduce --synthetic
 
 check:
 	$(PY) -m pytest -q
