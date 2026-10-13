@@ -138,7 +138,8 @@ def build_references(cfg: dict, workers: int) -> tuple[ReferenceSet, dict]:
     centre = region_centre(bbox)
     tune_days = set(cfg["evaluation"]["tune_days"])
 
-    ends, shapes = {}, {}
+    sub_cfg = ref_cfg.get("subflows") or {}
+    ends, shapes, prefixes = {}, {}, {}
     for flight in iter_kept_flights(cfg):
         fid = str(flight["flight_id"].iloc[0])
         lat = flight["lat"].to_numpy(float)
@@ -147,6 +148,10 @@ def build_references(cfg: dict, workers: int) -> tuple[ReferenceSet, dict]:
         ends[fid] = (day, *endpoints(lat, lon, flight["baroaltitude"].to_numpy(float)))
         if day in tune_days:
             shapes[fid] = resample_by_fraction(geodetic_to_enu(lat, lon, *centre)[:, :2], ref_cfg["shape_points"])
+        if sub_cfg.get("enabled"):
+            t = flight["lastposupdate"].to_numpy(float)
+            first = t <= t[0] + sub_cfg["assign_s"]
+            prefixes[fid] = geodetic_to_enu(lat[first], lon[first], *centre)[:, :2]
 
     low = [p for day, first, last in ends.values() if day in tune_days for p in (first, last) if p[2] < ref_cfg["airport_altitude_m"]]
     airports = fit_airports(np.array([p[0] for p in low]), np.array([p[1] for p in low]), ref_cfg["airport_link_km"])
@@ -162,8 +167,14 @@ def build_references(cfg: dict, workers: int) -> tuple[ReferenceSet, dict]:
     for fid, track in map_flights(flights, partial(_track, imm_cfg=cfg["imm"]), workers):
         tracks[fid] = track
     member_ids = {key: sorted(f for f in tracks if od[f] == key) for key in kept}
+    split_summary = None
+    if sub_cfg.get("enabled"):
+        member_ids, od, split_summary = split_subflows(member_ids, od, shapes, prefixes, ref_cfg)
+        kept = sorted(member_ids)
     items = ((key, member_ids[key], [shapes[f] for f in member_ids[key]], [tracks[f] for f in member_ids[key]]) for key in kept)
     fits = dict(zip(kept, map_flights(items, partial(fit_pair, ref_cfg=ref_cfg, centre=centre), workers)))
+    if sub_cfg.get("enabled"):
+        fits = _score_by_assignment(fits, member_ids, od, tracks, ref_cfg)
 
     references = {key: fit.reference for key, fit in fits.items()}
     held_out = {fid: ref for fit in fits.values() for fid, ref in fit.held_out.items()}
@@ -178,12 +189,95 @@ def build_references(cfg: dict, workers: int) -> tuple[ReferenceSet, dict]:
     in_sample = np.concatenate([fit.in_sample for fit in fits.values()])
 
     summary = _summary(ends, od, counts, kept, airports, references, tune_days)
+    if split_summary is not None:
+        summary["subflows"] = split_summary
     summary["held_out_references"] = len(held_out)
     summary["held_out_reference_flights"] = {"min": int(min(r.flights for r in held_out.values())),
                                              "median": float(np.median([r.flights for r in held_out.values()]))}
     summary["residual_quantiles"] = {"in_sample": _quantiles(in_sample), "held_out": _quantiles(pooled)}
     summary["calibration"] = _calibration(pooled, in_fold, tails, fold_tails, fold)
     return ReferenceSet(airports, od, references, tails, held_out, fold, fold_tails), summary
+
+
+def _two_medoids(shapes: np.ndarray) -> tuple[np.ndarray, float, float]:
+    """Exhaustive 2-medoid split of (n, points, 2) shapes under mean pointwise distance:
+    labels, mean distance to the assigned medoid, and to the single best medoid."""
+    d = np.sqrt(((shapes[:, None] - shapes[None, :]) ** 2).sum(-1)).mean(-1)
+    one = float(d.sum(axis=0).min() / len(d))
+    best, labels = np.inf, None
+    for a in range(len(d)):
+        for b in range(a + 1, len(d)):
+            cost = np.minimum(d[:, a], d[:, b])
+            if cost.sum() < best:
+                best, labels = float(cost.sum()), (d[:, b] < d[:, a]).astype(int)
+    return labels, best / len(d), one
+
+
+def split_subflows(member_ids: dict, od: dict, shapes: dict, prefixes: dict, ref_cfg: dict) -> tuple[dict, dict, dict]:
+    """Split a pair's members into two flows where that clearly tightens the reference, and
+    assign every flight of a split pair to a flow from its first assign_s only.
+
+    A pair keyed by 50 km gates can hold two airways (phase 4: median station sd 4.2 km
+    cross-track). Members are split by shape (training labels, the whole tune-day flight). Any
+    flight, tune or test, is then scored against the flow nearest to its first assign_s of fixes
+    (mean distance to the flow's median shape): injections start at least min_prior_s after the
+    first fix, so the assignment never sees the deviation, and is what an online system could
+    decide after assign_s. A tune-day member assigned to the other flow is scored against that
+    flow, which it did not help build."""
+    sub = ref_cfg["subflows"]
+    minimum = ref_cfg["min_flights"]
+    out_members, out_od = {}, dict(od)
+    report = {"pairs_tried": 0, "pairs_split": 0, "tune_members_assigned_to_other_flow": 0, "spread_ratio": []}
+    for key, fids in member_ids.items():
+        if len(fids) < 2 * minimum:
+            out_members[key] = fids
+            continue
+        report["pairs_tried"] += 1
+        stack = np.stack([shapes[f] for f in fids])
+        labels, two, one = _two_medoids(stack)
+        sizes = np.bincount(labels, minlength=2)
+        if sizes.min() < minimum or two > (1.0 - sub["min_gain"]) * one:
+            out_members[key] = fids
+            continue
+        report["pairs_split"] += 1
+        report["spread_ratio"].append(two / one)
+        centres = [np.median(stack[labels == k], axis=0) for k in (0, 1)]
+        for k in (0, 1):
+            out_members[f"{key}#{k}"] = [f for f, lab in zip(fids, labels) if lab == k]
+        member_flow = dict(zip(fids, labels))
+        for fid, key_f in od.items():
+            if key_f != key:
+                continue
+            flow = _nearest_flow(prefixes.get(fid), centres, sizes)
+            out_od[fid] = f"{key}#{flow}"
+            if fid in member_flow and member_flow[fid] != flow:
+                report["tune_members_assigned_to_other_flow"] += 1
+    report["spread_ratio"] = {"median": float(np.median(report["spread_ratio"])) if report["spread_ratio"] else None}
+    return out_members, out_od, report
+
+
+def _nearest_flow(prefix: np.ndarray | None, centres: list[np.ndarray], sizes: np.ndarray) -> int:
+    from baselines.fixed_threshold import cross_track_distance
+
+    if prefix is None or len(prefix) < 3:
+        return int(np.argmax(sizes))
+    return int(np.argmin([cross_track_distance(prefix[:, 0], prefix[:, 1], c).mean() for c in centres]))
+
+
+def _score_by_assignment(fits: dict, member_ids: dict, od: dict, tracks: dict, ref_cfg: dict) -> dict:
+    """A member whose assigned flow is not the one it built is scored, and its held-out
+    residuals taken, against the assigned flow's full reference."""
+    out = {}
+    for key, fit in fits.items():
+        held_out, residuals = dict(fit.held_out), dict(fit.held_out_residuals)
+        for fid in member_ids[key]:
+            if od[fid] != key:
+                ref = fits[od[fid]].reference
+                fixes, path_s = follow(tracks[fid], ref.lat, ref.lon, ref_cfg["match"])
+                del held_out[fid]
+                residuals[fid] = abs_residuals(ref, fixes, path_s)
+        out[key] = PairFit(fit.reference, fit.in_sample, held_out, residuals)
+    return out
 
 
 def _fit_tails(residuals: np.ndarray, ref_cfg: dict) -> tuple[TailTable, ...]:

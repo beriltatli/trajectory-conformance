@@ -1,0 +1,12 @@
+# Phase 6: references split into flows within an origin-destination pair (reference/build.py
+# split_subflows). Everything else as config.yaml.
+extends: ../config.yaml
+
+reference:
+  subflows:
+    enabled: true
+    # Split only if the mean distance of members to their flow's medoid shape falls by >= 30%.
+    min_gain: 0.3
+    # A flight is assigned to a flow from its first 300 s, the earliest an injection can start
+    # (injection.events.min_prior_s), so the assignment never sees an injected deviation.
+    assign_s: 300
