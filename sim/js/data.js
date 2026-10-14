@@ -1,19 +1,28 @@
 // Loads data/sim/scene.json + scene.bin (scripts/sim.py) and answers "where was this track at T".
 
-async function fetchWithProgress(url, onBytes) {
+// Collects the body in chunks: Content-Length is the size on the wire, which a server that
+// compresses (GitHub Pages gzips scene.bin) makes smaller than the bytes that arrive.
+async function fetchWithProgress(url, expectedBytes, onBytes) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-  const total = Number(res.headers.get('content-length')) || 0;
-  if (!res.body || !total) return res.arrayBuffer();
+  const encoded = Boolean(res.headers.get('content-encoding'));
+  const total = expectedBytes || (encoded ? 0 : Number(res.headers.get('content-length')) || 0);
+  if (!res.body) return res.arrayBuffer();
   const reader = res.body.getReader();
-  const out = new Uint8Array(total);
+  const chunks = [];
   let at = 0;
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
-    out.set(value, at);
+    chunks.push(value);
     at += value.length;
-    onBytes(at, total);
+    if (total) onBytes(Math.min(at, total), total);
+  }
+  const out = new Uint8Array(at);
+  let offset = 0;
+  for (const c of chunks) {
+    out.set(c, offset);
+    offset += c.length;
   }
   return out.buffer;
 }
@@ -26,7 +35,7 @@ export async function loadScene(dataBase, onProgress) {
     }),
     fetch('assets/basemap.json').then((r) => r.json()),
   ]);
-  const buf = await fetchWithProgress(`${dataBase}scene.bin`, onProgress);
+  const buf = await fetchWithProgress(`${dataBase}scene.bin`, meta.bin_bytes, onProgress);
   return new SceneData(meta, buf, basemap);
 }
 

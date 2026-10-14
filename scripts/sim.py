@@ -297,6 +297,8 @@ def export(cfg: dict, workers: int) -> None:
         "source": "synthetic" if "synthetic" in cfg else "opensky",
         "day": day, "day_start_epoch": day_start, "centre": centre, "bbox": cfg["region"]["bbox"],
         "columns": list(COLUMNS), "components": list(COMPONENTS), "comp_byte_offset": len(data_bytes),
+        # scene.bin's size before any transfer encoding, for the viewer's progress bar.
+        "bin_bytes": len(data_bytes) + comp.nbytes,
         "rows": rows_total, "comp_rows": comp_total,
         "thresholds": {"imm": _budget_thresholds("imm_conformance").tolist(),
                        "fixed_km": (_budget_thresholds("fixed_threshold") / 1000.0).tolist()},
