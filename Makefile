@@ -16,6 +16,7 @@ smoke:
 	TC_CONFIG=configs/smoke_multiday.yaml TC_OUT=build/smoke/multiday $(PY) -m scripts.run ingest
 	TC_OUT=build/smoke/multiday $(PY) -m scripts.folds run --config configs/smoke_multiday.yaml --out build/smoke/multiday
 	TC_OUT=build/smoke/multiday $(PY) -m scripts.folds aggregate --config configs/smoke_multiday.yaml --out build/smoke/multiday
+	TC_CONFIG=configs/smoke_multiday.yaml TC_OUT=build/smoke/multiday $(PY) -m scripts.figures rolling
 
 # Rolling evaluation over six Mondays (configs/multiday.yaml); everything OpenSky-derived stays
 # in data/multiday/, the aggregate goes to results/phase6_rolling.json.
@@ -26,6 +27,7 @@ multiday-data:
 folds:
 	$(PY) -m scripts.folds run
 	$(PY) -m scripts.folds aggregate
+	$(PY) -m scripts.figures rolling
 
 check:
 	$(PY) -m pytest -q
@@ -70,6 +72,7 @@ figures:
 	$(PY) -m scripts.figures phase2
 	$(PY) -m scripts.figures phase4
 	$(PY) -m scripts.figures phase5
+	$(PY) -m scripts.figures phase6
 
 # Public replay on synthetic traffic (configs/demo.yaml) -> sim/demo/, which GitHub Pages serves.
 DEMO := TC_CONFIG=configs/demo.yaml TC_OUT=build/demo

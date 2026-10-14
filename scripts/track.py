@@ -17,6 +17,7 @@
 
 import argparse
 import json
+import os
 
 import pyarrow.parquet as pq
 from concurrent.futures import ProcessPoolExecutor
@@ -120,7 +121,10 @@ def main() -> None:
 
         result = json_ready(qr_fit(cfg, args.workers, iterations=8, sample_flights=600))
         repo_path("results/phase6_qr_fit.json").write_text(json.dumps(result, indent=2))
-        header = ("# Written by `python -m scripts.track qr-fit` (evaluate/qr_fit.py) from the tune day only:\n"
+        if os.environ.get("TC_OUT"):
+            # configs/ is not redirected: a smoke run must not overwrite the committed fit.
+            return
+        header =("# Written by `python -m scripts.track qr-fit` (evaluate/qr_fit.py) from the tune day only:\n"
                   "# config.yaml with per-phase R and Q scales. Run the pipeline with TC_CONFIG=configs/qr_fitted.yaml.\n")
         repo_path("configs/qr_fitted.yaml").write_text(header + yaml.safe_dump({"extends": "../config.yaml", "imm": {"phase_scale": result["phase_scale"]}}, sort_keys=False))
         return

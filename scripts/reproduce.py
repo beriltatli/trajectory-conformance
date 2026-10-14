@@ -1,6 +1,8 @@
 """One-command reproduction: every step from download to results, then the test suite.
 
-    python -m scripts.reproduce              OpenSky sample -> data/, results/, figures/
+    python -m scripts.reproduce              OpenSky sample -> data/, results/, figures/ (phases 1-6
+                                             on the two-day sample; the rolling evaluation over
+                                             six Mondays is `make multiday-data folds`)
     python -m scripts.reproduce --synthetic  synthetic traffic (scripts.synth) in place of the
                                              download; run it with TC_CONFIG and TC_OUT set
                                              (`make smoke`) so the committed results stay as
@@ -32,9 +34,16 @@ PIPELINE = [
     ["-m", "scripts.evaluate", "single-count"],
     ["-m", "scripts.evaluate", "streaming"],
     ["-m", "scripts.evaluate", "drift"],
+    ["-m", "scripts.evaluate", "breakdown"],
+    ["-m", "scripts.track", "consistency"],
+    ["-m", "scripts.track", "qr-fit"],
+    ["-m", "scripts.variant", "qr"],
+    ["-m", "scripts.variant", "subflows"],
+    ["-m", "scripts.evaluate", "fusion"],
     ["-m", "scripts.figures", "phase2"],
     ["-m", "scripts.figures", "phase4"],
     ["-m", "scripts.figures", "phase5"],
+    ["-m", "scripts.figures", "phase6"],
 ]
 TESTS = [["-m", "pytest", "-q"]]
 
