@@ -774,3 +774,76 @@ c). One threshold per phase, one budget, the same alert management as every dete
   tune day.
 - Whether the gain holds on days never looked at is the rolling evaluation's question
   (`results/phase6_rolling.json`).
+
+## Phase 6 — rolling evaluation over six Mondays
+
+`make multiday-data folds` (`scripts/folds.py`, `configs/multiday.yaml`,
+`results/phase6_rolling.json`, `figures/phase6_rolling.png`). Five folds, tune on one Monday
+and test on the next, with the frozen `config.yaml` and the fusion offset chosen on 2022-06-20.
+The first three test days (05-30, 06-06, 06-13) were downloaded after the configuration was
+frozen, and they are the headline. The 06-20 -> 06-27 fold re-runs phase 4 from the six-day
+ingest; all four detectors reproduce `results/phase4_*.json` and
+`results/phase6_fused_conformance.json` exactly (`reproduces_results_phase4`).
+
+Bootstrap: 2,000 replicates resampling flights, stratified by day. A flight's three events,
+its false alerts and its monitored time are resampled together, and detector differences are
+paired on the same flights and events.
+
+Unseen test days pooled (3,842 reference flights, 9,312 events):
+
+| detector | detection | false alerts / flight-hour | per test day: detection / false alerts |
+|---|---|---|---|
+| IMM conformance | 0.206 [0.198, 0.215] | 2.27 [2.14, 2.40] | 0.169-0.247 / 1.72-2.65 |
+| fixed distance | 0.171 [0.164, 0.178] | 2.24 [2.11, 2.37] | 0.138-0.203 / 1.18-3.00 |
+| fused, c = 0.5 | 0.215 [0.206, 0.223] | 2.07 [1.95, 2.20] | 0.181-0.236 / 1.75-2.28 |
+| single CV Kalman | 0.117 [0.110, 0.123] | 1.49 [1.41, 1.57] | 0.107-0.128 / 1.24-1.82 |
+
+- **Paired differences**, unseen days:
+  - IMM - fixed distance: +0.035 [0.026, 0.044]. By phase: climb -0.041, cruise +0.070,
+    descent +0.027.
+  - fused - fixed distance: +0.044 [0.035, 0.052]. By phase: climb -0.017, cruise +0.076,
+    descent +0.026.
+  - fused - IMM: +0.009 [0.002, 0.015].
+- **At an equal alert rate.** Read off each test day's sweep within 2/h (an oracle, not an
+  operating point), IMM - fixed distance is +0.019 [0.010, 0.033].
+- **Across all five folds**, fused - fixed distance is +0.028 to +0.054 on every test day.
+  IMM - fixed distance is positive on four of five (-0.006 on 06-20).
+- **Calibration does not transfer, and the flight bootstrap cannot show it.** Thresholds for
+  2/h land between 1.18 and 3.01 per flight-hour a week later. Pooled over the unseen days
+  every detector but the CV Kalman is above budget (2.07-2.27). The overshoot is a day effect,
+  so the intervals above, which resample within days, understate the uncertainty of a single
+  deployment; the per-day ranges are the honest spread.
+- **Coverage and repetition.** 28-38% of test-day flights have a reference, and 74-81% of the
+  evaluated test flights carry a callsign that also flew on the tune day.
+
+## Flight segmentation defect found by the reproduction check
+
+The first run of the 06-20 -> 06-27 fold did not reproduce phase 4: its reference quantiles
+differed in the fifth significant digit and 291 numbers in the IMM summary moved. The six-day
+ingest had cut one 06-20 flight in two where the two-day ingest had not. `FlightSegmenter` compared a new
+callsign with the aircraft's last known one even when that came from an earlier flight. A
+flight that started after a gap with callsign-less updates, its callsign arriving in the next
+push, was compared with the previous flight's callsign and split; with a week-earlier Monday
+ingested first, a different callsign was on record. The mirror case also existed: a real
+change whose push began without a callsign was missed. The comparison is now confined to the
+flight, and the state carried between pushes is the flight's own last callsign
+(`tests/test_flights.py`).
+
+On the two-day sample the fix merges two one-update fragments back into their flights. The
+whole pipeline was re-run (`scripts/reproduce.py` steps, download excepted); old -> new:
+
+- phase 1: 7,753 -> 7,751 flights, callsign splits 37 -> 35, 977 -> 975 flights dropped as
+  short, time coverage 0.960542 -> 0.960537.
+- phase 2: per-phase NIS shares unchanged (22 counts move by one or two updates).
+- phase 3: CV Kalman detection at the budget point 0.0916 / 0.1223 / 0.1221 -> 0.0917 /
+  0.1225 / 0.1221. The two merged flights get new keys and so new injection draws.
+- phases 4, 5 and 6 (references, every detector, drift, breakdown, R and q fit, sub-flows,
+  fusion): identical. The two flights have no reference, and injection seeds are per flight.
+- phase 6 consistency: medians unchanged, counts move by a few updates.
+- rolling evaluation: unseen-day headline unchanged to three decimals, with some interval ends
+  moving by 0.001. The 06-13 -> 06-20 fold shows how brittle the operating-point rule is. A
+  few changed tune-day flights move the IMM cruise threshold one grid step (1.995 -> 1.848),
+  and its test-day cruise false alerts go from 1.98 to 2.60 per flight-hour; the fused climb
+  threshold moves the other way (1.848 -> 1.995, 3.53 -> 2.85). That fold's pooled detection
+  moves by at most 0.005. The flight bootstrap does not resample the tune day, so this choice
+  is not part of its intervals.

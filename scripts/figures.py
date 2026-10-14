@@ -437,8 +437,8 @@ def rolling(cfg: dict) -> list[str]:
                             label=label_d if i == 0 else None)
         if metric == "fa_rate":
             ax.axhline(r["budget_per_flight_hour"], color=MUTED, linestyle="--", linewidth=1)
-            ax.annotate(f"budget {r['budget_per_flight_hour']:g}/h", (len(columns) - 0.6, r["budget_per_flight_hour"]), xytext=(0, 4),
-                        textcoords="offset points", ha="right", color=TEXT_SECONDARY, fontsize=8)
+            ax.annotate(f"budget {r['budget_per_flight_hour']:g}/h", (-0.45, r["budget_per_flight_hour"]), xytext=(0, -11),
+                        textcoords="offset points", ha="left", color=TEXT_SECONDARY, fontsize=8)
             ax.set_ylim(bottom=0)
         else:
             ax.set_ylim(0, max(0.35, ax.get_ylim()[1]))

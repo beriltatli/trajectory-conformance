@@ -1,0 +1,6368 @@
+{
+  "note": "Test-day rates at each fold's budget operating point (chosen on its tune day), with 95% percentile intervals from a flight-level bootstrap. detection_at_budget_on_sweep is read off the test day and is not an operating point.",
+  "budget_per_flight_hour": 2.0,
+  "replicates": 2000,
+  "detectors": [
+    "imm_conformance",
+    "fixed_threshold",
+    "cv_kalman",
+    "fused_conformance"
+  ],
+  "folds": {
+    "0523-0530": {
+      "tune_day": "2022-05-23",
+      "test_day": "2022-05-30",
+      "unseen_test_day": true,
+      "coverage": {
+        "test_flights": 3795,
+        "with_reference": 1048,
+        "share_with_reference": 0.276153,
+        "od_pairs_with_reference": 117
+      },
+      "test_flights_whose_callsign_flew_on_the_tune_day": 0.741412,
+      "operating_points": {
+        "imm_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.995262,
+            "cruise": 1.84785,
+            "descent": 1.84785
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 3.225351,
+            "cruise": 1.980553,
+            "descent": 2.24726
+          },
+          "detection_rate": {
+            "climb": 0.125436,
+            "cruise": 0.205499,
+            "descent": 0.125
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.494095
+        },
+        "fixed_threshold": {
+          "thresholds_by_phase": {
+            "climb": 19952.62315,
+            "cruise": 23713.737057,
+            "descent": 22387.211386
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.495626,
+            "cruise": 1.058763,
+            "descent": 1.179347
+          },
+          "detection_rate": {
+            "climb": 0.151568,
+            "cruise": 0.151954,
+            "descent": 0.090278
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.179378
+        },
+        "cv_kalman": {
+          "thresholds_by_phase": {
+            "climb": 707.945784,
+            "cruise": 177.827941,
+            "descent": 794.328235
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.521637,
+            "cruise": 0.88477,
+            "descent": 1.912957
+          },
+          "detection_rate": {
+            "climb": 0.062718,
+            "cruise": 0.136035,
+            "descent": 0.114583
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.235232
+        },
+        "fused_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.995262,
+            "cruise": 1.995262,
+            "descent": 1.995262
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 3.19934,
+            "cruise": 1.721415,
+            "descent": 1.773664
+          },
+          "detection_rate": {
+            "climb": 0.141115,
+            "cruise": 0.217077,
+            "descent": 0.135417
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.232011
+        }
+      },
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 3.225351,
+                "ci95": [
+                  2.770981,
+                  3.702988
+                ]
+              },
+              "cruise": {
+                "estimate": 1.980553,
+                "ci95": [
+                  1.671051,
+                  2.301073
+                ]
+              },
+              "descent": {
+                "estimate": 2.24726,
+                "ci95": [
+                  1.902351,
+                  2.597493
+                ]
+              },
+              "all": {
+                "estimate": 2.494095,
+                "ci95": [
+                  2.251535,
+                  2.737347
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.125436,
+                "ci95": [
+                  0.096291,
+                  0.152514
+                ]
+              },
+              "cruise": {
+                "estimate": 0.205499,
+                "ci95": [
+                  0.18438,
+                  0.226499
+                ]
+              },
+              "descent": {
+                "estimate": 0.125,
+                "ci95": [
+                  0.098302,
+                  0.153584
+                ]
+              },
+              "all": {
+                "estimate": 0.169036,
+                "ci95": [
+                  0.154277,
+                  0.184305
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.047038,
+                "ci95": [
+                  0.030409,
+                  0.084182
+                ]
+              },
+              "cruise": {
+                "estimate": 0.209117,
+                "ci95": [
+                  0.146692,
+                  0.228036
+                ]
+              },
+              "descent": {
+                "estimate": 0.114583,
+                "ci95": [
+                  0.08419,
+                  0.143984
+                ]
+              },
+              "all": {
+                "estimate": 0.150869,
+                "ci95": [
+                  0.115991,
+                  0.165508
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.495626,
+                "ci95": [
+                  1.16827,
+                  1.900233
+                ]
+              },
+              "cruise": {
+                "estimate": 1.058763,
+                "ci95": [
+                  0.837371,
+                  1.316424
+                ]
+              },
+              "descent": {
+                "estimate": 1.179347,
+                "ci95": [
+                  0.904001,
+                  1.483822
+                ]
+              },
+              "all": {
+                "estimate": 1.179378,
+                "ci95": [
+                  1.00412,
+                  1.37949
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.151568,
+                "ci95": [
+                  0.123574,
+                  0.178968
+                ]
+              },
+              "cruise": {
+                "estimate": 0.151954,
+                "ci95": [
+                  0.136167,
+                  0.168937
+                ]
+              },
+              "descent": {
+                "estimate": 0.090278,
+                "ci95": [
+                  0.067542,
+                  0.115945
+                ]
+              },
+              "all": {
+                "estimate": 0.137836,
+                "ci95": [
+                  0.126519,
+                  0.150221
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.162021,
+                "ci95": [
+                  0.133221,
+                  0.192729
+                ]
+              },
+              "cruise": {
+                "estimate": 0.166425,
+                "ci95": [
+                  0.149462,
+                  0.183184
+                ]
+              },
+              "descent": {
+                "estimate": 0.109375,
+                "ci95": [
+                  0.085996,
+                  0.143608
+                ]
+              },
+              "all": {
+                "estimate": 0.152449,
+                "ci95": [
+                  0.141247,
+                  0.165873
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.521637,
+                "ci95": [
+                  1.219362,
+                  1.85223
+                ]
+              },
+              "cruise": {
+                "estimate": 0.88477,
+                "ci95": [
+                  0.73392,
+                  1.065582
+                ]
+              },
+              "descent": {
+                "estimate": 1.912957,
+                "ci95": [
+                  1.648839,
+                  2.175212
+                ]
+              },
+              "all": {
+                "estimate": 1.235232,
+                "ci95": [
+                  1.101261,
+                  1.383635
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.062718,
+                "ci95": [
+                  0.044444,
+                  0.083186
+                ]
+              },
+              "cruise": {
+                "estimate": 0.136035,
+                "ci95": [
+                  0.119116,
+                  0.152942
+                ]
+              },
+              "descent": {
+                "estimate": 0.114583,
+                "ci95": [
+                  0.088339,
+                  0.141919
+                ]
+              },
+              "all": {
+                "estimate": 0.114534,
+                "ci95": [
+                  0.10289,
+                  0.126784
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.036585,
+                "ci95": [
+                  0.022298,
+                  0.058395
+                ]
+              },
+              "cruise": {
+                "estimate": 0.160637,
+                "ci95": [
+                  0.135543,
+                  0.197965
+                ]
+              },
+              "descent": {
+                "estimate": 0.069444,
+                "ci95": [
+                  0.050767,
+                  0.089656
+                ]
+              },
+              "all": {
+                "estimate": 0.111769,
+                "ci95": [
+                  0.097018,
+                  0.134289
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 3.19934,
+                "ci95": [
+                  2.743487,
+                  3.685007
+                ]
+              },
+              "cruise": {
+                "estimate": 1.721415,
+                "ci95": [
+                  1.44511,
+                  2.005932
+                ]
+              },
+              "descent": {
+                "estimate": 1.773664,
+                "ci95": [
+                  1.461546,
+                  2.091179
+                ]
+              },
+              "all": {
+                "estimate": 2.232011,
+                "ci95": [
+                  2.003516,
+                  2.461584
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.141115,
+                "ci95": [
+                  0.114696,
+                  0.168208
+                ]
+              },
+              "cruise": {
+                "estimate": 0.217077,
+                "ci95": [
+                  0.194896,
+                  0.238806
+                ]
+              },
+              "descent": {
+                "estimate": 0.135417,
+                "ci95": [
+                  0.108805,
+                  0.164628
+                ]
+              },
+              "all": {
+                "estimate": 0.18128,
+                "ci95": [
+                  0.165444,
+                  0.196334
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.071429,
+                "ci95": [
+                  0.04991,
+                  0.117753
+                ]
+              },
+              "cruise": {
+                "estimate": 0.217077,
+                "ci95": [
+                  0.184998,
+                  0.242925
+                ]
+              },
+              "descent": {
+                "estimate": 0.135417,
+                "ci95": [
+                  0.093379,
+                  0.164134
+                ]
+              },
+              "all": {
+                "estimate": 0.165482,
+                "ci95": [
+                  0.146633,
+                  0.186502
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.026132,
+                "ci95": [
+                  -0.059052,
+                  0.008533
+                ]
+              },
+              "cruise": {
+                "estimate": 0.053546,
+                "ci95": [
+                  0.027917,
+                  0.077593
+                ]
+              },
+              "descent": {
+                "estimate": 0.034722,
+                "ci95": [
+                  0.003508,
+                  0.066453
+                ]
+              },
+              "all": {
+                "estimate": 0.031201,
+                "ci95": [
+                  0.0142,
+                  0.047793
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.064,
+                "cruise": 1.0,
+                "descent": 0.9845,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.114983,
+                "ci95": [
+                  -0.146301,
+                  -0.075063
+                ]
+              },
+              "cruise": {
+                "estimate": 0.042692,
+                "ci95": [
+                  -0.022765,
+                  0.065589
+                ]
+              },
+              "descent": {
+                "estimate": 0.005208,
+                "ci95": [
+                  -0.039254,
+                  0.038401
+                ]
+              },
+              "all": {
+                "estimate": -0.00158,
+                "ci95": [
+                  -0.040273,
+                  0.014245
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.742,
+                "descent": 0.4825,
+                "all": 0.254
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.729724,
+                "ci95": [
+                  1.290088,
+                  2.187883
+                ]
+              },
+              "cruise": {
+                "estimate": 0.92179,
+                "ci95": [
+                  0.551861,
+                  1.280992
+                ]
+              },
+              "descent": {
+                "estimate": 1.067913,
+                "ci95": [
+                  0.68644,
+                  1.425399
+                ]
+              },
+              "all": {
+                "estimate": 1.314717,
+                "ci95": [
+                  1.052877,
+                  1.564397
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.062718,
+                "ci95": [
+                  0.032475,
+                  0.091075
+                ]
+              },
+              "cruise": {
+                "estimate": 0.069465,
+                "ci95": [
+                  0.044364,
+                  0.093552
+                ]
+              },
+              "descent": {
+                "estimate": 0.010417,
+                "ci95": [
+                  -0.023471,
+                  0.045127
+                ]
+              },
+              "all": {
+                "estimate": 0.054502,
+                "ci95": [
+                  0.03699,
+                  0.071147
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.7175,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.010453,
+                "ci95": [
+                  -0.01343,
+                  0.047531
+                ]
+              },
+              "cruise": {
+                "estimate": 0.04848,
+                "ci95": [
+                  -0.023022,
+                  0.075216
+                ]
+              },
+              "descent": {
+                "estimate": 0.045139,
+                "ci95": [
+                  0.012496,
+                  0.076675
+                ]
+              },
+              "all": {
+                "estimate": 0.0391,
+                "ci95": [
+                  0.000397251,
+                  0.056433
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.781,
+                "cruise": 0.8365,
+                "descent": 0.992,
+                "all": 0.9765
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.703713,
+                "ci95": [
+                  1.187709,
+                  2.239348
+                ]
+              },
+              "cruise": {
+                "estimate": 1.095782,
+                "ci95": [
+                  0.774421,
+                  1.400884
+                ]
+              },
+              "descent": {
+                "estimate": 0.334303,
+                "ci95": [
+                  -0.059937,
+                  0.738402
+                ]
+              },
+              "all": {
+                "estimate": 1.258863,
+                "ci95": [
+                  1.020809,
+                  1.497968
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.94,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.015679,
+                "ci95": [
+                  -0.034247,
+                  0.003197
+                ]
+              },
+              "cruise": {
+                "estimate": -0.011577,
+                "ci95": [
+                  -0.029164,
+                  0.005263
+                ]
+              },
+              "descent": {
+                "estimate": -0.010417,
+                "ci95": [
+                  -0.033118,
+                  0.012368
+                ]
+              },
+              "all": {
+                "estimate": -0.012243,
+                "ci95": [
+                  -0.023669,
+                  -0.001197
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0435,
+                "cruise": 0.086,
+                "descent": 0.1685,
+                "all": 0.0145
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.02439,
+                "ci95": [
+                  -0.040282,
+                  -0.010362
+                ]
+              },
+              "cruise": {
+                "estimate": -0.007959,
+                "ci95": [
+                  -0.064413,
+                  0.007774
+                ]
+              },
+              "descent": {
+                "estimate": -0.020833,
+                "ci95": [
+                  -0.034307,
+                  0.016764
+                ]
+              },
+              "all": {
+                "estimate": -0.014613,
+                "ci95": [
+                  -0.046341,
+                  -0.003639
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.007,
+                "cruise": 0.114,
+                "descent": 0.061,
+                "all": 0.0075
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.026011,
+                "ci95": [
+                  -0.015059,
+                  0.079207
+                ]
+              },
+              "cruise": {
+                "estimate": 0.259138,
+                "ci95": [
+                  0.099762,
+                  0.434176
+                ]
+              },
+              "descent": {
+                "estimate": 0.473596,
+                "ci95": [
+                  0.283894,
+                  0.666402
+                ]
+              },
+              "all": {
+                "estimate": 0.262084,
+                "ci95": [
+                  0.159266,
+                  0.364847
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.7575,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.010453,
+                "ci95": [
+                  -0.040211,
+                  0.019651
+                ]
+              },
+              "cruise": {
+                "estimate": 0.065123,
+                "ci95": [
+                  0.043318,
+                  0.086039
+                ]
+              },
+              "descent": {
+                "estimate": 0.045139,
+                "ci95": [
+                  0.012961,
+                  0.077477
+                ]
+              },
+              "all": {
+                "estimate": 0.043444,
+                "ci95": [
+                  0.027612,
+                  0.058094
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.2255,
+                "cruise": 1.0,
+                "descent": 0.996,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.090592,
+                "ci95": [
+                  -0.121217,
+                  -0.045932
+                ]
+              },
+              "cruise": {
+                "estimate": 0.050651,
+                "ci95": [
+                  0.020788,
+                  0.078671
+                ]
+              },
+              "descent": {
+                "estimate": 0.026042,
+                "ci95": [
+                  -0.021104,
+                  0.056953
+                ]
+              },
+              "all": {
+                "estimate": 0.013033,
+                "ci95": [
+                  -0.007846,
+                  0.031934
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.997,
+                "descent": 0.8135,
+                "all": 0.9
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.703713,
+                "ci95": [
+                  1.275339,
+                  2.155126
+                ]
+              },
+              "cruise": {
+                "estimate": 0.662652,
+                "ci95": [
+                  0.374317,
+                  0.944079
+                ]
+              },
+              "descent": {
+                "estimate": 0.594317,
+                "ci95": [
+                  0.252354,
+                  0.918166
+                ]
+              },
+              "all": {
+                "estimate": 1.052633,
+                "ci95": [
+                  0.824452,
+                  1.26427
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "0530-0606": {
+      "tune_day": "2022-05-30",
+      "test_day": "2022-06-06",
+      "unseen_test_day": true,
+      "coverage": {
+        "test_flights": 3861,
+        "with_reference": 1395,
+        "share_with_reference": 0.361305,
+        "od_pairs_with_reference": 150
+      },
+      "test_flights_whose_callsign_flew_on_the_tune_day": 0.741219,
+      "operating_points": {
+        "imm_conformance": {
+          "thresholds_by_phase": {
+            "climb": 2.154435,
+            "cruise": 1.84785,
+            "descent": 1.84785
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.506354,
+            "cruise": 1.671548,
+            "descent": 1.427961
+          },
+          "detection_rate": {
+            "climb": 0.145631,
+            "cruise": 0.228453,
+            "descent": 0.156727
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.719577
+        },
+        "fixed_threshold": {
+          "thresholds_by_phase": {
+            "climb": 17782.7941,
+            "cruise": 14962.356561,
+            "descent": 14962.356561
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.075829,
+            "cruise": 2.461544,
+            "descent": 1.567096
+          },
+          "detection_rate": {
+            "climb": 0.18932,
+            "cruise": 0.162513,
+            "descent": 0.142857
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.256945
+        },
+        "cv_kalman": {
+          "thresholds_by_phase": {
+            "climb": 707.945784,
+            "cruise": 141.253754,
+            "descent": 707.945784
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.524724,
+            "cruise": 1.051584,
+            "descent": 2.123635
+          },
+          "detection_rate": {
+            "climb": 0.065534,
+            "cruise": 0.12513,
+            "descent": 0.105409
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.351986
+        },
+        "fused_conformance": {
+          "thresholds_by_phase": {
+            "climb": 2.154435,
+            "cruise": 1.995262,
+            "descent": 1.995262
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.708426,
+            "cruise": 1.742177,
+            "descent": 1.186306
+          },
+          "detection_rate": {
+            "climb": 0.180825,
+            "cruise": 0.258567,
+            "descent": 0.156727
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.752286
+        }
+      },
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.506354,
+                "ci95": [
+                  1.198802,
+                  1.851717
+                ]
+              },
+              "cruise": {
+                "estimate": 1.671548,
+                "ci95": [
+                  1.445404,
+                  1.916724
+                ]
+              },
+              "descent": {
+                "estimate": 1.427961,
+                "ci95": [
+                  1.186231,
+                  1.678253
+                ]
+              },
+              "all": {
+                "estimate": 1.719577,
+                "ci95": [
+                  1.544708,
+                  1.910169
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.145631,
+                "ci95": [
+                  0.120491,
+                  0.169634
+                ]
+              },
+              "cruise": {
+                "estimate": 0.228453,
+                "ci95": [
+                  0.209358,
+                  0.247168
+                ]
+              },
+              "descent": {
+                "estimate": 0.156727,
+                "ci95": [
+                  0.132256,
+                  0.186364
+                ]
+              },
+              "all": {
+                "estimate": 0.193892,
+                "ci95": [
+                  0.179815,
+                  0.206901
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.095874,
+                "ci95": [
+                  0.078385,
+                  0.140551
+                ]
+              },
+              "cruise": {
+                "estimate": 0.233645,
+                "ci95": [
+                  0.213039,
+                  0.251954
+                ]
+              },
+              "descent": {
+                "estimate": 0.162275,
+                "ci95": [
+                  0.141547,
+                  0.200308
+                ]
+              },
+              "all": {
+                "estimate": 0.186114,
+                "ci95": [
+                  0.175063,
+                  0.20387
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.075829,
+                "ci95": [
+                  1.75145,
+                  2.412257
+                ]
+              },
+              "cruise": {
+                "estimate": 2.461544,
+                "ci95": [
+                  2.193738,
+                  2.722838
+                ]
+              },
+              "descent": {
+                "estimate": 1.567096,
+                "ci95": [
+                  1.304773,
+                  1.859631
+                ]
+              },
+              "all": {
+                "estimate": 2.256945,
+                "ci95": [
+                  2.046917,
+                  2.461926
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.18932,
+                "ci95": [
+                  0.165263,
+                  0.21395
+                ]
+              },
+              "cruise": {
+                "estimate": 0.162513,
+                "ci95": [
+                  0.148833,
+                  0.176689
+                ]
+              },
+              "descent": {
+                "estimate": 0.142857,
+                "ci95": [
+                  0.119423,
+                  0.167353
+                ]
+              },
+              "all": {
+                "estimate": 0.164794,
+                "ci95": [
+                  0.154267,
+                  0.175081
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.149272,
+                "ci95": [
+                  0.132235,
+                  0.188249
+                ]
+              },
+              "cruise": {
+                "estimate": 0.15784,
+                "ci95": [
+                  0.143007,
+                  0.171459
+                ]
+              },
+              "descent": {
+                "estimate": 0.142857,
+                "ci95": [
+                  0.123385,
+                  0.172715
+                ]
+              },
+              "all": {
+                "estimate": 0.152694,
+                "ci95": [
+                  0.144129,
+                  0.167097
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.524724,
+                "ci95": [
+                  1.259879,
+                  1.779334
+                ]
+              },
+              "cruise": {
+                "estimate": 1.051584,
+                "ci95": [
+                  0.892694,
+                  1.218378
+                ]
+              },
+              "descent": {
+                "estimate": 2.123635,
+                "ci95": [
+                  1.847437,
+                  2.435605
+                ]
+              },
+              "all": {
+                "estimate": 1.351986,
+                "ci95": [
+                  1.225123,
+                  1.483589
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.065534,
+                "ci95": [
+                  0.048302,
+                  0.083233
+                ]
+              },
+              "cruise": {
+                "estimate": 0.12513,
+                "ci95": [
+                  0.112024,
+                  0.138096
+                ]
+              },
+              "descent": {
+                "estimate": 0.105409,
+                "ci95": [
+                  0.082759,
+                  0.128211
+                ]
+              },
+              "all": {
+                "estimate": 0.106886,
+                "ci95": [
+                  0.097031,
+                  0.116171
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.041262,
+                "ci95": [
+                  0.026737,
+                  0.053856
+                ]
+              },
+              "cruise": {
+                "estimate": 0.149533,
+                "ci95": [
+                  0.135399,
+                  0.169917
+                ]
+              },
+              "descent": {
+                "estimate": 0.066574,
+                "ci95": [
+                  0.04584,
+                  0.084439
+                ]
+              },
+              "all": {
+                "estimate": 0.106598,
+                "ci95": [
+                  0.096354,
+                  0.11817
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.708426,
+                "ci95": [
+                  1.398066,
+                  2.072872
+                ]
+              },
+              "cruise": {
+                "estimate": 1.742177,
+                "ci95": [
+                  1.508533,
+                  1.971773
+                ]
+              },
+              "descent": {
+                "estimate": 1.186306,
+                "ci95": [
+                  0.952169,
+                  1.43502
+                ]
+              },
+              "all": {
+                "estimate": 1.752286,
+                "ci95": [
+                  1.576765,
+                  1.933565
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.180825,
+                "ci95": [
+                  0.155501,
+                  0.206041
+                ]
+              },
+              "cruise": {
+                "estimate": 0.258567,
+                "ci95": [
+                  0.239579,
+                  0.278364
+                ]
+              },
+              "descent": {
+                "estimate": 0.156727,
+                "ci95": [
+                  0.131953,
+                  0.184032
+                ]
+              },
+              "all": {
+                "estimate": 0.218957,
+                "ci95": [
+                  0.205745,
+                  0.232689
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.160194,
+                "ci95": [
+                  0.124996,
+                  0.183927
+                ]
+              },
+              "cruise": {
+                "estimate": 0.26324,
+                "ci95": [
+                  0.233687,
+                  0.28307
+                ]
+              },
+              "descent": {
+                "estimate": 0.188627,
+                "ci95": [
+                  0.147352,
+                  0.216746
+                ]
+              },
+              "all": {
+                "estimate": 0.223279,
+                "ci95": [
+                  0.200747,
+                  0.2361
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.043689,
+                "ci95": [
+                  -0.073321,
+                  -0.015363
+                ]
+              },
+              "cruise": {
+                "estimate": 0.06594,
+                "ci95": [
+                  0.044326,
+                  0.087026
+                ]
+              },
+              "descent": {
+                "estimate": 0.01387,
+                "ci95": [
+                  -0.015809,
+                  0.043546
+                ]
+              },
+              "all": {
+                "estimate": 0.029098,
+                "ci95": [
+                  0.014127,
+                  0.044104
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0005,
+                "cruise": 1.0,
+                "descent": 0.8185,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.053398,
+                "ci95": [
+                  -0.088344,
+                  -0.011191
+                ]
+              },
+              "cruise": {
+                "estimate": 0.075805,
+                "ci95": [
+                  0.053739,
+                  0.096714
+                ]
+              },
+              "descent": {
+                "estimate": 0.019417,
+                "ci95": [
+                  -0.009778,
+                  0.05377
+                ]
+              },
+              "all": {
+                "estimate": 0.03342,
+                "ci95": [
+                  0.018112,
+                  0.050969
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0035,
+                "cruise": 1.0,
+                "descent": 0.917,
+                "all": 0.9995
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.569475,
+                "ci95": [
+                  -0.985886,
+                  -0.157704
+                ]
+              },
+              "cruise": {
+                "estimate": -0.789996,
+                "ci95": [
+                  -1.132291,
+                  -0.421652
+                ]
+              },
+              "descent": {
+                "estimate": -0.139135,
+                "ci95": [
+                  -0.488584,
+                  0.201114
+                ]
+              },
+              "all": {
+                "estimate": -0.537368,
+                "ci95": [
+                  -0.799895,
+                  -0.259264
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0015,
+                "cruise": 0.0,
+                "descent": 0.2045,
+                "all": 0.0
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.080097,
+                "ci95": [
+                  0.052041,
+                  0.107328
+                ]
+              },
+              "cruise": {
+                "estimate": 0.103323,
+                "ci95": [
+                  0.081879,
+                  0.123507
+                ]
+              },
+              "descent": {
+                "estimate": 0.051318,
+                "ci95": [
+                  0.021518,
+                  0.08449
+                ]
+              },
+              "all": {
+                "estimate": 0.087007,
+                "ci95": [
+                  0.071508,
+                  0.101225
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.999,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.054612,
+                "ci95": [
+                  0.036381,
+                  0.101805
+                ]
+              },
+              "cruise": {
+                "estimate": 0.084112,
+                "ci95": [
+                  0.058883,
+                  0.103794
+                ]
+              },
+              "descent": {
+                "estimate": 0.0957,
+                "ci95": [
+                  0.073649,
+                  0.137787
+                ]
+              },
+              "all": {
+                "estimate": 0.079516,
+                "ci95": [
+                  0.06701,
+                  0.098521
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.01837,
+                "ci95": [
+                  -0.395728,
+                  0.393076
+                ]
+              },
+              "cruise": {
+                "estimate": 0.619964,
+                "ci95": [
+                  0.320055,
+                  0.916626
+                ]
+              },
+              "descent": {
+                "estimate": -0.695673,
+                "ci95": [
+                  -1.061361,
+                  -0.311762
+                ]
+              },
+              "all": {
+                "estimate": 0.367591,
+                "ci95": [
+                  0.147129,
+                  0.597299
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.4565,
+                "cruise": 1.0,
+                "descent": 0.0005,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.035194,
+                "ci95": [
+                  -0.055687,
+                  -0.01453
+                ]
+              },
+              "cruise": {
+                "estimate": -0.030114,
+                "ci95": [
+                  -0.043483,
+                  -0.015914
+                ]
+              },
+              "descent": {
+                "estimate": 0.0,
+                "ci95": [
+                  -0.019637,
+                  0.019832
+                ]
+              },
+              "all": {
+                "estimate": -0.025065,
+                "ci95": [
+                  -0.035633,
+                  -0.014911
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0005,
+                "cruise": 0.0,
+                "descent": 0.4735,
+                "all": 0.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.06432,
+                "ci95": [
+                  -0.078535,
+                  -0.017933
+                ]
+              },
+              "cruise": {
+                "estimate": -0.029595,
+                "ci95": [
+                  -0.04513,
+                  -0.005574
+                ]
+              },
+              "descent": {
+                "estimate": -0.026352,
+                "ci95": [
+                  -0.03913,
+                  0.015792
+                ]
+              },
+              "all": {
+                "estimate": -0.037165,
+                "ci95": [
+                  -0.044446,
+                  -0.014426
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0005,
+                "cruise": 0.023,
+                "descent": 0.147,
+                "all": 0.005
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.202072,
+                "ci95": [
+                  -0.318754,
+                  -0.097283
+                ]
+              },
+              "cruise": {
+                "estimate": -0.070629,
+                "ci95": [
+                  -0.263883,
+                  0.110368
+                ]
+              },
+              "descent": {
+                "estimate": 0.241655,
+                "ci95": [
+                  0.092085,
+                  0.390746
+                ]
+              },
+              "all": {
+                "estimate": -0.032709,
+                "ci95": [
+                  -0.161729,
+                  0.086969
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.2265,
+                "descent": 0.998,
+                "all": 0.311
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.008495,
+                "ci95": [
+                  -0.036578,
+                  0.017263
+                ]
+              },
+              "cruise": {
+                "estimate": 0.096054,
+                "ci95": [
+                  0.077432,
+                  0.114156
+                ]
+              },
+              "descent": {
+                "estimate": 0.01387,
+                "ci95": [
+                  -0.013532,
+                  0.039271
+                ]
+              },
+              "all": {
+                "estimate": 0.054163,
+                "ci95": [
+                  0.040798,
+                  0.06725
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.242,
+                "cruise": 1.0,
+                "descent": 0.8335,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.010922,
+                "ci95": [
+                  -0.035806,
+                  0.026603
+                ]
+              },
+              "cruise": {
+                "estimate": 0.1054,
+                "ci95": [
+                  0.07702,
+                  0.122428
+                ]
+              },
+              "descent": {
+                "estimate": 0.04577,
+                "ci95": [
+                  0.004228,
+                  0.066013
+                ]
+              },
+              "all": {
+                "estimate": 0.070585,
+                "ci95": [
+                  0.047205,
+                  0.080047
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.5345,
+                "cruise": 1.0,
+                "descent": 0.9845,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.367403,
+                "ci95": [
+                  -0.760311,
+                  0.037207
+                ]
+              },
+              "cruise": {
+                "estimate": -0.719367,
+                "ci95": [
+                  -1.00589,
+                  -0.448524
+                ]
+              },
+              "descent": {
+                "estimate": -0.38079,
+                "ci95": [
+                  -0.70819,
+                  -0.065965
+                ]
+              },
+              "all": {
+                "estimate": -0.504658,
+                "ci95": [
+                  -0.718555,
+                  -0.289122
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0365,
+                "cruise": 0.0,
+                "descent": 0.01,
+                "all": 0.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "0606-0613": {
+      "tune_day": "2022-06-06",
+      "test_day": "2022-06-13",
+      "unseen_test_day": true,
+      "coverage": {
+        "test_flights": 3678,
+        "with_reference": 1399,
+        "share_with_reference": 0.38037,
+        "od_pairs_with_reference": 154
+      },
+      "test_flights_whose_callsign_flew_on_the_tune_day": 0.803431,
+      "operating_points": {
+        "imm_conformance": {
+          "thresholds_by_phase": {
+            "climb": 2.154435,
+            "cruise": 1.84785,
+            "descent": 1.84785
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.708845,
+            "cruise": 2.722141,
+            "descent": 2.759419
+          },
+          "detection_rate": {
+            "climb": 0.187415,
+            "cruise": 0.299401,
+            "descent": 0.176788
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.648811
+        },
+        "fixed_threshold": {
+          "thresholds_by_phase": {
+            "climb": 13335.214322,
+            "cruise": 14962.356561,
+            "descent": 11220.184543
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.501215,
+            "cruise": 2.841649,
+            "descent": 3.106115
+          },
+          "detection_rate": {
+            "climb": 0.23803,
+            "cruise": 0.213391,
+            "descent": 0.14305
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.99581
+        },
+        "cv_kalman": {
+          "thresholds_by_phase": {
+            "climb": 707.945784,
+            "cruise": 89.125094,
+            "descent": 707.945784
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.747032,
+            "cruise": 1.588137,
+            "descent": 2.582533
+          },
+          "detection_rate": {
+            "climb": 0.076607,
+            "cruise": 0.155144,
+            "descent": 0.11336
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.816641
+        },
+        "fused_conformance": {
+          "thresholds_by_phase": {
+            "climb": 2.154435,
+            "cruise": 2.154435,
+            "descent": 1.995262
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.06207,
+            "cruise": 2.092729,
+            "descent": 2.334893
+          },
+          "detection_rate": {
+            "climb": 0.205198,
+            "cruise": 0.275993,
+            "descent": 0.167341
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.27983
+        }
+      },
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.708845,
+                "ci95": [
+                  1.390645,
+                  2.067664
+                ]
+              },
+              "cruise": {
+                "estimate": 2.722141,
+                "ci95": [
+                  2.415831,
+                  3.045326
+                ]
+              },
+              "descent": {
+                "estimate": 2.759419,
+                "ci95": [
+                  2.421655,
+                  3.10647
+                ]
+              },
+              "all": {
+                "estimate": 2.648811,
+                "ci95": [
+                  2.425136,
+                  2.880199
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.187415,
+                "ci95": [
+                  0.160887,
+                  0.215365
+                ]
+              },
+              "cruise": {
+                "estimate": 0.299401,
+                "ci95": [
+                  0.279412,
+                  0.321051
+                ]
+              },
+              "descent": {
+                "estimate": 0.176788,
+                "ci95": [
+                  0.150068,
+                  0.204554
+                ]
+              },
+              "all": {
+                "estimate": 0.247205,
+                "ci95": [
+                  0.232875,
+                  0.262609
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.142271,
+                "ci95": [
+                  0.096384,
+                  0.170277
+                ]
+              },
+              "cruise": {
+                "estimate": 0.277627,
+                "ci95": [
+                  0.184517,
+                  0.296773
+                ]
+              },
+              "descent": {
+                "estimate": 0.124157,
+                "ci95": [
+                  0.105603,
+                  0.18411
+                ]
+              },
+              "all": {
+                "estimate": 0.213358,
+                "ci95": [
+                  0.161103,
+                  0.234059
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.501215,
+                "ci95": [
+                  2.11196,
+                  2.872999
+                ]
+              },
+              "cruise": {
+                "estimate": 2.841649,
+                "ci95": [
+                  2.558904,
+                  3.145705
+                ]
+              },
+              "descent": {
+                "estimate": 3.106115,
+                "ci95": [
+                  2.72936,
+                  3.481722
+                ]
+              },
+              "all": {
+                "estimate": 2.99581,
+                "ci95": [
+                  2.765998,
+                  3.223746
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.23803,
+                "ci95": [
+                  0.211738,
+                  0.266085
+                ]
+              },
+              "cruise": {
+                "estimate": 0.213391,
+                "ci95": [
+                  0.195909,
+                  0.231992
+                ]
+              },
+              "descent": {
+                "estimate": 0.14305,
+                "ci95": [
+                  0.121052,
+                  0.168305
+                ]
+              },
+              "all": {
+                "estimate": 0.203083,
+                "ci95": [
+                  0.190739,
+                  0.215746
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.194254,
+                "ci95": [
+                  0.170542,
+                  0.223578
+                ]
+              },
+              "cruise": {
+                "estimate": 0.155144,
+                "ci95": [
+                  0.140211,
+                  0.174009
+                ]
+              },
+              "descent": {
+                "estimate": 0.118758,
+                "ci95": [
+                  0.097722,
+                  0.142316
+                ]
+              },
+              "all": {
+                "estimate": 0.155636,
+                "ci95": [
+                  0.145592,
+                  0.169529
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.747032,
+                "ci95": [
+                  1.463772,
+                  2.034173
+                ]
+              },
+              "cruise": {
+                "estimate": 1.588137,
+                "ci95": [
+                  1.419545,
+                  1.77681
+                ]
+              },
+              "descent": {
+                "estimate": 2.582533,
+                "ci95": [
+                  2.308263,
+                  2.845185
+                ]
+              },
+              "all": {
+                "estimate": 1.816641,
+                "ci95": [
+                  1.679671,
+                  1.965565
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.076607,
+                "ci95": [
+                  0.057219,
+                  0.09591
+                ]
+              },
+              "cruise": {
+                "estimate": 0.155144,
+                "ci95": [
+                  0.140135,
+                  0.170119
+                ]
+              },
+              "descent": {
+                "estimate": 0.11336,
+                "ci95": [
+                  0.08903,
+                  0.134772
+                ]
+              },
+              "all": {
+                "estimate": 0.128438,
+                "ci95": [
+                  0.117665,
+                  0.138818
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.043776,
+                "ci95": [
+                  0.029255,
+                  0.058141
+                ]
+              },
+              "cruise": {
+                "estimate": 0.156233,
+                "ci95": [
+                  0.140905,
+                  0.17168
+                ]
+              },
+              "descent": {
+                "estimate": 0.059379,
+                "ci95": [
+                  0.044796,
+                  0.07638
+                ]
+              },
+              "all": {
+                "estimate": 0.109701,
+                "ci95": [
+                  0.099452,
+                  0.119941
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.06207,
+                "ci95": [
+                  1.725785,
+                  2.417681
+                ]
+              },
+              "cruise": {
+                "estimate": 2.092729,
+                "ci95": [
+                  1.838702,
+                  2.358523
+                ]
+              },
+              "descent": {
+                "estimate": 2.334893,
+                "ci95": [
+                  2.005363,
+                  2.665977
+                ]
+              },
+              "all": {
+                "estimate": 2.27983,
+                "ci95": [
+                  2.072346,
+                  2.488607
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.205198,
+                "ci95": [
+                  0.179786,
+                  0.231385
+                ]
+              },
+              "cruise": {
+                "estimate": 0.275993,
+                "ci95": [
+                  0.254985,
+                  0.296722
+                ]
+              },
+              "descent": {
+                "estimate": 0.167341,
+                "ci95": [
+                  0.14124,
+                  0.194303
+                ]
+              },
+              "all": {
+                "estimate": 0.236023,
+                "ci95": [
+                  0.221817,
+                  0.25061
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.155951,
+                "ci95": [
+                  0.133887,
+                  0.217753
+                ]
+              },
+              "cruise": {
+                "estimate": 0.209036,
+                "ci95": [
+                  0.190965,
+                  0.274658
+                ]
+              },
+              "descent": {
+                "estimate": 0.14305,
+                "ci95": [
+                  0.117723,
+                  0.178087
+                ]
+              },
+              "all": {
+                "estimate": 0.182532,
+                "ci95": [
+                  0.17184,
+                  0.227518
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.050616,
+                "ci95": [
+                  -0.082408,
+                  -0.017925
+                ]
+              },
+              "cruise": {
+                "estimate": 0.08601,
+                "ci95": [
+                  0.061495,
+                  0.108553
+                ]
+              },
+              "descent": {
+                "estimate": 0.033738,
+                "ci95": [
+                  0.005155,
+                  0.064156
+                ]
+              },
+              "all": {
+                "estimate": 0.044122,
+                "ci95": [
+                  0.026954,
+                  0.060876
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0015,
+                "cruise": 1.0,
+                "descent": 0.9905,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.051984,
+                "ci95": [
+                  -0.092627,
+                  -0.022502
+                ]
+              },
+              "cruise": {
+                "estimate": 0.122482,
+                "ci95": [
+                  0.028874,
+                  0.141993
+                ]
+              },
+              "descent": {
+                "estimate": 0.005398,
+                "ci95": [
+                  -0.014147,
+                  0.065156
+                ]
+              },
+              "all": {
+                "estimate": 0.057721,
+                "ci95": [
+                  0.005585,
+                  0.077589
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.8405,
+                "all": 0.993
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.79237,
+                "ci95": [
+                  -1.196612,
+                  -0.388428
+                ]
+              },
+              "cruise": {
+                "estimate": -0.119509,
+                "ci95": [
+                  -0.468392,
+                  0.220358
+                ]
+              },
+              "descent": {
+                "estimate": -0.346696,
+                "ci95": [
+                  -0.761063,
+                  0.079519
+                ]
+              },
+              "all": {
+                "estimate": -0.346999,
+                "ci95": [
+                  -0.601007,
+                  -0.087345
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.247,
+                "descent": 0.054,
+                "all": 0.003
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.110807,
+                "ci95": [
+                  0.079665,
+                  0.14247
+                ]
+              },
+              "cruise": {
+                "estimate": 0.144257,
+                "ci95": [
+                  0.122586,
+                  0.165668
+                ]
+              },
+              "descent": {
+                "estimate": 0.063428,
+                "ci95": [
+                  0.029485,
+                  0.099189
+                ]
+              },
+              "all": {
+                "estimate": 0.118767,
+                "ci95": [
+                  0.103096,
+                  0.135446
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.098495,
+                "ci95": [
+                  0.05393,
+                  0.129262
+                ]
+              },
+              "cruise": {
+                "estimate": 0.121394,
+                "ci95": [
+                  0.028303,
+                  0.14324
+                ]
+              },
+              "descent": {
+                "estimate": 0.064777,
+                "ci95": [
+                  0.042612,
+                  0.126117
+                ]
+              },
+              "all": {
+                "estimate": 0.103657,
+                "ci95": [
+                  0.052156,
+                  0.124703
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.038186,
+                "ci95": [
+                  -0.463137,
+                  0.408644
+                ]
+              },
+              "cruise": {
+                "estimate": 1.134004,
+                "ci95": [
+                  0.787086,
+                  1.461052
+                ]
+              },
+              "descent": {
+                "estimate": 0.176886,
+                "ci95": [
+                  -0.264981,
+                  0.61782
+                ]
+              },
+              "all": {
+                "estimate": 0.832169,
+                "ci95": [
+                  0.56908,
+                  1.091456
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.4395,
+                "cruise": 1.0,
+                "descent": 0.7865,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.017784,
+                "ci95": [
+                  -0.03836,
+                  0.002555
+                ]
+              },
+              "cruise": {
+                "estimate": 0.023408,
+                "ci95": [
+                  0.005521,
+                  0.04049
+                ]
+              },
+              "descent": {
+                "estimate": 0.009447,
+                "ci95": [
+                  -0.009765,
+                  0.028859
+                ]
+              },
+              "all": {
+                "estimate": 0.011182,
+                "ci95": [
+                  -0.0006083,
+                  0.022884
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0385,
+                "cruise": 0.996,
+                "descent": 0.818,
+                "all": 0.9665
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.01368,
+                "ci95": [
+                  -0.068512,
+                  0.007013
+                ]
+              },
+              "cruise": {
+                "estimate": 0.06859,
+                "ci95": [
+                  -0.021862,
+                  0.083551
+                ]
+              },
+              "descent": {
+                "estimate": -0.018893,
+                "ci95": [
+                  -0.028903,
+                  0.033107
+                ]
+              },
+              "all": {
+                "estimate": 0.030825,
+                "ci95": [
+                  -0.023036,
+                  0.045866
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0765,
+                "cruise": 0.7875,
+                "descent": 0.4125,
+                "all": 0.6785
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.353225,
+                "ci95": [
+                  -0.530569,
+                  -0.177811
+                ]
+              },
+              "cruise": {
+                "estimate": 0.629412,
+                "ci95": [
+                  0.409725,
+                  0.849938
+                ]
+              },
+              "descent": {
+                "estimate": 0.424526,
+                "ci95": [
+                  0.223161,
+                  0.626923
+                ]
+              },
+              "all": {
+                "estimate": 0.368981,
+                "ci95": [
+                  0.222677,
+                  0.51197
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.032832,
+                "ci95": [
+                  -0.061101,
+                  -0.003978
+                ]
+              },
+              "cruise": {
+                "estimate": 0.062602,
+                "ci95": [
+                  0.039826,
+                  0.083249
+                ]
+              },
+              "descent": {
+                "estimate": 0.024291,
+                "ci95": [
+                  -0.002782,
+                  0.051048
+                ]
+              },
+              "all": {
+                "estimate": 0.03294,
+                "ci95": [
+                  0.016357,
+                  0.04758
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0145,
+                "cruise": 1.0,
+                "descent": 0.9565,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.038304,
+                "ci95": [
+                  -0.063409,
+                  0.015693
+                ]
+              },
+              "cruise": {
+                "estimate": 0.053892,
+                "ci95": [
+                  0.037181,
+                  0.111173
+                ]
+              },
+              "descent": {
+                "estimate": 0.024291,
+                "ci95": [
+                  -0.001332,
+                  0.057898
+                ]
+              },
+              "all": {
+                "estimate": 0.026896,
+                "ci95": [
+                  0.016309,
+                  0.067461
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.1505,
+                "cruise": 1.0,
+                "descent": 0.9665,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.439145,
+                "ci95": [
+                  -0.813905,
+                  -0.064474
+                ]
+              },
+              "cruise": {
+                "estimate": -0.748921,
+                "ci95": [
+                  -0.990004,
+                  -0.514436
+                ]
+              },
+              "descent": {
+                "estimate": -0.771222,
+                "ci95": [
+                  -1.163404,
+                  -0.378508
+                ]
+              },
+              "all": {
+                "estimate": -0.71598,
+                "ci95": [
+                  -0.911842,
+                  -0.515165
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0105,
+                "cruise": 0.0,
+                "descent": 0.0,
+                "all": 0.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "0613-0620": {
+      "tune_day": "2022-06-13",
+      "test_day": "2022-06-20",
+      "unseen_test_day": false,
+      "coverage": {
+        "test_flights": 3406,
+        "with_reference": 1093,
+        "share_with_reference": 0.320904,
+        "od_pairs_with_reference": 146
+      },
+      "test_flights_whose_callsign_flew_on_the_tune_day": 0.807868,
+      "operating_points": {
+        "imm_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.84785,
+            "cruise": 1.84785,
+            "descent": 1.711328
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.947133,
+            "cruise": 2.597722,
+            "descent": 3.547932
+          },
+          "detection_rate": {
+            "climb": 0.145714,
+            "cruise": 0.214927,
+            "descent": 0.159445
+          },
+          "all_phases_false_alerts_per_flight_hour": 3.010612
+        },
+        "fixed_threshold": {
+          "thresholds_by_phase": {
+            "climb": 14962.356561,
+            "cruise": 16788.040181,
+            "descent": 13335.214322
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.613888,
+            "cruise": 2.682615,
+            "descent": 3.06901
+          },
+          "detection_rate": {
+            "climb": 0.187143,
+            "cruise": 0.207326,
+            "descent": 0.154246
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.869707
+        },
+        "cv_kalman": {
+          "thresholds_by_phase": {
+            "climb": 707.945784,
+            "cruise": 89.125094,
+            "descent": 794.328235
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.041124,
+            "cruise": 2.105344,
+            "descent": 2.052523
+          },
+          "detection_rate": {
+            "climb": 0.094286,
+            "cruise": 0.167934,
+            "descent": 0.102253
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.042136
+        },
+        "fused_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.995262,
+            "cruise": 2.154435,
+            "descent": 1.84785
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.853408,
+            "cruise": 2.051012,
+            "descent": 3.372001
+          },
+          "detection_rate": {
+            "climb": 0.185714,
+            "cruise": 0.253628,
+            "descent": 0.169844
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.603773
+        }
+      },
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.947133,
+                "ci95": [
+                  2.483608,
+                  3.398175
+                ]
+              },
+              "cruise": {
+                "estimate": 2.597722,
+                "ci95": [
+                  2.283269,
+                  2.947551
+                ]
+              },
+              "descent": {
+                "estimate": 3.547932,
+                "ci95": [
+                  3.123742,
+                  3.957969
+                ]
+              },
+              "all": {
+                "estimate": 3.010612,
+                "ci95": [
+                  2.753778,
+                  3.277417
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.145714,
+                "ci95": [
+                  0.118982,
+                  0.17278
+                ]
+              },
+              "cruise": {
+                "estimate": 0.214927,
+                "ci95": [
+                  0.1933,
+                  0.237164
+                ]
+              },
+              "descent": {
+                "estimate": 0.159445,
+                "ci95": [
+                  0.131118,
+                  0.187503
+                ]
+              },
+              "all": {
+                "estimate": 0.185389,
+                "ci95": [
+                  0.170146,
+                  0.200584
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.067143,
+                "ci95": [
+                  0.034002,
+                  0.093577
+                ]
+              },
+              "cruise": {
+                "estimate": 0.181755,
+                "ci95": [
+                  0.119535,
+                  0.20082
+                ]
+              },
+              "descent": {
+                "estimate": 0.090121,
+                "ci95": [
+                  0.04297,
+                  0.11953
+                ]
+              },
+              "all": {
+                "estimate": 0.132893,
+                "ci95": [
+                  0.091765,
+                  0.143288
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.613888,
+                "ci95": [
+                  2.213033,
+                  3.034397
+                ]
+              },
+              "cruise": {
+                "estimate": 2.682615,
+                "ci95": [
+                  2.37625,
+                  2.993019
+                ]
+              },
+              "descent": {
+                "estimate": 3.06901,
+                "ci95": [
+                  2.656309,
+                  3.489638
+                ]
+              },
+              "all": {
+                "estimate": 2.869707,
+                "ci95": [
+                  2.635763,
+                  3.107997
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.187143,
+                "ci95": [
+                  0.160817,
+                  0.213611
+                ]
+              },
+              "cruise": {
+                "estimate": 0.207326,
+                "ci95": [
+                  0.188734,
+                  0.225786
+                ]
+              },
+              "descent": {
+                "estimate": 0.154246,
+                "ci95": [
+                  0.125441,
+                  0.183713
+                ]
+              },
+              "all": {
+                "estimate": 0.190896,
+                "ci95": [
+                  0.177503,
+                  0.203483
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.165714,
+                "ci95": [
+                  0.139156,
+                  0.195291
+                ]
+              },
+              "cruise": {
+                "estimate": 0.171389,
+                "ci95": [
+                  0.154937,
+                  0.191068
+                ]
+              },
+              "descent": {
+                "estimate": 0.119584,
+                "ci95": [
+                  0.093588,
+                  0.145915
+                ]
+              },
+              "all": {
+                "estimate": 0.158957,
+                "ci95": [
+                  0.147252,
+                  0.172389
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.041124,
+                "ci95": [
+                  1.717624,
+                  2.385098
+                ]
+              },
+              "cruise": {
+                "estimate": 2.105344,
+                "ci95": [
+                  1.892363,
+                  2.321308
+                ]
+              },
+              "descent": {
+                "estimate": 2.052523,
+                "ci95": [
+                  1.77022,
+                  2.344368
+                ]
+              },
+              "all": {
+                "estimate": 2.042136,
+                "ci95": [
+                  1.874671,
+                  2.207315
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.094286,
+                "ci95": [
+                  0.072503,
+                  0.117371
+                ]
+              },
+              "cruise": {
+                "estimate": 0.167934,
+                "ci95": [
+                  0.149214,
+                  0.186532
+                ]
+              },
+              "descent": {
+                "estimate": 0.102253,
+                "ci95": [
+                  0.078392,
+                  0.128931
+                ]
+              },
+              "all": {
+                "estimate": 0.135095,
+                "ci95": [
+                  0.122881,
+                  0.147279
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.047143,
+                "ci95": [
+                  0.024901,
+                  0.062974
+                ]
+              },
+              "cruise": {
+                "estimate": 0.167243,
+                "ci95": [
+                  0.148449,
+                  0.185058
+                ]
+              },
+              "descent": {
+                "estimate": 0.057192,
+                "ci95": [
+                  0.040947,
+                  0.077878
+                ]
+              },
+              "all": {
+                "estimate": 0.113069,
+                "ci95": [
+                  0.100931,
+                  0.12394
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.853408,
+                "ci95": [
+                  2.410878,
+                  3.303566
+                ]
+              },
+              "cruise": {
+                "estimate": 2.051012,
+                "ci95": [
+                  1.765383,
+                  2.349449
+                ]
+              },
+              "descent": {
+                "estimate": 3.372001,
+                "ci95": [
+                  2.931097,
+                  3.799286
+                ]
+              },
+              "all": {
+                "estimate": 2.603773,
+                "ci95": [
+                  2.376991,
+                  2.840706
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.185714,
+                "ci95": [
+                  0.158466,
+                  0.214182
+                ]
+              },
+              "cruise": {
+                "estimate": 0.253628,
+                "ci95": [
+                  0.231853,
+                  0.275591
+                ]
+              },
+              "descent": {
+                "estimate": 0.169844,
+                "ci95": [
+                  0.138936,
+                  0.201377
+                ]
+              },
+              "all": {
+                "estimate": 0.218429,
+                "ci95": [
+                  0.203477,
+                  0.233263
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.14,
+                "ci95": [
+                  0.113853,
+                  0.171681
+                ]
+              },
+              "cruise": {
+                "estimate": 0.212163,
+                "ci95": [
+                  0.146858,
+                  0.230028
+                ]
+              },
+              "descent": {
+                "estimate": 0.105719,
+                "ci95": [
+                  0.082496,
+                  0.140289
+                ]
+              },
+              "all": {
+                "estimate": 0.171072,
+                "ci95": [
+                  0.134503,
+                  0.184454
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.041429,
+                "ci95": [
+                  -0.072657,
+                  -0.010508
+                ]
+              },
+              "cruise": {
+                "estimate": 0.007602,
+                "ci95": [
+                  -0.016705,
+                  0.031662
+                ]
+              },
+              "descent": {
+                "estimate": 0.005199,
+                "ci95": [
+                  -0.027916,
+                  0.036977
+                ]
+              },
+              "all": {
+                "estimate": -0.005507,
+                "ci95": [
+                  -0.02242,
+                  0.010675
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0045,
+                "cruise": 0.721,
+                "descent": 0.5995,
+                "all": 0.2575
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.098571,
+                "ci95": [
+                  -0.139633,
+                  -0.071736
+                ]
+              },
+              "cruise": {
+                "estimate": 0.010366,
+                "ci95": [
+                  -0.057928,
+                  0.030244
+                ]
+              },
+              "descent": {
+                "estimate": -0.029463,
+                "ci95": [
+                  -0.085536,
+                  0.001819
+                ]
+              },
+              "all": {
+                "estimate": -0.026065,
+                "ci95": [
+                  -0.070402,
+                  -0.015698
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.521,
+                "descent": 0.0295,
+                "all": 0.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.333245,
+                "ci95": [
+                  -0.09531,
+                  0.770804
+                ]
+              },
+              "cruise": {
+                "estimate": -0.084893,
+                "ci95": [
+                  -0.517235,
+                  0.390375
+                ]
+              },
+              "descent": {
+                "estimate": 0.478922,
+                "ci95": [
+                  0.068664,
+                  0.911769
+                ]
+              },
+              "all": {
+                "estimate": 0.140905,
+                "ci95": [
+                  -0.15776,
+                  0.462753
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.9365,
+                "cruise": 0.35,
+                "descent": 0.9875,
+                "all": 0.8085
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.051429,
+                "ci95": [
+                  0.017937,
+                  0.083676
+                ]
+              },
+              "cruise": {
+                "estimate": 0.046994,
+                "ci95": [
+                  0.020416,
+                  0.072848
+                ]
+              },
+              "descent": {
+                "estimate": 0.057192,
+                "ci95": [
+                  0.019186,
+                  0.092107
+                ]
+              },
+              "all": {
+                "estimate": 0.050294,
+                "ci95": [
+                  0.031637,
+                  0.067322
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.9985,
+                "cruise": 1.0,
+                "descent": 0.9975,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.02,
+                "ci95": [
+                  -0.015291,
+                  0.051975
+                ]
+              },
+              "cruise": {
+                "estimate": 0.014513,
+                "ci95": [
+                  -0.051978,
+                  0.035938
+                ]
+              },
+              "descent": {
+                "estimate": 0.032929,
+                "ci95": [
+                  -0.021173,
+                  0.062509
+                ]
+              },
+              "all": {
+                "estimate": 0.019824,
+                "ci95": [
+                  -0.022513,
+                  0.032459
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.825,
+                "cruise": 0.6055,
+                "descent": 0.729,
+                "all": 0.6785
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.906009,
+                "ci95": [
+                  0.376922,
+                  1.43197
+                ]
+              },
+              "cruise": {
+                "estimate": 0.492379,
+                "ci95": [
+                  0.110631,
+                  0.888882
+                ]
+              },
+              "descent": {
+                "estimate": 1.495409,
+                "ci95": [
+                  1.041975,
+                  1.946717
+                ]
+              },
+              "all": {
+                "estimate": 0.968476,
+                "ci95": [
+                  0.683051,
+                  1.253693
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 0.994,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.04,
+                "ci95": [
+                  -0.06487,
+                  -0.016598
+                ]
+              },
+              "cruise": {
+                "estimate": -0.038701,
+                "ci95": [
+                  -0.058788,
+                  -0.017603
+                ]
+              },
+              "descent": {
+                "estimate": -0.010399,
+                "ci95": [
+                  -0.037611,
+                  0.015412
+                ]
+              },
+              "all": {
+                "estimate": -0.03304,
+                "ci95": [
+                  -0.046421,
+                  -0.019307
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0005,
+                "cruise": 0.0,
+                "descent": 0.196,
+                "all": 0.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.072857,
+                "ci95": [
+                  -0.108637,
+                  -0.053054
+                ]
+              },
+              "cruise": {
+                "estimate": -0.030408,
+                "ci95": [
+                  -0.083455,
+                  0.031598
+                ]
+              },
+              "descent": {
+                "estimate": -0.015598,
+                "ci95": [
+                  -0.063877,
+                  0.003499
+                ]
+              },
+              "all": {
+                "estimate": -0.038179,
+                "ci95": [
+                  -0.073015,
+                  -0.007318
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.15,
+                "descent": 0.037,
+                "all": 0.0035
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.093725,
+                "ci95": [
+                  -0.142564,
+                  0.31427
+                ]
+              },
+              "cruise": {
+                "estimate": 0.54671,
+                "ci95": [
+                  0.322943,
+                  0.780173
+                ]
+              },
+              "descent": {
+                "estimate": 0.175931,
+                "ci95": [
+                  -0.101812,
+                  0.452863
+                ]
+              },
+              "all": {
+                "estimate": 0.406839,
+                "ci95": [
+                  0.255936,
+                  0.568233
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.77,
+                "cruise": 1.0,
+                "descent": 0.8935,
+                "all": 1.0
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.001429,
+                "ci95": [
+                  -0.029894,
+                  0.025843
+                ]
+              },
+              "cruise": {
+                "estimate": 0.046303,
+                "ci95": [
+                  0.02319,
+                  0.067379
+                ]
+              },
+              "descent": {
+                "estimate": 0.015598,
+                "ci95": [
+                  -0.017422,
+                  0.047064
+                ]
+              },
+              "all": {
+                "estimate": 0.027533,
+                "ci95": [
+                  0.012467,
+                  0.042632
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.437,
+                "cruise": 1.0,
+                "descent": 0.8125,
+                "all": 0.9995
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.025714,
+                "ci95": [
+                  -0.050446,
+                  0.0
+                ]
+              },
+              "cruise": {
+                "estimate": 0.040774,
+                "ci95": [
+                  -0.025993,
+                  0.054963
+                ]
+              },
+              "descent": {
+                "estimate": -0.013865,
+                "ci95": [
+                  -0.039476,
+                  0.01887
+                ]
+              },
+              "all": {
+                "estimate": 0.012115,
+                "ci95": [
+                  -0.025159,
+                  0.024049
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0225,
+                "cruise": 0.628,
+                "descent": 0.2185,
+                "all": 0.5575
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.23952,
+                "ci95": [
+                  -0.129509,
+                  0.636465
+                ]
+              },
+              "cruise": {
+                "estimate": -0.631603,
+                "ci95": [
+                  -0.987437,
+                  -0.273602
+                ]
+              },
+              "descent": {
+                "estimate": 0.302991,
+                "ci95": [
+                  -0.093821,
+                  0.707549
+                ]
+              },
+              "all": {
+                "estimate": -0.265934,
+                "ci95": [
+                  -0.514775,
+                  -0.01549
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.884,
+                "cruise": 0.0005,
+                "descent": 0.925,
+                "all": 0.0205
+              }
+            }
+          }
+        }
+      }
+    },
+    "0620-0627": {
+      "tune_day": "2022-06-20",
+      "test_day": "2022-06-27",
+      "unseen_test_day": false,
+      "coverage": {
+        "test_flights": 3370,
+        "with_reference": 1096,
+        "share_with_reference": 0.325223,
+        "od_pairs_with_reference": 152
+      },
+      "test_flights_whose_callsign_flew_on_the_tune_day": 0.760949,
+      "operating_points": {
+        "imm_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.995262,
+            "cruise": 1.84785,
+            "descent": 1.995262
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.554993,
+            "cruise": 2.7939,
+            "descent": 2.153721
+          },
+          "detection_rate": {
+            "climb": 0.121951,
+            "cruise": 0.232727,
+            "descent": 0.102655
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.768937
+        },
+        "fixed_threshold": {
+          "thresholds_by_phase": {
+            "climb": 16788.040181,
+            "cruise": 18836.490895,
+            "descent": 18836.490895
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.202212,
+            "cruise": 1.700778,
+            "descent": 2.214106
+          },
+          "detection_rate": {
+            "climb": 0.184451,
+            "cruise": 0.171515,
+            "descent": 0.146903
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.980066
+        },
+        "cv_kalman": {
+          "thresholds_by_phase": {
+            "climb": 707.945784,
+            "cruise": 158.489319,
+            "descent": 794.328235
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 1.53941,
+            "cruise": 1.274758,
+            "descent": 2.143657
+          },
+          "detection_rate": {
+            "climb": 0.07622,
+            "cruise": 0.144242,
+            "descent": 0.115044
+          },
+          "all_phases_false_alerts_per_flight_hour": 1.475189
+        },
+        "fused_conformance": {
+          "thresholds_by_phase": {
+            "climb": 1.995262,
+            "cruise": 1.995262,
+            "descent": 1.995262
+          },
+          "false_alerts_per_flight_hour": {
+            "climb": 2.672587,
+            "cruise": 2.176336,
+            "descent": 2.707248
+          },
+          "detection_rate": {
+            "climb": 0.158537,
+            "cruise": 0.266061,
+            "descent": 0.143363
+          },
+          "all_phases_false_alerts_per_flight_hour": 2.546081
+        }
+      },
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.554993,
+                "ci95": [
+                  2.1291,
+                  2.960133
+                ]
+              },
+              "cruise": {
+                "estimate": 2.7939,
+                "ci95": [
+                  2.470471,
+                  3.114832
+                ]
+              },
+              "descent": {
+                "estimate": 2.153721,
+                "ci95": [
+                  1.775805,
+                  2.543004
+                ]
+              },
+              "all": {
+                "estimate": 2.768937,
+                "ci95": [
+                  2.516989,
+                  3.003208
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.121951,
+                "ci95": [
+                  0.096152,
+                  0.149163
+                ]
+              },
+              "cruise": {
+                "estimate": 0.232727,
+                "ci95": [
+                  0.212483,
+                  0.253668
+                ]
+              },
+              "descent": {
+                "estimate": 0.102655,
+                "ci95": [
+                  0.077439,
+                  0.129091
+                ]
+              },
+              "all": {
+                "estimate": 0.181818,
+                "ci95": [
+                  0.167021,
+                  0.196286
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.065549,
+                "ci95": [
+                  0.047183,
+                  0.093314
+                ]
+              },
+              "cruise": {
+                "estimate": 0.214545,
+                "ci95": [
+                  0.194163,
+                  0.23411
+                ]
+              },
+              "descent": {
+                "estimate": 0.072566,
+                "ci95": [
+                  0.049291,
+                  0.109876
+                ]
+              },
+              "all": {
+                "estimate": 0.15256,
+                "ci95": [
+                  0.139355,
+                  0.168705
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.202212,
+                "ci95": [
+                  1.837319,
+                  2.589417
+                ]
+              },
+              "cruise": {
+                "estimate": 1.700778,
+                "ci95": [
+                  1.449251,
+                  1.96165
+                ]
+              },
+              "descent": {
+                "estimate": 2.214106,
+                "ci95": [
+                  1.891077,
+                  2.576914
+                ]
+              },
+              "all": {
+                "estimate": 1.980066,
+                "ci95": [
+                  1.776901,
+                  2.192939
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.184451,
+                "ci95": [
+                  0.158294,
+                  0.211432
+                ]
+              },
+              "cruise": {
+                "estimate": 0.171515,
+                "ci95": [
+                  0.155674,
+                  0.189062
+                ]
+              },
+              "descent": {
+                "estimate": 0.146903,
+                "ci95": [
+                  0.119996,
+                  0.176288
+                ]
+              },
+              "all": {
+                "estimate": 0.169627,
+                "ci95": [
+                  0.157949,
+                  0.18144
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.176829,
+                "ci95": [
+                  0.152863,
+                  0.202964
+                ]
+              },
+              "cruise": {
+                "estimate": 0.165455,
+                "ci95": [
+                  0.15092,
+                  0.182785
+                ]
+              },
+              "descent": {
+                "estimate": 0.129204,
+                "ci95": [
+                  0.105731,
+                  0.167838
+                ]
+              },
+              "all": {
+                "estimate": 0.16092,
+                "ci95": [
+                  0.151352,
+                  0.17437
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.53941,
+                "ci95": [
+                  1.268354,
+                  1.833402
+                ]
+              },
+              "cruise": {
+                "estimate": 1.274758,
+                "ci95": [
+                  1.105068,
+                  1.462256
+                ]
+              },
+              "descent": {
+                "estimate": 2.143657,
+                "ci95": [
+                  1.854532,
+                  2.453364
+                ]
+              },
+              "all": {
+                "estimate": 1.475189,
+                "ci95": [
+                  1.344492,
+                  1.623622
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.07622,
+                "ci95": [
+                  0.056574,
+                  0.094721
+                ]
+              },
+              "cruise": {
+                "estimate": 0.144242,
+                "ci95": [
+                  0.129572,
+                  0.159714
+                ]
+              },
+              "descent": {
+                "estimate": 0.115044,
+                "ci95": [
+                  0.089105,
+                  0.140687
+                ]
+              },
+              "all": {
+                "estimate": 0.122954,
+                "ci95": [
+                  0.11227,
+                  0.134191
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.053354,
+                "ci95": [
+                  0.036928,
+                  0.071208
+                ]
+              },
+              "cruise": {
+                "estimate": 0.149697,
+                "ci95": [
+                  0.134886,
+                  0.165294
+                ]
+              },
+              "descent": {
+                "estimate": 0.065487,
+                "ci95": [
+                  0.047099,
+                  0.087182
+                ]
+              },
+              "all": {
+                "estimate": 0.111111,
+                "ci95": [
+                  0.101008,
+                  0.122012
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.672587,
+                "ci95": [
+                  2.238089,
+                  3.103798
+                ]
+              },
+              "cruise": {
+                "estimate": 2.176336,
+                "ci95": [
+                  1.899344,
+                  2.450554
+                ]
+              },
+              "descent": {
+                "estimate": 2.707248,
+                "ci95": [
+                  2.320219,
+                  3.095759
+                ]
+              },
+              "all": {
+                "estimate": 2.546081,
+                "ci95": [
+                  2.322987,
+                  2.758005
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.158537,
+                "ci95": [
+                  0.131095,
+                  0.18843
+                ]
+              },
+              "cruise": {
+                "estimate": 0.266061,
+                "ci95": [
+                  0.245269,
+                  0.287442
+                ]
+              },
+              "descent": {
+                "estimate": 0.143363,
+                "ci95": [
+                  0.115315,
+                  0.17452
+                ]
+              },
+              "all": {
+                "estimate": 0.217346,
+                "ci95": [
+                  0.202515,
+                  0.232065
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.115854,
+                "ci95": [
+                  0.089902,
+                  0.157729
+                ]
+              },
+              "cruise": {
+                "estimate": 0.225455,
+                "ci95": [
+                  0.205936,
+                  0.278198
+                ]
+              },
+              "descent": {
+                "estimate": 0.106195,
+                "ci95": [
+                  0.04926,
+                  0.128804
+                ]
+              },
+              "all": {
+                "estimate": 0.176942,
+                "ci95": [
+                  0.158348,
+                  0.208292
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.0625,
+                "ci95": [
+                  -0.093952,
+                  -0.031397
+                ]
+              },
+              "cruise": {
+                "estimate": 0.061212,
+                "ci95": [
+                  0.037377,
+                  0.084607
+                ]
+              },
+              "descent": {
+                "estimate": -0.044248,
+                "ci95": [
+                  -0.078658,
+                  -0.010235
+                ]
+              },
+              "all": {
+                "estimate": 0.012191,
+                "ci95": [
+                  -0.004501,
+                  0.028655
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.004,
+                "all": 0.9285
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.11128,
+                "ci95": [
+                  -0.138984,
+                  -0.076817
+                ]
+              },
+              "cruise": {
+                "estimate": 0.049091,
+                "ci95": [
+                  0.024688,
+                  0.069769
+                ]
+              },
+              "descent": {
+                "estimate": -0.056637,
+                "ci95": [
+                  -0.095242,
+                  -0.017168
+                ]
+              },
+              "all": {
+                "estimate": -0.008359,
+                "ci95": [
+                  -0.025561,
+                  0.007639
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.997,
+                "descent": 0.003,
+                "all": 0.152
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.352782,
+                "ci95": [
+                  -0.09377,
+                  0.764506
+                ]
+              },
+              "cruise": {
+                "estimate": 1.093122,
+                "ci95": [
+                  0.702263,
+                  1.474371
+                ]
+              },
+              "descent": {
+                "estimate": -0.060385,
+                "ci95": [
+                  -0.560978,
+                  0.436398
+                ]
+              },
+              "all": {
+                "estimate": 0.788871,
+                "ci95": [
+                  0.483375,
+                  1.079611
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.942,
+                "cruise": 1.0,
+                "descent": 0.39,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.045732,
+                "ci95": [
+                  0.017516,
+                  0.074325
+                ]
+              },
+              "cruise": {
+                "estimate": 0.088485,
+                "ci95": [
+                  0.066165,
+                  0.111444
+                ]
+              },
+              "descent": {
+                "estimate": -0.012389,
+                "ci95": [
+                  -0.043707,
+                  0.018803
+                ]
+              },
+              "all": {
+                "estimate": 0.058865,
+                "ci95": [
+                  0.042499,
+                  0.075316
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.202,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.012195,
+                "ci95": [
+                  -0.010759,
+                  0.042534
+                ]
+              },
+              "cruise": {
+                "estimate": 0.064848,
+                "ci95": [
+                  0.040188,
+                  0.086726
+                ]
+              },
+              "descent": {
+                "estimate": 0.00708,
+                "ci95": [
+                  -0.022358,
+                  0.048303
+                ]
+              },
+              "all": {
+                "estimate": 0.041449,
+                "ci95": [
+                  0.026258,
+                  0.058867
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.8515,
+                "cruise": 1.0,
+                "descent": 0.7375,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.015583,
+                "ci95": [
+                  0.502666,
+                  1.538906
+                ]
+              },
+              "cruise": {
+                "estimate": 1.519142,
+                "ci95": [
+                  1.11441,
+                  1.892239
+                ]
+              },
+              "descent": {
+                "estimate": 0.010064,
+                "ci95": [
+                  -0.41495,
+                  0.442237
+                ]
+              },
+              "all": {
+                "estimate": 1.293748,
+                "ci95": [
+                  0.990074,
+                  1.576192
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.504,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.036585,
+                "ci95": [
+                  -0.058644,
+                  -0.014103
+                ]
+              },
+              "cruise": {
+                "estimate": -0.033333,
+                "ci95": [
+                  -0.048754,
+                  -0.018006
+                ]
+              },
+              "descent": {
+                "estimate": -0.040708,
+                "ci95": [
+                  -0.062402,
+                  -0.018964
+                ]
+              },
+              "all": {
+                "estimate": -0.035528,
+                "ci95": [
+                  -0.046716,
+                  -0.024108
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0005,
+                "cruise": 0.0,
+                "descent": 0.0,
+                "all": 0.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.050305,
+                "ci95": [
+                  -0.074356,
+                  -0.029548
+                ]
+              },
+              "cruise": {
+                "estimate": -0.010909,
+                "ci95": [
+                  -0.058112,
+                  0.004716
+                ]
+              },
+              "descent": {
+                "estimate": -0.033628,
+                "ci95": [
+                  -0.04486,
+                  0.027073
+                ]
+              },
+              "all": {
+                "estimate": -0.024382,
+                "ci95": [
+                  -0.049775,
+                  -0.007283
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.082,
+                "descent": 0.3785,
+                "all": 0.0015
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.117594,
+                "ci95": [
+                  -0.241958,
+                  0.0
+                ]
+              },
+              "cruise": {
+                "estimate": 0.617564,
+                "ci95": [
+                  0.399362,
+                  0.828813
+                ]
+              },
+              "descent": {
+                "estimate": -0.553527,
+                "ci95": [
+                  -0.770272,
+                  -0.338718
+                ]
+              },
+              "all": {
+                "estimate": 0.222856,
+                "ci95": [
+                  0.078233,
+                  0.363895
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.02,
+                "cruise": 1.0,
+                "descent": 0.0,
+                "all": 0.9995
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.025915,
+                "ci95": [
+                  -0.054143,
+                  0.003126
+                ]
+              },
+              "cruise": {
+                "estimate": 0.094545,
+                "ci95": [
+                  0.074027,
+                  0.115923
+                ]
+              },
+              "descent": {
+                "estimate": -0.00354,
+                "ci95": [
+                  -0.033076,
+                  0.026694
+                ]
+              },
+              "all": {
+                "estimate": 0.047719,
+                "ci95": [
+                  0.034054,
+                  0.063056
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.038,
+                "cruise": 1.0,
+                "descent": 0.3795,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.060976,
+                "ci95": [
+                  -0.090206,
+                  -0.021633
+                ]
+              },
+              "cruise": {
+                "estimate": 0.06,
+                "ci95": [
+                  0.040451,
+                  0.109521
+                ]
+              },
+              "descent": {
+                "estimate": -0.023009,
+                "ci95": [
+                  -0.090001,
+                  -0.003559
+                ]
+              },
+              "all": {
+                "estimate": 0.016022,
+                "ci95": [
+                  -0.004154,
+                  0.043583
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.001,
+                "cruise": 1.0,
+                "descent": 0.012,
+                "all": 0.9265
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.470375,
+                "ci95": [
+                  0.010781,
+                  0.874897
+                ]
+              },
+              "cruise": {
+                "estimate": 0.475557,
+                "ci95": [
+                  0.192247,
+                  0.754273
+                ]
+              },
+              "descent": {
+                "estimate": 0.493142,
+                "ci95": [
+                  0.049424,
+                  0.942612
+                ]
+              },
+              "all": {
+                "estimate": 0.566015,
+                "ci95": [
+                  0.327419,
+                  0.776062
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.975,
+                "cruise": 0.9985,
+                "descent": 0.984,
+                "all": 1.0
+              }
+            }
+          }
+        }
+      },
+      "reproduces_results_phase4": {
+        "imm_conformance": true,
+        "fixed_threshold": true,
+        "cv_kalman": true,
+        "fused_conformance": true
+      }
+    }
+  },
+  "pooled": {
+    "unseen_test_days": {
+      "folds": [
+        "0523-0530",
+        "0530-0606",
+        "0606-0613"
+      ],
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.034339,
+                "ci95": [
+                  1.821413,
+                  2.24501
+                ]
+              },
+              "cruise": {
+                "estimate": 2.137132,
+                "ci95": [
+                  1.968035,
+                  2.30631
+                ]
+              },
+              "descent": {
+                "estimate": 2.144826,
+                "ci95": [
+                  1.962708,
+                  2.339518
+                ]
+              },
+              "all": {
+                "estimate": 2.265526,
+                "ci95": [
+                  2.137431,
+                  2.397489
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.154533,
+                "ci95": [
+                  0.138984,
+                  0.171274
+                ]
+              },
+              "cruise": {
+                "estimate": 0.247619,
+                "ci95": [
+                  0.236054,
+                  0.259543
+                ]
+              },
+              "descent": {
+                "estimate": 0.155054,
+                "ci95": [
+                  0.139951,
+                  0.170903
+                ]
+              },
+              "all": {
+                "estimate": 0.206078,
+                "ci95": [
+                  0.197977,
+                  0.214772
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.105683,
+                "ci95": [
+                  0.090492,
+                  0.119006
+                ]
+              },
+              "cruise": {
+                "estimate": 0.220214,
+                "ci95": [
+                  0.209154,
+                  0.244336
+                ]
+              },
+              "descent": {
+                "estimate": 0.134936,
+                "ci95": [
+                  0.121068,
+                  0.164765
+                ]
+              },
+              "all": {
+                "estimate": 0.175365,
+                "ci95": [
+                  0.167205,
+                  0.189504
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.075645,
+                "ci95": [
+                  1.871359,
+                  2.277554
+                ]
+              },
+              "cruise": {
+                "estimate": 2.232375,
+                "ci95": [
+                  2.068799,
+                  2.398325
+                ]
+              },
+              "descent": {
+                "estimate": 2.022931,
+                "ci95": [
+                  1.829127,
+                  2.2238
+                ]
+              },
+              "all": {
+                "estimate": 2.239156,
+                "ci95": [
+                  2.114778,
+                  2.369592
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.195867,
+                "ci95": [
+                  0.180722,
+                  0.21249
+                ]
+              },
+              "cruise": {
+                "estimate": 0.177843,
+                "ci95": [
+                  0.167964,
+                  0.187198
+                ]
+              },
+              "descent": {
+                "estimate": 0.128067,
+                "ci95": [
+                  0.114479,
+                  0.142575
+                ]
+              },
+              "all": {
+                "estimate": 0.17107,
+                "ci95": [
+                  0.164154,
+                  0.177918
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.173791,
+                "ci95": [
+                  0.158545,
+                  0.191629
+                ]
+              },
+              "cruise": {
+                "estimate": 0.160739,
+                "ci95": [
+                  0.148743,
+                  0.16957
+                ]
+              },
+              "descent": {
+                "estimate": 0.129048,
+                "ci95": [
+                  0.115822,
+                  0.1437
+                ]
+              },
+              "all": {
+                "estimate": 0.156787,
+                "ci95": [
+                  0.148961,
+                  0.163752
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.604064,
+                "ci95": [
+                  1.449985,
+                  1.763839
+                ]
+              },
+              "cruise": {
+                "estimate": 1.204141,
+                "ci95": [
+                  1.109565,
+                  1.303231
+                ]
+              },
+              "descent": {
+                "estimate": 2.233005,
+                "ci95": [
+                  2.077441,
+                  2.402392
+                ]
+              },
+              "all": {
+                "estimate": 1.490477,
+                "ci95": [
+                  1.409107,
+                  1.572495
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.068577,
+                "ci95": [
+                  0.0574,
+                  0.079833
+                ]
+              },
+              "cruise": {
+                "estimate": 0.138776,
+                "ci95": [
+                  0.130097,
+                  0.14726
+                ]
+              },
+              "descent": {
+                "estimate": 0.110893,
+                "ci95": [
+                  0.09779,
+                  0.125552
+                ]
+              },
+              "all": {
+                "estimate": 0.116624,
+                "ci95": [
+                  0.110429,
+                  0.122796
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.039455,
+                "ci95": [
+                  0.031467,
+                  0.048286
+                ]
+              },
+              "cruise": {
+                "estimate": 0.147716,
+                "ci95": [
+                  0.140071,
+                  0.160524
+                ]
+              },
+              "descent": {
+                "estimate": 0.064279,
+                "ci95": [
+                  0.051871,
+                  0.073891
+                ]
+              },
+              "all": {
+                "estimate": 0.104704,
+                "ci95": [
+                  0.099221,
+                  0.111897
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.230544,
+                "ci95": [
+                  2.004717,
+                  2.441288
+                ]
+              },
+              "cruise": {
+                "estimate": 1.86501,
+                "ci95": [
+                  1.708122,
+                  2.026418
+                ]
+              },
+              "descent": {
+                "estimate": 1.771361,
+                "ci95": [
+                  1.592346,
+                  1.940761
+                ]
+              },
+              "all": {
+                "estimate": 2.07291,
+                "ci95": [
+                  1.95231,
+                  2.201356
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.178488,
+                "ci95": [
+                  0.162987,
+                  0.194855
+                ]
+              },
+              "cruise": {
+                "estimate": 0.253644,
+                "ci95": [
+                  0.241379,
+                  0.264724
+                ]
+              },
+              "descent": {
+                "estimate": 0.154563,
+                "ci95": [
+                  0.139858,
+                  0.17016
+                ]
+              },
+              "all": {
+                "estimate": 0.214777,
+                "ci95": [
+                  0.206473,
+                  0.223083
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.15829,
+                "ci95": [
+                  0.109924,
+                  0.171868
+                ]
+              },
+              "cruise": {
+                "estimate": 0.217881,
+                "ci95": [
+                  0.206136,
+                  0.275036
+                ]
+              },
+              "descent": {
+                "estimate": 0.158979,
+                "ci95": [
+                  0.142777,
+                  0.174847
+                ]
+              },
+              "all": {
+                "estimate": 0.191366,
+                "ci95": [
+                  0.176639,
+                  0.22212
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.041334,
+                "ci95": [
+                  -0.060491,
+                  -0.022352
+                ]
+              },
+              "cruise": {
+                "estimate": 0.069776,
+                "ci95": [
+                  0.056042,
+                  0.08295
+                ]
+              },
+              "descent": {
+                "estimate": 0.026987,
+                "ci95": [
+                  0.009869,
+                  0.043582
+                ]
+              },
+              "all": {
+                "estimate": 0.035009,
+                "ci95": [
+                  0.025792,
+                  0.044346
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.9985,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.068107,
+                "ci95": [
+                  -0.09031,
+                  -0.050604
+                ]
+              },
+              "cruise": {
+                "estimate": 0.059475,
+                "ci95": [
+                  0.046437,
+                  0.081412
+                ]
+              },
+              "descent": {
+                "estimate": 0.005888,
+                "ci95": [
+                  -0.011347,
+                  0.03371
+                ]
+              },
+              "all": {
+                "estimate": 0.018578,
+                "ci95": [
+                  0.009543,
+                  0.032896
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.7565,
+                "all": 0.999
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.041306,
+                "ci95": [
+                  -0.272088,
+                  0.21537
+                ]
+              },
+              "cruise": {
+                "estimate": -0.095243,
+                "ci95": [
+                  -0.299203,
+                  0.105706
+                ]
+              },
+              "descent": {
+                "estimate": 0.121895,
+                "ci95": [
+                  -0.108618,
+                  0.342933
+                ]
+              },
+              "all": {
+                "estimate": 0.02637,
+                "ci95": [
+                  -0.129983,
+                  0.17172
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.3815,
+                "cruise": 0.18,
+                "descent": 0.851,
+                "all": 0.6155
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.085956,
+                "ci95": [
+                  0.068884,
+                  0.103579
+                ]
+              },
+              "cruise": {
+                "estimate": 0.108844,
+                "ci95": [
+                  0.096574,
+                  0.121042
+                ]
+              },
+              "descent": {
+                "estimate": 0.044161,
+                "ci95": [
+                  0.025751,
+                  0.063201
+                ]
+              },
+              "all": {
+                "estimate": 0.089454,
+                "ci95": [
+                  0.081307,
+                  0.098351
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.066228,
+                "ci95": [
+                  0.049175,
+                  0.080782
+                ]
+              },
+              "cruise": {
+                "estimate": 0.072498,
+                "ci95": [
+                  0.056991,
+                  0.094157
+                ]
+              },
+              "descent": {
+                "estimate": 0.070658,
+                "ci95": [
+                  0.055581,
+                  0.103523
+                ]
+              },
+              "all": {
+                "estimate": 0.070662,
+                "ci95": [
+                  0.061324,
+                  0.083685
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.430275,
+                "ci95": [
+                  0.165393,
+                  0.678468
+                ]
+              },
+              "cruise": {
+                "estimate": 0.932991,
+                "ci95": [
+                  0.749549,
+                  1.113663
+                ]
+              },
+              "descent": {
+                "estimate": -0.088179,
+                "ci95": [
+                  -0.330863,
+                  0.160363
+                ]
+              },
+              "all": {
+                "estimate": 0.775048,
+                "ci95": [
+                  0.627658,
+                  0.914392
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.9995,
+                "cruise": 1.0,
+                "descent": 0.2195,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.023955,
+                "ci95": [
+                  -0.035478,
+                  -0.012379
+                ]
+              },
+              "cruise": {
+                "estimate": -0.006025,
+                "ci95": [
+                  -0.015876,
+                  0.00291
+                ]
+              },
+              "descent": {
+                "estimate": 0.000490677,
+                "ci95": [
+                  -0.011261,
+                  0.012018
+                ]
+              },
+              "all": {
+                "estimate": -0.008698,
+                "ci95": [
+                  -0.015382,
+                  -0.002489
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.096,
+                "descent": 0.519,
+                "all": 0.001
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.052607,
+                "ci95": [
+                  -0.061903,
+                  -0.004074
+                ]
+              },
+              "cruise": {
+                "estimate": 0.002332,
+                "ci95": [
+                  -0.052975,
+                  0.011702
+                ]
+              },
+              "descent": {
+                "estimate": -0.024043,
+                "ci95": [
+                  -0.032017,
+                  0.005837
+                ]
+              },
+              "all": {
+                "estimate": -0.016001,
+                "ci95": [
+                  -0.045382,
+                  -0.000761899
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.006,
+                "cruise": 0.627,
+                "descent": 0.0615,
+                "all": 0.02
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.196205,
+                "ci95": [
+                  -0.27293,
+                  -0.119343
+                ]
+              },
+              "cruise": {
+                "estimate": 0.272122,
+                "ci95": [
+                  0.155389,
+                  0.389525
+                ]
+              },
+              "descent": {
+                "estimate": 0.373464,
+                "ci95": [
+                  0.272575,
+                  0.478748
+                ]
+              },
+              "all": {
+                "estimate": 0.192616,
+                "ci95": [
+                  0.116632,
+                  0.271339
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.017379,
+                "ci95": [
+                  -0.033743,
+                  -0.00096095
+                ]
+              },
+              "cruise": {
+                "estimate": 0.075802,
+                "ci95": [
+                  0.063637,
+                  0.087641
+                ]
+              },
+              "descent": {
+                "estimate": 0.026497,
+                "ci95": [
+                  0.010763,
+                  0.042065
+                ]
+              },
+              "all": {
+                "estimate": 0.043707,
+                "ci95": [
+                  0.035138,
+                  0.051794
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.016,
+                "cruise": 1.0,
+                "descent": 0.998,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.0155,
+                "ci95": [
+                  -0.066385,
+                  -0.002764
+                ]
+              },
+              "cruise": {
+                "estimate": 0.057143,
+                "ci95": [
+                  0.046296,
+                  0.11254
+                ]
+              },
+              "descent": {
+                "estimate": 0.029931,
+                "ci95": [
+                  0.012784,
+                  0.046335
+                ]
+              },
+              "all": {
+                "estimate": 0.034579,
+                "ci95": [
+                  0.02,
+                  0.062771
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0105,
+                "cruise": 1.0,
+                "descent": 0.997,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.154899,
+                "ci95": [
+                  -0.074377,
+                  0.388607
+                ]
+              },
+              "cruise": {
+                "estimate": -0.367365,
+                "ci95": [
+                  -0.523414,
+                  -0.218573
+                ]
+              },
+              "descent": {
+                "estimate": -0.25157,
+                "ci95": [
+                  -0.463569,
+                  -0.051198
+                ]
+              },
+              "all": {
+                "estimate": -0.166246,
+                "ci95": [
+                  -0.28625,
+                  -0.0458
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.9165,
+                "cruise": 0.0005,
+                "descent": 0.0065,
+                "all": 0.0035
+              }
+            }
+          }
+        }
+      },
+      "spread_across_folds": {
+        "imm_conformance": {
+          "detection": {
+            "per_fold": [
+              0.169036,
+              0.193892,
+              0.247205
+            ],
+            "min": 0.169036,
+            "max": 0.247205,
+            "sd": 0.039938
+          },
+          "fa_rate": {
+            "per_fold": [
+              2.494095,
+              1.719577,
+              2.648811
+            ],
+            "min": 1.719577,
+            "max": 2.648811,
+            "sd": 0.497877
+          }
+        },
+        "fixed_threshold": {
+          "detection": {
+            "per_fold": [
+              0.137836,
+              0.164794,
+              0.203083
+            ],
+            "min": 0.137836,
+            "max": 0.203083,
+            "sd": 0.032787
+          },
+          "fa_rate": {
+            "per_fold": [
+              1.179378,
+              2.256945,
+              2.99581
+            ],
+            "min": 1.179378,
+            "max": 2.99581,
+            "sd": 0.913464
+          }
+        },
+        "cv_kalman": {
+          "detection": {
+            "per_fold": [
+              0.114534,
+              0.106886,
+              0.128438
+            ],
+            "min": 0.106886,
+            "max": 0.128438,
+            "sd": 0.010926
+          },
+          "fa_rate": {
+            "per_fold": [
+              1.235232,
+              1.351986,
+              1.816641
+            ],
+            "min": 1.235232,
+            "max": 1.816641,
+            "sd": 0.307564
+          }
+        },
+        "fused_conformance": {
+          "detection": {
+            "per_fold": [
+              0.18128,
+              0.218957,
+              0.236023
+            ],
+            "min": 0.18128,
+            "max": 0.236023,
+            "sd": 0.028011
+          },
+          "fa_rate": {
+            "per_fold": [
+              2.232011,
+              1.752286,
+              2.27983
+            ],
+            "min": 1.752286,
+            "max": 2.27983,
+            "sd": 0.291755
+          }
+        }
+      }
+    },
+    "all_test_days": {
+      "folds": [
+        "0523-0530",
+        "0530-0606",
+        "0606-0613",
+        "0613-0620",
+        "0620-0627"
+      ],
+      "bootstrap": {
+        "replicates": 2000,
+        "detectors": {
+          "imm_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.318364,
+                "ci95": [
+                  2.147416,
+                  2.497639
+                ]
+              },
+              "cruise": {
+                "estimate": 2.342827,
+                "ci95": [
+                  2.211863,
+                  2.488898
+                ]
+              },
+              "descent": {
+                "estimate": 2.390784,
+                "ci95": [
+                  2.234077,
+                  2.552122
+                ]
+              },
+              "all": {
+                "estimate": 2.494424,
+                "ci95": [
+                  2.393776,
+                  2.598596
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.146628,
+                "ci95": [
+                  0.134046,
+                  0.159105
+                ]
+              },
+              "cruise": {
+                "estimate": 0.238898,
+                "ci95": [
+                  0.22933,
+                  0.247938
+                ]
+              },
+              "descent": {
+                "estimate": 0.146541,
+                "ci95": [
+                  0.134248,
+                  0.158064
+                ]
+              },
+              "all": {
+                "estimate": 0.197625,
+                "ci95": [
+                  0.191037,
+                  0.204258
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.092396,
+                "ci95": [
+                  0.064488,
+                  0.101742
+                ]
+              },
+              "cruise": {
+                "estimate": 0.212327,
+                "ci95": [
+                  0.203885,
+                  0.221141
+                ]
+              },
+              "descent": {
+                "estimate": 0.124214,
+                "ci95": [
+                  0.112751,
+                  0.134985
+                ]
+              },
+              "all": {
+                "estimate": 0.165493,
+                "ci95": [
+                  0.157795,
+                  0.171545
+                ]
+              }
+            }
+          },
+          "fixed_threshold": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.207966,
+                "ci95": [
+                  2.036328,
+                  2.384582
+                ]
+              },
+              "cruise": {
+                "estimate": 2.214925,
+                "ci95": [
+                  2.085094,
+                  2.340797
+                ]
+              },
+              "descent": {
+                "estimate": 2.237528,
+                "ci95": [
+                  2.081779,
+                  2.40364
+                ]
+              },
+              "all": {
+                "estimate": 2.306789,
+                "ci95": [
+                  2.208477,
+                  2.406864
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.191966,
+                "ci95": [
+                  0.179304,
+                  0.204125
+                ]
+              },
+              "cruise": {
+                "estimate": 0.181752,
+                "ci95": [
+                  0.174235,
+                  0.189293
+                ]
+              },
+              "descent": {
+                "estimate": 0.136164,
+                "ci95": [
+                  0.124654,
+                  0.148312
+                ]
+              },
+              "all": {
+                "estimate": 0.174415,
+                "ci95": [
+                  0.16895,
+                  0.179699
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.173601,
+                "ci95": [
+                  0.160135,
+                  0.185641
+                ]
+              },
+              "cruise": {
+                "estimate": 0.165372,
+                "ci95": [
+                  0.154429,
+                  0.171747
+                ]
+              },
+              "descent": {
+                "estimate": 0.126415,
+                "ci95": [
+                  0.115396,
+                  0.139706
+                ]
+              },
+              "all": {
+                "estimate": 0.158986,
+                "ci95": [
+                  0.15171,
+                  0.163731
+                ]
+              }
+            }
+          },
+          "cv_kalman": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 1.678887,
+                "ci95": [
+                  1.547954,
+                  1.809105
+                ]
+              },
+              "cruise": {
+                "estimate": 1.380485,
+                "ci95": [
+                  1.301557,
+                  1.461201
+                ]
+              },
+              "descent": {
+                "estimate": 2.186443,
+                "ci95": [
+                  2.064701,
+                  2.311621
+                ]
+              },
+              "all": {
+                "estimate": 1.588548,
+                "ci95": [
+                  1.521581,
+                  1.655179
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.075179,
+                "ci95": [
+                  0.066358,
+                  0.084027
+                ]
+              },
+              "cruise": {
+                "estimate": 0.144989,
+                "ci95": [
+                  0.13784,
+                  0.151597
+                ]
+              },
+              "descent": {
+                "estimate": 0.110063,
+                "ci95": [
+                  0.098765,
+                  0.121174
+                ]
+              },
+              "all": {
+                "estimate": 0.121218,
+                "ci95": [
+                  0.1162,
+                  0.126285
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.043615,
+                "ci95": [
+                  0.037317,
+                  0.05068
+                ]
+              },
+              "cruise": {
+                "estimate": 0.151662,
+                "ci95": [
+                  0.144719,
+                  0.1586
+                ]
+              },
+              "descent": {
+                "estimate": 0.06195,
+                "ci95": [
+                  0.052994,
+                  0.0696
+                ]
+              },
+              "all": {
+                "estimate": 0.107265,
+                "ci95": [
+                  0.102327,
+                  0.111786
+                ]
+              }
+            }
+          },
+          "fused_conformance": {
+            "fa_rate": {
+              "climb": {
+                "estimate": 2.44126,
+                "ci95": [
+                  2.266476,
+                  2.624072
+                ]
+              },
+              "cruise": {
+                "estimate": 1.956661,
+                "ci95": [
+                  1.831963,
+                  2.086921
+                ]
+              },
+              "descent": {
+                "estimate": 2.20858,
+                "ci95": [
+                  2.044674,
+                  2.371907
+                ]
+              },
+              "all": {
+                "estimate": 2.257067,
+                "ci95": [
+                  2.157576,
+                  2.354112
+                ]
+              }
+            },
+            "detection": {
+              "climb": {
+                "estimate": 0.176184,
+                "ci95": [
+                  0.163339,
+                  0.188284
+                ]
+              },
+              "cruise": {
+                "estimate": 0.256127,
+                "ci95": [
+                  0.246991,
+                  0.265963
+                ]
+              },
+              "descent": {
+                "estimate": 0.155346,
+                "ci95": [
+                  0.143479,
+                  0.16773
+                ]
+              },
+              "all": {
+                "estimate": 0.215939,
+                "ci95": [
+                  0.209355,
+                  0.222534
+                ]
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.122812,
+                "ci95": [
+                  0.112442,
+                  0.1613
+                ]
+              },
+              "cruise": {
+                "estimate": 0.218394,
+                "ci95": [
+                  0.209976,
+                  0.226849
+                ]
+              },
+              "descent": {
+                "estimate": 0.121698,
+                "ci95": [
+                  0.110797,
+                  0.157734
+                ]
+              },
+              "all": {
+                "estimate": 0.175421,
+                "ci95": [
+                  0.170208,
+                  0.189294
+                ]
+              }
+            }
+          }
+        },
+        "differences": {
+          "imm_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.045337,
+                "ci95": [
+                  -0.059884,
+                  -0.03135
+                ]
+              },
+              "cruise": {
+                "estimate": 0.057146,
+                "ci95": [
+                  0.045796,
+                  0.067841
+                ]
+              },
+              "descent": {
+                "estimate": 0.010377,
+                "ci95": [
+                  -0.003384,
+                  0.023733
+                ]
+              },
+              "all": {
+                "estimate": 0.023211,
+                "ci95": [
+                  0.015483,
+                  0.030787
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.9255,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.081205,
+                "ci95": [
+                  -0.107479,
+                  -0.067838
+                ]
+              },
+              "cruise": {
+                "estimate": 0.046955,
+                "ci95": [
+                  0.037992,
+                  0.060389
+                ]
+              },
+              "descent": {
+                "estimate": -0.002201,
+                "ci95": [
+                  -0.017657,
+                  0.010617
+                ]
+              },
+              "all": {
+                "estimate": 0.006507,
+                "ci95": [
+                  -0.000610138,
+                  0.015234
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.325,
+                "all": 0.9625
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.110398,
+                "ci95": [
+                  -0.082293,
+                  0.305843
+                ]
+              },
+              "cruise": {
+                "estimate": 0.127902,
+                "ci95": [
+                  -0.038756,
+                  0.298299
+                ]
+              },
+              "descent": {
+                "estimate": 0.153255,
+                "ci95": [
+                  -0.033825,
+                  0.337864
+                ]
+              },
+              "all": {
+                "estimate": 0.187635,
+                "ci95": [
+                  0.060062,
+                  0.313301
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.8575,
+                "cruise": 0.9225,
+                "descent": 0.949,
+                "all": 0.9975
+              }
+            }
+          },
+          "imm_conformance - cv_kalman": {
+            "detection": {
+              "climb": {
+                "estimate": 0.071449,
+                "ci95": [
+                  0.057565,
+                  0.084783
+                ]
+              },
+              "cruise": {
+                "estimate": 0.093909,
+                "ci95": [
+                  0.083214,
+                  0.104137
+                ]
+              },
+              "descent": {
+                "estimate": 0.036478,
+                "ci95": [
+                  0.020602,
+                  0.051021
+                ]
+              },
+              "all": {
+                "estimate": 0.076407,
+                "ci95": [
+                  0.069164,
+                  0.083841
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": 0.04878,
+                "ci95": [
+                  0.020431,
+                  0.05977
+                ]
+              },
+              "cruise": {
+                "estimate": 0.060665,
+                "ci95": [
+                  0.051075,
+                  0.070895
+                ]
+              },
+              "descent": {
+                "estimate": 0.062264,
+                "ci95": [
+                  0.049438,
+                  0.07568
+                ]
+              },
+              "all": {
+                "estimate": 0.058228,
+                "ci95": [
+                  0.050003,
+                  0.064752
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 1.0,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.639477,
+                "ci95": [
+                  0.431768,
+                  0.857949
+                ]
+              },
+              "cruise": {
+                "estimate": 0.962342,
+                "ci95": [
+                  0.810479,
+                  1.117378
+                ]
+              },
+              "descent": {
+                "estimate": 0.20434,
+                "ci95": [
+                  0.017305,
+                  0.408795
+                ]
+              },
+              "all": {
+                "estimate": 0.905875,
+                "ci95": [
+                  0.792824,
+                  1.024273
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 1.0,
+                "cruise": 1.0,
+                "descent": 0.981,
+                "all": 1.0
+              }
+            }
+          },
+          "imm_conformance - fused_conformance": {
+            "detection": {
+              "climb": {
+                "estimate": -0.029555,
+                "ci95": [
+                  -0.038486,
+                  -0.020114
+                ]
+              },
+              "cruise": {
+                "estimate": -0.017229,
+                "ci95": [
+                  -0.024979,
+                  -0.009948
+                ]
+              },
+              "descent": {
+                "estimate": -0.008805,
+                "ci95": [
+                  -0.018692,
+                  0.001254
+                ]
+              },
+              "all": {
+                "estimate": -0.018314,
+                "ci95": [
+                  -0.023548,
+                  -0.013301
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.0,
+                "descent": 0.037,
+                "all": 0.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.030416,
+                "ci95": [
+                  -0.066765,
+                  -0.021974
+                ]
+              },
+              "cruise": {
+                "estimate": -0.006066,
+                "ci95": [
+                  -0.013043,
+                  0.000967627
+                ]
+              },
+              "descent": {
+                "estimate": 0.002516,
+                "ci95": [
+                  -0.031628,
+                  0.011449
+                ]
+              },
+              "all": {
+                "estimate": -0.009928,
+                "ci95": [
+                  -0.023184,
+                  -0.005441
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 0.0455,
+                "descent": 0.611,
+                "all": 0.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": -0.122896,
+                "ci95": [
+                  -0.19372,
+                  -0.056274
+                ]
+              },
+              "cruise": {
+                "estimate": 0.386167,
+                "ci95": [
+                  0.296473,
+                  0.477509
+                ]
+              },
+              "descent": {
+                "estimate": 0.182204,
+                "ci95": [
+                  0.087809,
+                  0.269015
+                ]
+              },
+              "all": {
+                "estimate": 0.237357,
+                "ci95": [
+                  0.175558,
+                  0.296785
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.9995,
+                "all": 1.0
+              }
+            }
+          },
+          "fused_conformance - fixed_threshold": {
+            "detection": {
+              "climb": {
+                "estimate": -0.015782,
+                "ci95": [
+                  -0.029245,
+                  -0.003512
+                ]
+              },
+              "cruise": {
+                "estimate": 0.074375,
+                "ci95": [
+                  0.065135,
+                  0.083901
+                ]
+              },
+              "descent": {
+                "estimate": 0.019182,
+                "ci95": [
+                  0.006259,
+                  0.031804
+                ]
+              },
+              "all": {
+                "estimate": 0.041524,
+                "ci95": [
+                  0.034874,
+                  0.047991
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.006,
+                "cruise": 1.0,
+                "descent": 0.9985,
+                "all": 1.0
+              }
+            },
+            "detection_at_budget_on_sweep": {
+              "climb": {
+                "estimate": -0.050789,
+                "ci95": [
+                  -0.060321,
+                  -0.01223
+                ]
+              },
+              "cruise": {
+                "estimate": 0.053021,
+                "ci95": [
+                  0.046026,
+                  0.064971
+                ]
+              },
+              "descent": {
+                "estimate": -0.004717,
+                "ci95": [
+                  -0.017865,
+                  0.028211
+                ]
+              },
+              "all": {
+                "estimate": 0.016435,
+                "ci95": [
+                  0.011987,
+                  0.031588
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.0,
+                "cruise": 1.0,
+                "descent": 0.277,
+                "all": 1.0
+              }
+            },
+            "fa_rate": {
+              "climb": {
+                "estimate": 0.233294,
+                "ci95": [
+                  0.05148,
+                  0.414613
+                ]
+              },
+              "cruise": {
+                "estimate": -0.258264,
+                "ci95": [
+                  -0.387768,
+                  -0.126757
+                ]
+              },
+              "descent": {
+                "estimate": -0.028948,
+                "ci95": [
+                  -0.204472,
+                  0.141264
+                ]
+              },
+              "all": {
+                "estimate": -0.049722,
+                "ci95": [
+                  -0.151024,
+                  0.052622
+                ]
+              },
+              "share_of_replicates_above_0": {
+                "climb": 0.9945,
+                "cruise": 0.0,
+                "descent": 0.349,
+                "all": 0.157
+              }
+            }
+          }
+        }
+      },
+      "spread_across_folds": {
+        "imm_conformance": {
+          "detection": {
+            "per_fold": [
+              0.169036,
+              0.193892,
+              0.247205,
+              0.185389,
+              0.181818
+            ],
+            "min": 0.169036,
+            "max": 0.247205,
+            "sd": 0.030272
+          },
+          "fa_rate": {
+            "per_fold": [
+              2.494095,
+              1.719577,
+              2.648811,
+              3.010612,
+              2.768937
+            ],
+            "min": 1.719577,
+            "max": 3.010612,
+            "sd": 0.489964
+          }
+        },
+        "fixed_threshold": {
+          "detection": {
+            "per_fold": [
+              0.137836,
+              0.164794,
+              0.203083,
+              0.190896,
+              0.169627
+            ],
+            "min": 0.137836,
+            "max": 0.203083,
+            "sd": 0.0252
+          },
+          "fa_rate": {
+            "per_fold": [
+              1.179378,
+              2.256945,
+              2.99581,
+              2.869707,
+              1.980066
+            ],
+            "min": 1.179378,
+            "max": 2.99581,
+            "sd": 0.734712
+          }
+        },
+        "cv_kalman": {
+          "detection": {
+            "per_fold": [
+              0.114534,
+              0.106886,
+              0.128438,
+              0.135095,
+              0.122954
+            ],
+            "min": 0.106886,
+            "max": 0.135095,
+            "sd": 0.011148
+          },
+          "fa_rate": {
+            "per_fold": [
+              1.235232,
+              1.351986,
+              1.816641,
+              2.042136,
+              1.475189
+            ],
+            "min": 1.235232,
+            "max": 2.042136,
+            "sd": 0.335902
+          }
+        },
+        "fused_conformance": {
+          "detection": {
+            "per_fold": [
+              0.18128,
+              0.218957,
+              0.236023,
+              0.218429,
+              0.217346
+            ],
+            "min": 0.18128,
+            "max": 0.236023,
+            "sd": 0.020064
+          },
+          "fa_rate": {
+            "per_fold": [
+              2.232011,
+              1.752286,
+              2.27983,
+              2.603773,
+              2.546081
+            ],
+            "min": 1.752286,
+            "max": 2.603773,
+            "sd": 0.337777
+          }
+        }
+      }
+    }
+  }
+}
