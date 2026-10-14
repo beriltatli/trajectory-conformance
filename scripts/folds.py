@@ -106,9 +106,10 @@ def _strip(value):
 
 def _reproduces_phase4(fold: dict) -> dict:
     out = {}
-    for name in (d for d in DETECTORS if d not in PREFIX):
-        new = json.loads((fold_dir(fold["name"]) / "results" / f"phase4_{name}.json").read_text())
-        old = json.loads(repo_path(f"results/phase4_{name}.json").read_text())
+    for name in DETECTORS:
+        file = f"{PREFIX.get(name, 'phase4')}_{name}.json"
+        new = json.loads((fold_dir(fold["name"]) / "results" / file).read_text())
+        old = json.loads(repo_path(f"results/{file}").read_text())
         out[name] = _strip(new) == _strip(old)
     return out
 
