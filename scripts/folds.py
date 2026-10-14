@@ -139,7 +139,8 @@ def _flight_callsigns() -> tuple[dict, dict]:
 def aggregate(cfg: dict) -> dict:
     budget = cfg["evaluation"]["alert_budget_per_flight_hour"]
     folds = cfg["folds"]
-    pairs = [(SYSTEM, other) for other in DETECTORS if other != SYSTEM]
+    # Every detector against the IMM monitor, and the fusion against the operational baseline.
+    pairs = [(SYSTEM, other) for other in DETECTORS if other != SYSTEM] + [("fused_conformance", "fixed_threshold")]
     counts = {f["name"]: _days(f) for f in folds}
     callsign_of, day_of = _flight_callsigns()
     out = {
