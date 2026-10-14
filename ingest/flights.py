@@ -32,12 +32,19 @@ class FlightSegmenter:
         first = np.isnan(prev_t)
         prev_t[first] = icao[first].map(self._last_t).to_numpy(float)
 
-        callsign = frame["callsign"]
-        prev_callsign = callsign.groupby(icao, sort=False).ffill().groupby(icao, sort=False).shift()
-        prev_callsign = prev_callsign.where(~first, icao.map(self._last_callsign))
-
         unseen = np.isnan(prev_t)
         gap = ~unseen & (t - prev_t > self.split_gap_s)
+
+        # The callsign a row is compared with is the last one known in its own flight: within a
+        # gap-delimited segment of this push, else (a flight continuing from the last push) the
+        # one carried over. A flight that starts after a gap never inherits the callsign of the
+        # flight before it, so the ids do not depend on how the rows were chunked or on which
+        # days were ingested before.
+        callsign = frame["callsign"]
+        segment = pd.Series(unseen | gap, index=frame.index).groupby(icao, sort=False).cumsum()
+        prev_callsign = callsign.groupby([icao, segment], sort=False).ffill().groupby([icao, segment], sort=False).shift()
+        carried = icao.map(self._last_callsign).where(segment == 0)
+        prev_callsign = prev_callsign.fillna(carried)
         renamed = ~unseen & ~gap & callsign.notna().to_numpy() & prev_callsign.notna().to_numpy() & (
             callsign.to_numpy(object) != prev_callsign.to_numpy(object)
         )
@@ -51,13 +58,15 @@ class FlightSegmenter:
         start = start.fillna(icao.map(self._start_t))
         flight_id = icao + "_" + start.astype("int64").astype(str)
 
-        last_rows = frame.groupby("icao24", sort=False).tail(1).index
-        for row in last_rows:
-            key = icao[row]
+        known = callsign.fillna(prev_callsign)
+        for row in frame.groupby("icao24", sort=False).tail(1).index:
+            key, name = icao[row], known[row]
             self._last_t[key] = frame.at[row, "lastposupdate"]
             self._start_t[key] = start[row]
-        for key, name in callsign.groupby(icao, sort=False).last().dropna().items():
-            self._last_callsign[key] = name
+            if pd.isna(name):
+                self._last_callsign.pop(key, None)
+            else:
+                self._last_callsign[key] = name
         return measurements.assign(flight_id=flight_id.reindex(measurements.index))
 
 

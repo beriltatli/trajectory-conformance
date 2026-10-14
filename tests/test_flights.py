@@ -29,6 +29,25 @@ def test_state_carries_across_pushes():
     assert second["flight_id"].tolist() == ["a_0", "a_900"]
 
 
+def test_a_previous_flights_callsign_does_not_split_the_next_one():
+    # Flight X1, a week's gap, then a flight whose first update has no callsign and whose
+    # callsign Y2 arrives in the next push. Found by the rolling evaluation: the stale X1
+    # was compared with Y2 across the push boundary and cut the new flight in two.
+    t = [0, 10, 604_800, 605_330, 605_340]
+    callsigns = ["X1", "X1", None, "Y2", "Y2"]
+    seg = FlightSegmenter(600)
+    split = [*seg.push(measurements("a", t[:3], callsigns[:3]))["flight_id"],
+             *seg.push(measurements("a", t[3:], callsigns[3:]))["flight_id"]]
+    whole = FlightSegmenter(600).push(measurements("a", t, callsigns))["flight_id"].tolist()
+    assert split == whole == ["a_0", "a_0"] + ["a_604800"] * 3
+
+
+def test_a_callsign_change_across_pushes_still_splits():
+    seg = FlightSegmenter(600)
+    seg.push(measurements("a", [0, 10], ["X1", None]))
+    assert seg.push(measurements("a", [20, 30], [None, "Y2"]))["flight_id"].tolist() == ["a_0", "a_30"]
+
+
 def test_accumulator_releases_flight_only_after_it_closes():
     acc = FlightAccumulator(600)
     m1 = measurements("a", [0, 10], ["X", "X"]).assign(flight_id="a_0")
