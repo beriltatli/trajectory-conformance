@@ -71,4 +71,91 @@ state vectors -> clean, segment -> IMM tracker (CV / CA / turn) -> follow refere
   the origin-destination key uses the whole uninjected flight (standing in for the filed flight
   plan), and most test flights are the same scheduled services as a week earlier.
 
-<!-- results, what did not work, limitations: filled from results/phase6_*.json -->
+## 5. Results
+
+**Headline: the three test days never looked at** (`results/phase6_rolling.json`, pooled,
+95% flight-bootstrap intervals, budget 2 false alerts per flight-hour):
+
+| detector | detection within 600 s | false alerts / flight-hour | paired difference vs fixed distance |
+|---|---|---|---|
+| IMM conformance monitor | 0.206 [0.198, 0.215] | 2.27 [2.14, 2.40] | +0.035 [+0.026, +0.044] |
+| fixed cross-track distance | 0.171 [0.164, 0.178] | 2.24 [2.11, 2.37] | |
+| IMM + distance, fused (c = 0.5) | 0.215 [0.206, 0.223] | 2.07 [1.95, 2.20] | +0.044 [+0.035, +0.052] |
+| single CV Kalman (NIS) | 0.117 [0.110, 0.123] | 1.49 [1.41, 1.57] | |
+
+- **The monitor beats the distance alarm, narrowly, and not in every phase.** By phase it
+  leads in cruise (+0.070 [0.056, 0.083]) and descent (+0.027), and loses in climb (-0.041
+  [-0.060, -0.022]). On the original single fold (2022-06-20 -> 06-27) the monitor's lead came
+  with a higher alert rate (2.77 against 1.98 per flight-hour). On the unseen days the two run
+  at the same rate, so this comparison is the fairer one.
+- **The fused detector is the best of the four**, ahead of the distance on all five test days
+  (+0.03 to +0.05) and of the monitor on four. It inherits the distance's lateral detection
+  (0.15-0.22 -> 0.30-0.34 on the original test day) and keeps the monitor's vertical detection.
+  In climb the distance alone remains ahead.
+- **Day-to-day variation is larger than the intervals.** Per test day, detection runs 0.17-0.25
+  for the monitor and 0.14-0.20 for the distance. False alerts run 1.7-3.0 and 1.2-3.0 per
+  flight-hour for thresholds tuned to 2.0 a week earlier. The flight bootstrap resamples within
+  days and cannot see this, so it is reported separately rather than folded into the intervals.
+- **What limits detection** (`results/phase6_detectability.json`):
+  - 0.07% of events violate 1 NM / 300 ft within two updates of onset. The update rate is not
+    the limit.
+  - For both detectors, most missed events never become rarer than the threshold: 61-73% for
+    the monitor, 45-90% for the distance, depending on the kind of deviation.
+  - The norms are wide because a 50 km gate pair mixes flows (median station sd 4.2 km
+    cross-track) and real flights depart from them often. At the budget threshold a residual
+    must reach 18-23 sd cross-track.
+  - Persistence and hold-off cost 3-8% of events.
+- **Filter consistency** (`results/phase6_consistency.json`). The innovations are not white
+  Gaussian. Altitude and vertical rate are quantised (25 ft, 64 ft/min), so their error is a
+  constant in level flight. In climb and descent, 9-14% of components exceed the 95% line.
+  The monitor scores residuals through empirical tails, so it does not depend on the filter's
+  covariance.
+
+## 6. What did not work
+
+Each was tuned on the tune day only and kept as a documented alternative, not as the default.
+
+- **Per-phase R and q** (`results/phase6_qr_fit.json`). These were fitted to the median squared
+  innovation per component, with resolution floors. Position and velocity centre on the test
+  day (0.08-0.38 -> 0.34-0.47 against a target of 0.455). The tails get heavier, though, and
+  the joint NIS gets worse (above its 95% line: 31 / 13 / 26% -> 45 / 30 / 37%). Detection
+  moves by at most 0.015. A narrow core under a heavy tail calls for a heavy-tailed measurement
+  model, not a rescaled Gaussian.
+- **Per-flight drift adaptation** (phase 5, `results/phase5_drift_tradeoff.json`). An offset
+  that follows each flight's slow departure from the norms removes up to 71% of off-norm time
+  on normal flights, but it also hides 9-53% of the slow injected deviations it saw before
+  (9-13% with the guard). At an equal alert rate, no setting detects more than the unadapted
+  monitor.
+- **References split into flows** (`results/phase6_subflows_*.json`). Two-medoid splits of 16
+  of 45 pairs tighten the flows (spread ratio 0.57), but the held-out tails in station sd get
+  heavier (p99 cross-track 22.8 -> 28.4 sd). At an equal alert rate, detection changes by at
+  most 0.025.
+- **A single fusion offset across phases.** It is a compromise. In climb and descent the
+  fusion's test-day alert rate is the highest of the three detectors. A per-phase offset is
+  the next step, and it was left out because it adds three choices on one tune day.
+
+## 7. Limitations
+
+- **Synthetic deviations on real flights.** Real noise, gaps and manoeuvres remain, but the
+  deviation shapes are idealised (constant offsets). False alerts are an upper bound, because
+  alerts on uninjected flights include genuine deviations such as vectoring and direct routings.
+- **Coverage.** 28-38% of test-day flights have a reference; the rest are not monitored.
+- **Look-ahead in the route key.** The origin-destination key uses the whole uninjected flight,
+  standing in for a filed flight plan.
+- **Same services each week.** 74-81% of evaluated test flights carry a callsign that flew on
+  the tune day, so this is not a test of generalisation to new routes.
+- **Holdout.** Only three test days are untouched. The design was revised while looking at
+  2022-06-20 and 06-27; those folds are reported, not used for the headline.
+- **Scope.** One region, six Mondays, 12:00-18:00 UTC, and 10 s state-vector snapshots rather
+  than raw Mode S messages.
+
+## 8. Reproducibility
+
+`make reproduce` runs download -> results -> figures -> tests for the two-day sample;
+`make multiday-data folds` runs the rolling evaluation. `make smoke` runs the whole pipeline,
+rolling folds included, on synthetic traffic, and it is what CI runs on every push. The
+2022-06-20 -> 06-27 fold re-runs phase 4 from a separate six-day ingest and must reproduce the
+committed phase 4 results exactly. That check found a defect in flight segmentation: a
+callsign carried over from an aircraft's previous flight could split the next one, depending
+on how the input was chunked (`ingest/flights.py`, `tests/test_flights.py`). After the fix the
+whole pipeline was re-run; NOTES.md lists the old and new numbers side by side.
