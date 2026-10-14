@@ -708,3 +708,31 @@ not the 95% line (gate 2).
   The monitor scores residuals against reference norms through empirical tails, so the filter's
   covariance never enters its score; only its state estimates do, and those are nearly the same.
   The configured R and q stay the default; the fitted ones are a documented alternative.
+
+## Phase 6 — references split into flows within a pair
+
+The breakdown puts most missed events below threshold because the norms are wide: a pair keyed
+by 50 km gates can hold two airways. `configs/subflows.yaml` (`reference/build.py
+split_subflows`) splits a pair's tune-day members into two flows by shape (two medoids) when
+that lowers the mean distance to the flow's medoid by at least 30% and each flow keeps
+`min_flights`; any flight, tune or test, is scored against the flow nearest to its first 300 s,
+before any injection can start. Run with `TC_CONFIG=configs/subflows.yaml TC_OUT=data/subflows`
+(references, then the IMM monitor and the fixed distance); aggregates in
+`results/phase6_subflows_<name>.json`.
+
+- 16 of the 45 pairs with enough flights split (median spread ratio 0.57); 168 references
+  instead of 152, the same 1,416 / 1,096 flights evaluated.
+- The held-out residuals, in station sd, get heavier tails, not lighter: p99 cross-track
+  22.8 -> 28.4 sd, track error 16.7 -> 20.8 sd. A narrower norm shrinks the sd for normal
+  flights of the flow as much as it sharpens a deviation, and 42 tune-day members land in the
+  other flow after 300 s.
+- Test day, climb / cruise / descent, old -> new:
+
+  | detector | false alerts / flight-hour | detection at the budget point | best detection within 2/h on the test sweep (oracle) |
+  |---|---|---|---|
+  | IMM conformance | 2.55 / 2.79 / 2.15 -> 2.66 / 2.57 / 3.38 | 0.122 / 0.233 / 0.103 -> 0.131 / 0.221 / 0.129 | 0.066 / 0.215 / 0.073 -> 0.069 / 0.190 / 0.088 |
+  | fixed distance | 2.20 / 1.70 / 2.21 -> 2.90 / 1.76 / 2.91 | 0.184 / 0.172 / 0.147 -> 0.197 / 0.201 / 0.158 | 0.177 / 0.165 / 0.129 -> 0.178 / 0.171 / 0.124 |
+
+  The budget-point gains come with more false alerts; at an equal alert rate the change is
+  within +-0.025. Splitting by shape does not narrow the corridor that limits detection; the
+  per-pair references stay the default.

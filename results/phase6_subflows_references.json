@@ -1,0 +1,366 @@
+{
+  "airports": 328,
+  "airport_endpoints_top5": [
+    388,
+    303,
+    161,
+    104,
+    92
+  ],
+  "days": {
+    "2022-06-20": {
+      "flights": 3406,
+      "with_od_key": 3021,
+      "no_key_endpoint_mid_air": 385,
+      "with_reference": 1416,
+      "share_with_reference": 0.415737,
+      "role": "tune"
+    },
+    "2022-06-27": {
+      "flights": 3370,
+      "with_od_key": 2837,
+      "no_key_endpoint_mid_air": 533,
+      "with_reference": 1096,
+      "share_with_reference": 0.325223,
+      "role": "test"
+    }
+  },
+  "od_pairs_on_tune_day": 1253,
+  "od_pairs_with_reference": 168,
+  "od_pairs_excluded_too_few_flights": 1085,
+  "tune_flights_in_excluded_pairs": 1887,
+  "reference_flights": {
+    "min": 5,
+    "median": 7.0,
+    "max": 37
+  },
+  "reference_length_km": {
+    "min": 7.106305,
+    "median": 348.903603,
+    "max": 743.352917
+  },
+  "subflows": {
+    "pairs_tried": 45,
+    "pairs_split": 16,
+    "tune_members_assigned_to_other_flow": 42,
+    "spread_ratio": {
+      "median": 0.570281
+    }
+  },
+  "held_out_references": 1374,
+  "held_out_reference_flights": {
+    "min": 4,
+    "median": 7.0
+  },
+  "residual_quantiles": {
+    "in_sample": {
+      "cross_track": {
+        "p50": 0.620555,
+        "p99": 15.306336,
+        "p999": 94.273009
+      },
+      "track_error": {
+        "p50": 0.625308,
+        "p99": 11.042547,
+        "p999": 36.979739
+      },
+      "altitude": {
+        "p50": 0.668376,
+        "p99": 65.396382,
+        "p999": 1311.130691
+      },
+      "vertical_rate": {
+        "p50": 0.599072,
+        "p99": 31.226742,
+        "p999": 266.73147
+      },
+      "ground_speed": {
+        "p50": 0.657717,
+        "p99": 6.324801,
+        "p999": 16.820473
+      },
+      "eta": {
+        "p50": 0.692578,
+        "p99": 15.395463,
+        "p999": 112.067306
+      }
+    },
+    "held_out": {
+      "cross_track": {
+        "p50": 0.812393,
+        "p99": 28.435977,
+        "p999": 156.019641
+      },
+      "track_error": {
+        "p50": 0.802981,
+        "p99": 20.765205,
+        "p999": 72.875495
+      },
+      "altitude": {
+        "p50": 0.702518,
+        "p99": 884.260728,
+        "p999": 4698.335789
+      },
+      "vertical_rate": {
+        "p50": 0.734131,
+        "p99": 45.485447,
+        "p999": 553.108366
+      },
+      "ground_speed": {
+        "p50": 0.85439,
+        "p99": 10.125176,
+        "p999": 38.366981
+      },
+      "eta": {
+        "p50": 0.832635,
+        "p99": 30.400964,
+        "p999": 209.907547
+      }
+    }
+  },
+  "calibration": {
+    "flights": 1416,
+    "flights_per_fold": [
+      708,
+      708
+    ],
+    "components": {
+      "cross_track": {
+        "fixes": 241151,
+        "fixes_per_fold": [
+          119482,
+          121669
+        ],
+        "largest_measured_score": 5.382289,
+        "largest_measured_score_per_fold": [
+          5.077302,
+          5.08518
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 4.499525,
+            "fold_0": 4.775927,
+            "fold_1": 4.25868
+          },
+          "2": {
+            "all": 28.411034,
+            "fold_0": 30.681766,
+            "fold_1": 25.650136
+          },
+          "3": {
+            "all": 156.100438,
+            "fold_0": 141.587378,
+            "fold_1": 211.716471
+          },
+          "4": {
+            "all": 529.081285,
+            "fold_0": 445.259152,
+            "fold_1": 558.999743
+          },
+          "5": {
+            "all": 828.800158,
+            "fold_0": 499.570416,
+            "fold_1": 852.471867
+          }
+        }
+      },
+      "track_error": {
+        "fixes": 240406,
+        "fixes_per_fold": [
+          119102,
+          121304
+        ],
+        "largest_measured_score": 5.380945,
+        "largest_measured_score_per_fold": [
+          5.075919,
+          5.083875
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 3.942756,
+            "fold_0": 4.009309,
+            "fold_1": 3.882741
+          },
+          "2": {
+            "all": 20.804521,
+            "fold_0": 21.042925,
+            "fold_1": 20.511336
+          },
+          "3": {
+            "all": 72.83105,
+            "fold_0": 102.870357,
+            "fold_1": 71.488187
+          },
+          "4": {
+            "all": 306.841586,
+            "fold_0": 306.905273,
+            "fold_1": 168.154533
+          },
+          "5": {
+            "all": 306.949916,
+            "fold_0": 306.964877,
+            "fold_1": 183.865737
+          }
+        }
+      },
+      "altitude": {
+        "fixes": 241151,
+        "fixes_per_fold": [
+          119482,
+          121669
+        ],
+        "largest_measured_score": 5.382289,
+        "largest_measured_score_per_fold": [
+          5.077302,
+          5.08518
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 4.756559,
+            "fold_0": 5.307181,
+            "fold_1": 4.277387
+          },
+          "2": {
+            "all": 886.08824,
+            "fold_0": 936.564552,
+            "fold_1": 849.202664
+          },
+          "3": {
+            "all": 4707.689883,
+            "fold_0": 5156.637543,
+            "fold_1": 3041.828206
+          },
+          "4": {
+            "all": 8170.309944,
+            "fold_0": 9292.442394,
+            "fold_1": 5776.194877
+          },
+          "5": {
+            "all": 13250.764332,
+            "fold_0": 13644.66978,
+            "fold_1": 7333.40987
+          }
+        }
+      },
+      "vertical_rate": {
+        "fixes": 241151,
+        "fixes_per_fold": [
+          119482,
+          121669
+        ],
+        "largest_measured_score": 5.382289,
+        "largest_measured_score_per_fold": [
+          5.077302,
+          5.08518
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 5.818699,
+            "fold_0": 5.971652,
+            "fold_1": 5.690425
+          },
+          "2": {
+            "all": 45.423395,
+            "fold_0": 48.1808,
+            "fold_1": 43.628022
+          },
+          "3": {
+            "all": 553.881048,
+            "fold_0": 408.542276,
+            "fold_1": 665.240136
+          },
+          "4": {
+            "all": 2195.133039,
+            "fold_0": 1295.268819,
+            "fold_1": 2545.490746
+          },
+          "5": {
+            "all": 3064.720131,
+            "fold_0": 1850.05531,
+            "fold_1": 3267.353448
+          }
+        }
+      },
+      "ground_speed": {
+        "fixes": 241151,
+        "fixes_per_fold": [
+          119482,
+          121669
+        ],
+        "largest_measured_score": 5.382289,
+        "largest_measured_score_per_fold": [
+          5.077302,
+          5.08518
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 2.865291,
+            "fold_0": 2.961041,
+            "fold_1": 2.765592
+          },
+          "2": {
+            "all": 10.123782,
+            "fold_0": 8.435556,
+            "fold_1": 14.525714
+          },
+          "3": {
+            "all": 38.365905,
+            "fold_0": 20.777753,
+            "fold_1": 42.926064
+          },
+          "4": {
+            "all": 49.885404,
+            "fold_0": 31.756151,
+            "fold_1": 50.612522
+          },
+          "5": {
+            "all": 50.96124,
+            "fold_0": 40.83457,
+            "fold_1": 50.964507
+          }
+        }
+      },
+      "eta": {
+        "fixes": 239960,
+        "fixes_per_fold": [
+          119007,
+          120953
+        ],
+        "largest_measured_score": 5.380139,
+        "largest_measured_score_per_fold": [
+          5.075573,
+          5.082617
+        ],
+        "residual_at_score": {
+          "1": {
+            "all": 3.300195,
+            "fold_0": 3.367361,
+            "fold_1": 3.154372
+          },
+          "2": {
+            "all": 30.303419,
+            "fold_0": 12.891383,
+            "fold_1": 67.739029
+          },
+          "3": {
+            "all": 210.208069,
+            "fold_0": 213.224836,
+            "fold_1": 203.75256
+          },
+          "4": {
+            "all": 639.499723,
+            "fold_0": 434.180369,
+            "fold_1": 700.708084
+          },
+          "5": {
+            "all": 750.3489,
+            "fold_0": 468.954519,
+            "fold_1": 756.493354
+          }
+        }
+      }
+    }
+  },
+  "peak_rss_mb_main_process": 351.830016,
+  "peak_rss_mb_largest_worker": 159.727616
+}
