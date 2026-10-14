@@ -182,7 +182,8 @@ def fusion(cfg: dict, workers: int, offset: float | None = None) -> None:
     tails, summary = fit_distance_tails(cfg, workers)
     save_distance_tails(tails, FUSION_TAILS)
     tune_detection = {}
-    for offset in (FUSION_OFFSETS if offset is None else (offset,)):
+    candidates = tuple(cfg.get("fusion", {}).get("offsets", FUSION_OFFSETS))
+    for offset in (candidates if offset is None else (offset,)):
         detector = Managed(FusedConformance(cfg["imm"], cfg["reference"], FUSION_TAILS, offset), cfg["alerts"])
         name = f"{detector.name}_c{offset:g}"
         _run_on_reference_flights(detector, cfg, workers, "phase6", name, cfg["alerts"])

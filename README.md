@@ -46,7 +46,7 @@ flowchart LR
 
 ```sh
 make env          # Python 3.12 venv, pinned requirements
-make smoke        # whole pipeline on synthetic traffic, ~5 min, no download (what CI runs)
+make smoke        # whole pipeline on synthetic traffic, ~15 min, no download (what CI runs)
 make demo         # the synthetic replay in sim/demo/; open sim/index.html via `make sim`
 make reproduce    # OpenSky sample (2 Mondays, ~2.6 GB download) -> results/, figures/ (phases 1-5)
 make multiday-data folds   # four more Mondays -> results/phase6_rolling.json

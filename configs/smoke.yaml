@@ -24,3 +24,8 @@ imm:
 
 drift:
   tau_s: [300]
+
+fusion:
+  # One candidate offset keeps CI short; the OpenSky run chooses among FUSION_OFFSETS
+  # (scripts/evaluate.py).
+  offsets: [0.5]

@@ -4,10 +4,15 @@ on:
   push:
   pull_request:
 
+# A newer push to the same branch supersedes a running check.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,4 +28,6 @@ jobs:
         if: always()
         with:
           name: smoke-figures
-          path: build/smoke/figures/
+          path: |
+            build/smoke/figures/
+            build/smoke/multiday/figures/

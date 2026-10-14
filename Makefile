@@ -8,7 +8,7 @@ env:
 	$(PY) -m pip install -r requirements.txt
 
 # The whole pipeline on synthetic traffic (configs/smoke.yaml), no OpenSky data; outputs in
-# build/smoke/, never in data/, results/ or figures/. About 3 min on 8 cores.
+# build/smoke/, never in data/, results/ or figures/. About 15 min on 8 cores, 25-30 on CI.
 smoke:
 	rm -rf build/smoke
 	TC_CONFIG=configs/smoke.yaml TC_OUT=build/smoke $(PY) -m scripts.reproduce --synthetic
