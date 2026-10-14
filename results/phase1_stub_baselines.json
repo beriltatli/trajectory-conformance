@@ -1,13 +1,13 @@
 {
   "note": "Stub evaluation. Reference = chord from each flight's first to last fix (sees the future; offline only). Raw alerts = runs of consecutive exceedances, no persistence or dedup. detection_rate is null: there are no injected anomalies until phase 3.",
   "flights_used": 6776,
-  "flights_skipped_short": 977,
+  "flights_skipped_short": 975,
   "max_coast_s": 60,
   "baselines": {
     "never_alert": {
       "climb": {
         "alerts": 0,
-        "flight_hours": 605.890051,
+        "flight_hours": 605.892731,
         "alerts_per_flight_hour": 0.0,
         "detection_rate": null
       },
@@ -25,13 +25,13 @@
       },
       "unknown": {
         "alerts": 0,
-        "flight_hours": 83.969511,
+        "flight_hours": 83.969642,
         "alerts_per_flight_hour": 0.0,
         "detection_rate": null
       },
       "all": {
         "alerts": 0,
-        "flight_hours": 3422.188646,
+        "flight_hours": 3422.191458,
         "alerts_per_flight_hour": 0.0,
         "detection_rate": null
       }
@@ -39,8 +39,8 @@
     "fixed_threshold_1852m": {
       "climb": {
         "alerts": 2882,
-        "flight_hours": 605.890051,
-        "alerts_per_flight_hour": 4.756639,
+        "flight_hours": 605.892731,
+        "alerts_per_flight_hour": 4.756618,
         "detection_rate": null
       },
       "cruise": {
@@ -57,22 +57,22 @@
       },
       "unknown": {
         "alerts": 1414,
-        "flight_hours": 83.969511,
-        "alerts_per_flight_hour": 16.839445,
+        "flight_hours": 83.969642,
+        "alerts_per_flight_hour": 16.839419,
         "detection_rate": null
       },
       "all": {
         "alerts": 9523,
-        "flight_hours": 3422.188646,
-        "alerts_per_flight_hour": 2.782722,
+        "flight_hours": 3422.191458,
+        "alerts_per_flight_hour": 2.78272,
         "detection_rate": null
       }
     },
     "fixed_threshold_3704m": {
       "climb": {
         "alerts": 3098,
-        "flight_hours": 605.890051,
-        "alerts_per_flight_hour": 5.113139,
+        "flight_hours": 605.892731,
+        "alerts_per_flight_hour": 5.113116,
         "detection_rate": null
       },
       "cruise": {
@@ -89,22 +89,22 @@
       },
       "unknown": {
         "alerts": 318,
-        "flight_hours": 83.969511,
-        "alerts_per_flight_hour": 3.787089,
+        "flight_hours": 83.969642,
+        "alerts_per_flight_hour": 3.787083,
         "detection_rate": null
       },
       "all": {
         "alerts": 8398,
-        "flight_hours": 3422.188646,
-        "alerts_per_flight_hour": 2.453985,
+        "flight_hours": 3422.191458,
+        "alerts_per_flight_hour": 2.453983,
         "detection_rate": null
       }
     },
     "fixed_threshold_9260m": {
       "climb": {
         "alerts": 2280,
-        "flight_hours": 605.890051,
-        "alerts_per_flight_hour": 3.763059,
+        "flight_hours": 605.892731,
+        "alerts_per_flight_hour": 3.763042,
         "detection_rate": null
       },
       "cruise": {
@@ -121,22 +121,22 @@
       },
       "unknown": {
         "alerts": 84,
-        "flight_hours": 83.969511,
-        "alerts_per_flight_hour": 1.000363,
+        "flight_hours": 83.969642,
+        "alerts_per_flight_hour": 1.000362,
         "detection_rate": null
       },
       "all": {
         "alerts": 6541,
-        "flight_hours": 3422.188646,
-        "alerts_per_flight_hour": 1.91135,
+        "flight_hours": 3422.191458,
+        "alerts_per_flight_hour": 1.911348,
         "detection_rate": null
       }
     },
     "fixed_threshold_18520m": {
       "climb": {
         "alerts": 1215,
-        "flight_hours": 605.890051,
-        "alerts_per_flight_hour": 2.005314,
+        "flight_hours": 605.892731,
+        "alerts_per_flight_hour": 2.005305,
         "detection_rate": null
       },
       "cruise": {
@@ -153,17 +153,17 @@
       },
       "unknown": {
         "alerts": 62,
-        "flight_hours": 83.969511,
-        "alerts_per_flight_hour": 0.738363,
+        "flight_hours": 83.969642,
+        "alerts_per_flight_hour": 0.738362,
         "detection_rate": null
       },
       "all": {
         "alerts": 4219,
-        "flight_hours": 3422.188646,
-        "alerts_per_flight_hour": 1.232837,
+        "flight_hours": 3422.191458,
+        "alerts_per_flight_hour": 1.232836,
         "detection_rate": null
       }
     }
   },
-  "peak_rss_mb": 280.24832
+  "peak_rss_mb": 334.675968
 }

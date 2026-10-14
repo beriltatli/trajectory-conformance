@@ -163,7 +163,7 @@
     100000.0
   ],
   "flights": 6776,
-  "updates": 1231395,
+  "updates": 1231397,
   "rejected_by_component": {
     "east": 750,
     "north": 750,
@@ -177,7 +177,7 @@
     "mixture_nis": {
       "2022-06-20": {
         "climb": {
-          "updates": 109409,
+          "updates": 109410,
           "nis_over_dof_histogram": [
             1,
             0,
@@ -235,7 +235,7 @@
             3407,
             3273,
             3435,
-            3334,
+            3335,
             3222,
             3097,
             2894,
@@ -341,10 +341,10 @@
             0
           ],
           "median_nis_over_dof": 0.595662,
-          "above_chi2_50": 0.393651,
-          "above_chi2_90": 0.253453,
-          "above_chi2_95": 0.225329,
-          "above_chi2_99": 0.184418
+          "above_chi2_50": 0.393648,
+          "above_chi2_90": 0.25345,
+          "above_chi2_95": 0.225327,
+          "above_chi2_99": 0.184416
         },
         "cruise": {
           "updates": 366268,
@@ -1369,7 +1369,7 @@
           "above_chi2_99": 0.112429
         },
         "unknown": {
-          "updates": 2206,
+          "updates": 2207,
           "nis_over_dof_histogram": [
             14,
             0,
@@ -1464,7 +1464,7 @@
             22,
             24,
             13,
-            18,
+            19,
             15,
             8,
             16,
@@ -1533,17 +1533,17 @@
             0
           ],
           "median_nis_over_dof": 2.371374,
-          "above_chi2_50": 0.665458,
-          "above_chi2_90": 0.551224,
-          "above_chi2_95": 0.523572,
-          "above_chi2_99": 0.481868
+          "above_chi2_50": 0.665609,
+          "above_chi2_90": 0.551427,
+          "above_chi2_95": 0.523788,
+          "above_chi2_99": 0.482102
         }
       }
     },
     "nis": {
       "2022-06-20": {
         "climb": {
-          "updates": 109409,
+          "updates": 109410,
           "nis_over_dof_histogram": [
             0,
             0,
@@ -1603,7 +1603,7 @@
             3520,
             3755,
             3850,
-            3945,
+            3946,
             4049,
             4010,
             3953,
@@ -1707,10 +1707,10 @@
             2
           ],
           "median_nis_over_dof": 1.188502,
-          "above_chi2_50": 0.60219,
-          "above_chi2_90": 0.389648,
-          "above_chi2_95": 0.344643,
-          "above_chi2_99": 0.277317
+          "above_chi2_50": 0.602184,
+          "above_chi2_90": 0.389644,
+          "above_chi2_95": 0.344639,
+          "above_chi2_99": 0.277315
         },
         "cruise": {
           "updates": 366268,
@@ -2300,10 +2300,10 @@
             2167,
             1935,
             1787,
-            1596,
-            1471,
-            1308,
-            1188,
+            1595,
+            1472,
+            1307,
+            1189,
             1079,
             1006,
             918,
@@ -2735,7 +2735,7 @@
           "above_chi2_99": 0.20248
         },
         "unknown": {
-          "updates": 2206,
+          "updates": 2207,
           "nis_over_dof_histogram": [
             11,
             0,
@@ -2840,7 +2840,7 @@
             26,
             24,
             13,
-            21,
+            22,
             29,
             17,
             21,
@@ -2899,10 +2899,10 @@
             0
           ],
           "median_nis_over_dof": 9.440609,
-          "above_chi2_50": 0.825476,
-          "above_chi2_90": 0.736174,
-          "above_chi2_95": 0.713055,
-          "above_chi2_99": 0.665911
+          "above_chi2_50": 0.825555,
+          "above_chi2_90": 0.736294,
+          "above_chi2_95": 0.713185,
+          "above_chi2_99": 0.666063
         }
       }
     }
@@ -2913,8 +2913,8 @@
         0.0,
         0.1
       ],
-      "updates": 958801,
-      "mean_p_cv": 0.885203,
+      "updates": 958802,
+      "mean_p_cv": 0.885202,
       "mean_p_ca": 0.009884,
       "mean_p_turn": 0.104914
     },
@@ -3025,11 +3025,11 @@
       }
     }
   },
-  "flights_skipped_short": 977,
+  "flights_skipped_short": 975,
   "tune_days": [
     "2022-06-20"
   ],
-  "peak_rss_mb_main_process": 361.545728,
-  "peak_rss_mb_largest_worker": 163.315712,
+  "peak_rss_mb_main_process": 258.62144,
+  "peak_rss_mb_largest_worker": 156.254208,
   "workers": 6
 }

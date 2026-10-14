@@ -34,13 +34,13 @@
   "flight_splits": {
     "first_seen": 4038,
     "gap": 3678,
-    "callsign": 37
+    "callsign": 35
   },
   "coverage": {
-    "flights_all": 7753,
+    "flights_all": 7751,
     "flights_kept": 6776,
-    "flights_dropped_short": 977,
-    "flight_hours": 3498.628607,
+    "flights_dropped_short": 975,
+    "flight_hours": 3498.651026,
     "updates_per_flight": {
       "p10": 54.5,
       "p50": 178.0,
@@ -68,17 +68,17 @@
       "p95": 12.459166,
       "p99": 28.341142
     },
-    "updates_below_low_altitude": 208097,
-    "intervals_total": 1237810,
-    "fraction_intervals_over_gap": 0.009498,
-    "fraction_intervals_over_30s": 0.00207,
-    "gaps_over_coverage_gap": 12028,
-    "gaps_over_silence_min_gap": 1455,
-    "long_gaps_silent_fraction": 0.760825,
-    "time_coverage_fraction": 0.960542,
+    "updates_below_low_altitude": 208098,
+    "intervals_total": 1237812,
+    "fraction_intervals_over_gap": 0.009499,
+    "fraction_intervals_over_30s": 0.002071,
+    "gaps_over_coverage_gap": 12029,
+    "gaps_over_silence_min_gap": 1456,
+    "long_gaps_silent_fraction": 0.760989,
+    "time_coverage_fraction": 0.960537,
     "flights_with_any_baro_null_fraction": 0.040732,
-    "flights_all_baro_null_fraction": 0.000295,
-    "flights_with_any_geo_null_fraction": 0.188017,
+    "flights_all_baro_null_fraction": 0.000295159,
+    "flights_with_any_geo_null_fraction": 0.188164,
     "flights_with_any_velocity_null_fraction": 0.041322,
     "flights_all_velocity_null_fraction": 0.005313,
     "geo_minus_baro_m": {
@@ -107,5 +107,5 @@
   ],
   "consecutive_lastposupdate_repeats": 0,
   "measurements_audited": 1245563,
-  "peak_rss_mb": 331.677696
+  "peak_rss_mb": 317.652992
 }

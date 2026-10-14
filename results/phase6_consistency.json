@@ -7,40 +7,40 @@
     "2022-06-20": {
       "climb": {
         "baro_altitude": {
-          "updates": 108867,
+          "updates": 108868,
           "median_e2": 0.334965,
           "scale_to_consistent_median": 0.858074,
-          "share_above_95": 0.141861
+          "share_above_95": 0.14186
         },
         "east": {
-          "updates": 109251,
+          "updates": 109252,
           "median_e2": 0.334965,
           "scale_to_consistent_median": 0.858074,
-          "share_above_95": 0.11242
+          "share_above_95": 0.112419
         },
         "north": {
-          "updates": 109251,
+          "updates": 109252,
           "median_e2": 0.298538,
           "scale_to_consistent_median": 0.810074,
-          "share_above_95": 0.103111
+          "share_above_95": 0.10311
         },
         "v_east": {
-          "updates": 109139,
+          "updates": 109140,
           "median_e2": 0.334965,
           "scale_to_consistent_median": 0.858074,
-          "share_above_95": 0.114698
+          "share_above_95": 0.114697
         },
         "v_north": {
-          "updates": 109139,
+          "updates": 109140,
           "median_e2": 0.298538,
           "scale_to_consistent_median": 0.810074,
-          "share_above_95": 0.106057
+          "share_above_95": 0.106056
         },
         "vertical_rate": {
-          "updates": 109172,
+          "updates": 109173,
           "median_e2": 0.266073,
           "scale_to_consistent_median": 0.764759,
-          "share_above_95": 0.137151
+          "share_above_95": 0.137149
         }
       },
       "cruise": {
@@ -275,40 +275,40 @@
       },
       "unknown": {
         "baro_altitude": {
-          "updates": 1851,
+          "updates": 1852,
           "median_e2": 0.530884,
           "scale_to_consistent_median": 1.080251,
-          "share_above_95": 0.240951
+          "share_above_95": 0.241361
         },
         "east": {
-          "updates": 2203,
+          "updates": 2204,
           "median_e2": 2.660725,
           "scale_to_consistent_median": 2.418381,
-          "share_above_95": 0.450295
+          "share_above_95": 0.450544
         },
         "north": {
-          "updates": 2203,
+          "updates": 2204,
           "median_e2": 2.113489,
           "scale_to_consistent_median": 2.155384,
-          "share_above_95": 0.440763
+          "share_above_95": 0.441016
         },
         "v_east": {
-          "updates": 2154,
+          "updates": 2155,
           "median_e2": 1.678804,
           "scale_to_consistent_median": 1.920988,
-          "share_above_95": 0.409471
+          "share_above_95": 0.409745
         },
         "v_north": {
-          "updates": 2154,
+          "updates": 2155,
           "median_e2": 1.333521,
           "scale_to_consistent_median": 1.712082,
-          "share_above_95": 0.38208
+          "share_above_95": 0.382367
         },
         "vertical_rate": {
-          "updates": 2154,
+          "updates": 2155,
           "median_e2": 0.105925,
           "scale_to_consistent_median": 0.48253,
-          "share_above_95": 0.132312
+          "share_above_95": 0.132715
         }
       }
     }
