@@ -736,3 +736,41 @@ before any injection can start. Run with `TC_CONFIG=configs/subflows.yaml TC_OUT
   The budget-point gains come with more false alerts; at an equal alert rate the change is
   within +-0.025. Splitting by shape does not narrow the corridor that limits detection; the
   per-pair references stay the default.
+
+## Phase 6 — the IMM score fused with the fixed distance
+
+The breakdown shows the two detectors miss different events: the fixed distance catches lateral
+offsets the monitor misses, the monitor catches vertical rate offsets the distance cannot see.
+`conform/fusion.py`: the distance is mapped to its own rarity, -log10 of its exceedance
+probability among tune-day flights scored against their held-out references (the same two-fold
+cross-fitting as the monitor's tails), and the fused score is max(IMM score, distance rarity +
+c). One threshold per phase, one budget, the same alert management as every detector.
+
+- **Why an offset.** Within the budget the distance alone sits near a rarity of 1 (its
+  exceedances come in long runs on few flights), the monitor near 2; with c = 0 a shared
+  threshold cuts the distance at about 54 km and the fusion inherits none of its lateral
+  detection.
+- **c is chosen on the tune day** (`python -m scripts.evaluate fusion`): tune-day detection at
+  the budget point, events pooled over phases, 0.215 / 0.179 / 0.173 at c = 0.5 / 1 / 1.5, so
+  c = 0.5 (`results/phase6_fusion_tails.json`). The rolling folds reuse it; they do not
+  re-choose it.
+- **Test day 2022-06-27**, climb / cruise / descent (`results/phase6_fused_conformance.json`):
+
+  | detector | false alerts / flight-hour | detection at the budget point | best detection within 2/h on the test sweep (oracle) |
+  |---|---|---|---|
+  | IMM conformance | 2.55 / 2.79 / 2.15 | 0.122 / 0.233 / 0.103 | 0.066 / 0.215 / 0.073 |
+  | fixed distance | 2.20 / 1.70 / 2.21 | 0.184 / 0.172 / 0.147 | 0.177 / 0.165 / 0.129 |
+  | fused, c = 0.5 | 2.67 / 2.18 / 2.71 | 0.159 / 0.266 / 0.143 | 0.116 / 0.225 / 0.106 |
+  | fused, c = 1 (not chosen) | 1.99 / 1.31 / 2.30 | 0.149 / 0.207 / 0.131 | 0.149 / 0.207 / 0.092 |
+
+  Events pooled over phases at the budget point: IMM 0.182, fixed distance 0.170, fused 0.217.
+- **What the fusion keeps.** Lateral detection rises from 0.15-0.22 to 0.30-0.34 (the fixed
+  distance alone: 0.38-0.48); vertical stays where the monitor had it (cruise 0.37 against
+  0.38). In cruise it beats both detectors at the budget point and at an equal alert rate.
+- **What it costs.** In climb and descent its test-day false alert rate is the highest of the
+  three (2.67, 2.71), and at an equal alert rate the fixed distance is still ahead there (0.177
+  / 0.129 against 0.116 / 0.106). The one offset is a compromise between phases; a per-phase
+  offset is the obvious next step, not tried here because it adds three more choices on one
+  tune day.
+- Whether the gain holds on days never looked at is the rolling evaluation's question
+  (`results/phase6_rolling.json`).
